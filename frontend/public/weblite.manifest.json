@@ -1,0 +1,14 @@
+{
+  "name": "سوال",
+  "id": "5d8e5b4201dbd77775ee5023",
+  "instantiable": true,
+  "creator": true,
+  "userInfo": true,
+  "fullscreen": false,
+  "inline": false,
+  "searchable": true,
+  "servIndexes": {
+    "main": "index"
+  },
+  "version": "0.0.11"
+}
