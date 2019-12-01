@@ -1,6 +1,6 @@
 {
-  "name": "backend",
-  "version": "0.1.0",
+  "name": "meeting-service",
+  "version": "0.0.0",
   "main": "./src/app.js",
   "private": true,
   "scripts": {
@@ -16,6 +16,5 @@
     "mongoose": "^5.7.1",
     "nodemon": "^1.19.3"
   },
-  "repository": "https://github.com/weblite-wapps/issues",
   "license": "MIT"
 }
