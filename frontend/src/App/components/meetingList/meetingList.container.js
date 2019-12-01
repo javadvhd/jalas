@@ -1,7 +1,7 @@
 // modules
 import { connect } from 'react-redux'
 // components
-import MeetingList from './MeetingList'
+import MeetingList from './meetingList'
 
 const mapStateToProps = state => {}
 

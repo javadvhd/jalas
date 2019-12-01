@@ -15,6 +15,8 @@ import './app.css'
 import store from '../../setup/redux'
 import { history } from '../../setup/history.js'
 
+const HEADER_HEIGHT = 80
+
 const App = () => (
   <Provider store={store}>
     <LocationProvider history={history}>
