@@ -1,6 +1,9 @@
 {
-  "parser": "babel-eslint",
-  "extends": ["plugin:prettier/recommended"],
+  "extends": [
+    "airbnb",
+    "plugin:prettier/recommended",
+    "plugin:jsx-a11y/recommended"
+  ],
   "rules": {
     "import/no-cycle": 0,
     "semi": 0,
@@ -12,5 +15,8 @@
   "env": {
     "browser": true,
     "node": true
+  },
+  "globals": {
+    "analite": true
   }
 }

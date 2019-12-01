@@ -1,6 +1,6 @@
 {
-  "name": "issues",
-  "version": "0.1.0",
+  "name": "jalas",
+  "version": "0.0.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.4.3",

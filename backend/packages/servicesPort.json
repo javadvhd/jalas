@@ -1,0 +1,14 @@
+{
+  "apiGateway": {
+    "port": 8085
+  },
+  "analytics": {
+    "port": 8082
+  },
+  "meeting": {
+    "port": 8083
+  },
+  "notification": {
+    "port": 8084
+  }
+}
