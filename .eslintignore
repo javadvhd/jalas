@@ -4,10 +4,6 @@
 **/dist/**
 **/package.json
 **/yarn.lock
-wapp/**/*
-frontend/web/weblite-doc/**
-frontend/web/weblite-web/public/**
+
 **/*.dll.js
 **/*.worker.js
-frontend/create/weblite-wapp-create-cli/testWapps/**
-frontend/web/packages/router/**
