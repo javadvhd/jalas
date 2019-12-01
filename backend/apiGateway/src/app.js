@@ -29,7 +29,7 @@ routerHandler(router)
 app.use(router.routes())
 app.use(router.allowedMethods())
 
-const port = 4220
+const { port } = require('../../packages/servicesPort.json').apiGateway
 const server = app.listen(port)
 
 module.exports = server

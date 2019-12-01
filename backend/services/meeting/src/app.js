@@ -33,7 +33,7 @@ routerHandler(router)
 app.use(router.routes())
 app.use(router.allowedMethods())
 
-const port = 4221
+const { port } = require('../../../packages/servicesPort.json').meeting
 const server = app.listen(port)
 
 module.exports = server
