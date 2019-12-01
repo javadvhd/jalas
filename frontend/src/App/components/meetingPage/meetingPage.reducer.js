@@ -1,5 +1,5 @@
+import * as R from 'ramda'
 // consts
-
 const initialState = {
   meetingId: '',
   optionsRooms: [
@@ -9,10 +9,28 @@ const initialState = {
 }
 
 const reducers = {
-  SET_MEETING_PAGE_DATA: (state, data) => ({
+  SET_MEETING_PAGE_DATA: (state, { field, value }) => ({
     ...state,
-    ...data,
+    [field]: value,
   }),
+
+  SET_OPTION_EXPANSION: (state, { id, rooms }) =>
+    console.log('id, rooms ', id, rooms, state.optionsRooms[id], {
+      ...state.optionsRooms[id],
+      isOpen: true,
+      rooms,
+    }) || {
+      ...state,
+      optionsRooms: R.update(
+        id - 1,
+        {
+          ...state.optionsRooms[id - 1],
+          isOpen: !state.optionsRooms[id - 1].isOpen,
+          rooms,
+        },
+        state.optionsRooms,
+      ),
+    },
 }
 
 export default (state = initialState, { type, payload }) =>

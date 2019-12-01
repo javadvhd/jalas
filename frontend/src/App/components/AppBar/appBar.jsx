@@ -7,8 +7,8 @@ import './appBar.scss'
 
 const AppBar = () => (
   <MuiAppBar position="static">
-    <Toolbar className="c--appBar_toolbar">
-      <div className="c--appBar_typo">جلسه 1</div>
+    <Toolbar dir="rtl">
+      <div>سامانه جلس</div>
     </Toolbar>
   </MuiAppBar>
 )

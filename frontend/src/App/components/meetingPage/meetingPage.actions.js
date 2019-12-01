@@ -4,5 +4,9 @@ import { createAction } from 'redux-actions'
 import { dispatch } from '../../../setup/redux'
 
 export const SET_MEETING_PAGE_DATA = 'SET_MEETING_PAGE_DATA'
-export const dispatchSetMeetingPageData = (...args) =>
-  dispatch(createAction(SET_MEETING_PAGE_DATA)(...args))
+export const dispatchSetMeetingPageData = (key, value) =>
+  dispatch(createAction(SET_MEETING_PAGE_DATA)({ field: key, value }))
+
+export const SET_OPTION_EXPANSION = 'SET_OPTION_EXPANSION'
+export const dispatchSetOptionExpansion = (...args) =>
+  dispatch(createAction(SET_OPTION_EXPANSION)(...args))

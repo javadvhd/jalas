@@ -6,7 +6,11 @@ const initialState = [
     title: 'جلسه ی اول',
     creatorId: '22',
     state: 'poll-done',
-    options: [{ state: '', end: '', agree: 0, disagree: 0, abstain: 0 }],
+    options: [
+      { id: '1', start: 's1', end: 'e1', agree: 10, disagree: 5, abstain: 3 },
+      { id: '2', start: 's2', end: 'e2', agree: 8, disagree: 6, abstain: 4 },
+      { id: '3', start: 's3', end: 'e3', agree: 6, disagree: 8, abstain: 4 },
+    ],
     selectedOption: {},
     room: '',
   },

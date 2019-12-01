@@ -6,5 +6,6 @@ import snackbarReducer from '../components/snackbar/snackbar.reducer'
 
 export default combineReducers({
   meetingPage: meetingPageReducer,
+
   snackbar: snackbarReducer,
 })

@@ -1,5 +1,4 @@
 // actions
-import { CHANGE_SNACKBAR_STAGE } from './snackbar.actions'
 
 // state
 const initialState = {
@@ -10,7 +9,7 @@ const initialState = {
 
 // reducers
 const reducers = {
-  [CHANGE_SNACKBAR_STAGE]: (_, payload) => payload,
+  CHANGE_SNACKBAR_STAGE: (_, payload) => payload,
 }
 
 export default (state = initialState, { type, payload }) =>

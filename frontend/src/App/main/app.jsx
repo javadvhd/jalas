@@ -21,9 +21,9 @@ const App = () => (
   <Provider store={store}>
     <LocationProvider history={history}>
       <AppBar />
-      <Router>
+      {/* <Router>
         <Tabs path=":selected" />
-      </Router>
+      </Router> */}
       <div
         style={{
           position: 'fixed',

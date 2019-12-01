@@ -7,5 +7,3 @@ import errorCodes from '../../setup/errorCodes'
 import {} from ''
 // actions
 import {} from ''
-
-const { W } = window

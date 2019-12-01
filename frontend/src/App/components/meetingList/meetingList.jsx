@@ -1,8 +1,10 @@
-import React, { Component } from 'react'
-import MeetingBox from './components/listBox/listBox.container'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
+import React from 'react'
+import ListBox from './components/listBox/listBox.container'
 
-const MeetingList = () => {}
+const MeetingList = ({ meetingList, clickListBox }) =>
+  console.log('meetingList: ', meetingList) ||
+  meetingList.map(meeting => (
+    <ListBox meeting={meeting} onClick={clickListBox} />
+  ))
 
 export default MeetingList
