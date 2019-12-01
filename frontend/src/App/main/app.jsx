@@ -5,17 +5,17 @@ import { Provider } from 'react-redux'
 // components
 import Tabs from '../components/Tabs/tabs'
 import AppBar from '../components/AppBar/appBar'
-import AllIssues from '../components/IssueList/allIssues.container'
-import MyIssues from '../components/IssueList/myIssues.container'
-import IssuePage from '../components/IssuePage/issuePage.container'
-import NewIssue from '../components/NewIssue/newIssue.container'
+import MeetingList from '../components/meetingList/meetingList.container'
+import MeetingPage from '../components/meetingPage/meetingPage.container'
 import AppSnackbar from '../components/snackbar/snackbar.container'
+
 // styles
 import './app.css'
 // setup
 import store from '../../setup/redux'
 import { history } from '../../setup/history.js'
-import { HEADER_HEIGHT } from '../../helpers/sizing'
+
+const HEADER_HEIGHT = 80
 
 const App = () => (
   <Provider store={store}>
@@ -35,10 +35,8 @@ const App = () => (
         }}
       >
         <Router>
-          <AllIssues path="all" />
-          <MyIssues path="mine" />
-          <NewIssue path="new" />
-          <IssuePage path="issue" />
+          <MeetingList path="all" />
+          <MeetingPage path="meetingpage" />
         </Router>
       </div>
       <AppSnackbar />

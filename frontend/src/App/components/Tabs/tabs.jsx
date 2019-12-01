@@ -56,9 +56,8 @@ const MyTabs = ({ selected }) => (
         W && W.analytics('CHANGE_TAB', { newTab: value })
       }}
     >
-      <StyledTab label="سوال جدید" value="new" />
-      <StyledTab label="سوالات من" value="mine" />
-      <StyledTab label="همه سوالات" value="all" />
+      <StyledTab label="لیست جلسات" value="all" />
+      {/* <StyledTab label="سوالات من" value="mine" /> */}
     </StyledTabs>
   </AppBar>
 )

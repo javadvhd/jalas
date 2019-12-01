@@ -1,5 +1,4 @@
 // actions
-import { SET_COMMENTS } from './meetingList.actions'
 
 const initialState = [
   {
@@ -7,7 +6,7 @@ const initialState = [
     title: 'جلسه ی اول',
     creatorId: '22',
     state: 'poll-done',
-    options: [],
+    options: [{ state: '', end: '', agree: 0, disagree: 0, abstain: 0 }],
     selectedOption: {},
     room: '',
   },

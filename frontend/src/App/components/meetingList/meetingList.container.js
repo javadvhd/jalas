@@ -1,10 +1,10 @@
 // modules
 import { connect } from 'react-redux'
 // components
-import MeetingPage from './meetingPage'
+import MeetingList from './meetingList'
 
 const mapStateToProps = state => {}
 
 const mapDispatchToProps = () => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(MeetingPage)
+export default connect(mapStateToProps, mapDispatchToProps)(MeetingList)
