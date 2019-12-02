@@ -45,7 +45,7 @@ const MeetingBox = ({
     </div>
     {isOpen && (
       <div>
-        {rooms &&
+        {rooms.length &&
           rooms.map((room, index) => (
             <div
               style={{

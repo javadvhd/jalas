@@ -45,44 +45,47 @@ export const reserveRoom = ({
       end,
     },
   })
-    .then(() =>
-      saveRoomSelectedOption({ id: meetingId, selectedOption: option, room }),
-    )
-    .then(() => console.log('hello'))
-    .then(() => dispatchSetMeetingStateToDone({ room, start, end }))
-    .then(() => navigate('all'))
-    .then(() => dispatchSetLoading(true))
-    .then(() =>
+    .then(({ data }) => {
+      if (data.error) {
+        dispatchSetSnackbarMessage({
+          type: 'error',
+          message: 'reservation is not available',
+        })
+        if (meetingPageLoadingView())
+          setTimeout(
+            () =>
+              reserveRoom({
+                room,
+                option: { start, end },
+                meetingId,
+                reserveStartTime,
+              }),
+            2000,
+          )
+        return
+      }
+
+      dispatchSetMeetingStateToDone({ room, start, end })
+      navigate('all')
+      dispatchSetLoading(true)
       dispatchSetSnackbarMessage({
         type: 'success',
         message: 'room is reserved',
-      }),
-    )
-    .then(() =>
+      })
       saveAnalytics({
         type: 'creationTime',
         length: new Date() - new Date(reserveStartTime),
-      }),
-    )
-    .then(() =>
+      })
       saveAnalytics({
         type: 'reserveCounter',
-      }),
-    )
-    .catch(() => {
-      dispatchSetSnackbarMessage({
-        type: 'error',
-        message: 'reservation is not available',
       })
-      if (meetingPageLoadingView())
-        setTimeout(
-          () =>
-            reserveRoom({
-              room,
-              option: { start, end },
-              meetingId,
-              reserveStartTime,
-            }),
-          2000,
-        )
+      saveRoomSelectedOption({ id: meetingId, selectedOption: option, room })
     })
+    .catch(
+      error =>
+        console.log(error) ||
+        dispatchSetSnackbarMessage({
+          type: 'error',
+          message: 'some thing went wrong!!!',
+        }),
+    )
