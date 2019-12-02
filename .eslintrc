@@ -1,6 +1,6 @@
 {
   "extends": [
-    "airbnb",
+    // "airbnb",
     "plugin:prettier/recommended",
     "plugin:jsx-a11y/recommended"
   ],
@@ -15,8 +15,5 @@
   "env": {
     "browser": true,
     "node": true
-  },
-  "globals": {
-    "analite": true
   }
 }

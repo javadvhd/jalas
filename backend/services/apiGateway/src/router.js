@@ -6,8 +6,10 @@ const { requestUrl } = require('./helper')
 module.exports = router => {
   router.post('/', async ctx => {
     const { dest, action, payload } = ctx.request.body
-    const res = await post(requestUrl(dest, action), { payload })
-    ctx.body = res
+    // TODO: check
+    console.log(requestUrl(dest, action), { payload })
+    const { data } = await post(requestUrl(dest, action), { payload })
+    ctx.body = data
   })
 
   router.get('/', async ctx => {

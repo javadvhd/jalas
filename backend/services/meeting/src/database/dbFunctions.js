@@ -1,31 +1,30 @@
-// const { Issue } = require('./dbModel')
+const { Meeting } = require('./dbModel')
 
-// exports.createIssue = ({ wisId, title, body, isPublic, creatorId }) =>
-//   new Issue({
-//     wisId,
-//     title,
-//     body,
-//     isPublic,
-//     creatorId
-//   }).save()
+const createMeeting = ({ title, creatorId, option }) =>
+  new Meeting({
+    title,
+    creatorId,
+    option,
+  }).save()
 
-// exports.incrementCommentsCountById = (id, amount) =>
-//   Issue.findOneAndUpdate(
-//     { _id: id },
-//     { $inc: { commentsCount: amount } },
-//     { new: true }
-//   )
+// setTimeout(
+//   () =>
+//     createMeeting({
+//       title: 'جلسه ی اول',
+//       creatorId: '22',
+//       option: [
+//         { start: 's1', end: 'e1', agree: 10, disagree: 5, abstain: 3 },
+//         { start: 's2', end: 'e2', agree: 8, disagree: 6, abstain: 4 },
+//         { start: 's3', end: 'e3', agree: 6, disagree: 8, abstain: 4 },
+//       ],
+//     }),
+//   3000,
+// )
 
-// exports.closeIssue = id =>
-//   Issue.updateOne({ _id: id }, { $set: { isClosed: true } })
+exports.setRoomAndSelectedOption = ({ id, room, selectedOption }) =>
+  Meeting.updateOne(
+    { _id: id },
+    { $set: { selectedOption, room }, state: 'created' },
+  )
 
-// exports.getIssuesByWisId = wisId =>
-//   Issue.find({
-//     wisId,
-//     deleted: { $exists: false }
-//   })
-
-// exports.deleteIssue = id =>
-//   Issue.updateOne({ _id: id }, { $set: { deleted: true } })
-
-// exports.findIssueById = id => Issue.findOne({ _id: id })
+exports.findMeetingById = id => Meeting.findOne({ _id: id })
