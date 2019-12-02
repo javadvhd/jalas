@@ -1,5 +1,4 @@
 **/node_modules/**
-**/local_modules/**
 **/build/**
 **/dist/**
 **/package.json

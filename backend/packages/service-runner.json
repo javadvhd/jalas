@@ -2,28 +2,32 @@
   "apps": [
     {
       "name": "apiGateway",
-      "script": "../services/apiGateway/src/app.js",
+      "script": "./app.js",
+      "cwd": "../services/apiGateway/src",
       "watch": true,
       "exec_mode": "fork",
       "instances": 1
     },
     {
       "name": "analytics",
-      "script": "../services/analytics/src/app.js",
+      "script": "./app.js",
+      "cwd": "../services/analytics/src",
       "watch": true,
       "exec_mode": "fork",
       "instances": 1
     },
     {
       "name": "meeting",
-      "script": "../services/meeting/src/app.js",
+      "script": "./app.js",
+      "cwd": "../services/meeting/src",
       "watch": true,
       "exec_mode": "fork",
       "instances": 1
     },
     {
       "name": "notification",
-      "script": "../services/notification/src/app.js",
+      "script": "./app.js",
+      "cwd": "../services/notification/src",
       "watch": true,
       "exec_mode": "fork",
       "instances": 1

@@ -1,18 +1,15 @@
-// // module
-// const mongoose = require("mongoose");
+// module
+const mongoose = require('mongoose')
 
-// const { Schema, model } = mongoose;
+const { Schema, model } = mongoose
 
-// const IssueSchema = new Schema({
-//   wisId: String,
-//   title: String,
-//   body: String,
-//   isPublic: Boolean,
-//   date: { type: Date, default: Date.now },
-//   creatorId: String,
-//   isClosed: { type: Boolean, default: false },
-//   commentsCount: { type: Number, default: 0 },
-//   deleted: Boolean
-// });
+const meetingSchema = new Schema({
+  title: String,
+  creatorId: String,
+  state: { type: String, default: 'not-created' },
+  option: Array,
+  selectedOption: Number,
+  room: String,
+})
 
-// exports.Issue = model("Issue", IssueSchema);
+exports.Meeting = model('Meeting', meetingSchema)
