@@ -28,3 +28,6 @@ exports.setRoomAndSelectedOption = ({ id, room, selectedOption }) =>
   )
 
 exports.findMeetingById = id => Meeting.findOne({ _id: id })
+
+exports.findMeetingsById = meetingIds =>
+  Meeting.find({ _id: { $in: meetingIds } })

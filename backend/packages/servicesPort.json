@@ -14,5 +14,9 @@
   "notification": {
     "host": "localhost",
     "port": 8084
+  },
+  "user": {
+    "host": "localhost",
+    "port": 8086
   }
 }
