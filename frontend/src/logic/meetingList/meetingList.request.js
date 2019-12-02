@@ -1,12 +1,12 @@
 // modules
 import * as R from 'ramda'
 // setup
-import { postRequest } from '../../setup/request'
-import errorCodes from '../../setup/errorCodes'
+// import { postRequest } from '../../setup/request'
+// import errorCodes from '../../setup/errorCodes'
 // views
-import {} from ''
+// import {} from ''
 // actions
-import {} from ''
+// import {} from ''
 
 // این به سروس میتینگ میره و جلسه رو نهایی میکنه و اتاق و گزینه ی نهایی شده رو  ثبت میکنه
 // یه اسم واسه تابع انتخاب کن

@@ -5,7 +5,7 @@ import App from './App/main/app.jsx'
 import './index.css'
 import './setup/fonts/fonts.scss'
 // requests
-import loadData from './helpers/weblite.api'
+import { loadData } from './helpers/loadData'
 
 ReactDOM.render(<App />, document.getElementById('root'))
 loadData()

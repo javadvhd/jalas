@@ -18,9 +18,11 @@ export const reserveRoom = ({
   room,
   start,
   end,
-  // meetingId,
-  // reserveStartTime,
+  option,
+  meetingId,
+  reserveStartTime,
 }) =>
+  console.log('start ', room, option, meetingId, reserveStartTime) ||
   postRequest({
     dest: 'reservation',
     action: 'RESERVATION_RESERVE_ROOM',

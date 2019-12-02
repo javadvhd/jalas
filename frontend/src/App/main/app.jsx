@@ -3,7 +3,6 @@ import React from 'react'
 import { LocationProvider, Router } from '@reach/router'
 import { Provider } from 'react-redux'
 // components
-import Tabs from '../components/Tabs/tabs'
 import AppBar from '../components/AppBar/appBar'
 import MeetingList from '../components/meetingList/meetingList.container'
 import MeetingPage from '../components/meetingPage/meetingPage.container'
