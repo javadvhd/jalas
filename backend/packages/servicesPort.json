@@ -1,14 +1,18 @@
 {
   "apiGateway": {
+    "host": "localhost",
     "port": 8085
   },
   "analytics": {
+    "host": "localhost",
     "port": 8082
   },
   "meeting": {
+    "host": "localhost",
     "port": 8083
   },
   "notification": {
+    "host": "localhost",
     "port": 8084
   }
 }
