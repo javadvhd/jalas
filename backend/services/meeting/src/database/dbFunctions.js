@@ -21,9 +21,9 @@ const createMeeting = ({ title, creatorId, option }) =>
 //   3000,
 // )
 
-exports.setRoomAndSelectedOption = ({ id, room, selectedOption }) =>
+exports.setRoomAndSelectedOption = ({ id, room, selectedOption, userId }) =>
   Meeting.updateOne(
-    { _id: id },
+    { _id: id, creatorId: userId },
     { $set: { selectedOption, room }, state: 'created' },
   )
 

@@ -1,16 +1,25 @@
 // db
 const { setRoomAndSelectedOption } = require('./database/dbFunctions')
 // helper
-const { getRequest } = require('./helper')
+const { getRequest, postRequest } = require('./helper')
 
 module.exports = router => {
   router.post('/MEETING_SET_ROOM_AND_SELECTED_OPTION', async ctx => {
-    const { selectedOption, room, id } = ctx.request.body.payload
-    await setRoomAndSelectedOption({
+    const { selectedOption, room, id, userId } = ctx.request.body.payload
+    const { nModified } = await setRoomAndSelectedOption({
       selectedOption,
       room,
       id,
+      userId,
     })
+
+    if (nModified)
+      postRequest({
+        dest: 'reservation',
+        action: 'NOTIFICATION_SEND_EMAIL',
+        payload: { userId },
+      })
+
     ctx.status = 200
   })
 
