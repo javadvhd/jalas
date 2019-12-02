@@ -20,14 +20,24 @@ const listBox = ({
         flexDirection: 'row',
         justifyContent: 'space-between',
       }}
-      onClick={() => onClick({ id, options })}
     >
-      <Typography>{status}</Typography>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => onClick({ id, options })}
+      >
+        انتخاب
+      </Button>
+      <Typography dir="rtl">
+        {status === 'poll-done' ? 'رزرو نشده' : status}{' '}
+      </Typography>
       <Typography>{title}</Typography>
     </div>
     {status === 'submitted' && (
       <div style={{ direction: 'rtl' }}>
         <Typography>اتاق:{room}</Typography>
+        <Typography>از:{start}</Typography>
+        <Typography>تا:{end}</Typography>
       </div>
     )}
   </div>

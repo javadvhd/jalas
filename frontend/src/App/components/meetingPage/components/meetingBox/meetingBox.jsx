@@ -10,6 +10,7 @@ const MeetingBox = ({
   option: { id, start, end, agree, disagree, abstain, isOpen, rooms },
   onClick,
   onRoomClick,
+  reserveStartTime,
 }) => (
   <div>
     {/* {console.log('option ', option)} */}
@@ -23,13 +24,19 @@ const MeetingBox = ({
         padding: '40px',
         border: '1px solid black',
       }}
-      onClick={() => onClick(isOpen, id, start, end)}
     >
       <Typography>از:{start}</Typography>
       <Typography>تا:{end}</Typography>
       <Typography>موافق:{agree}</Typography>
       <Typography>مخالف:{disagree}</Typography>
       <Typography>ممتنع:{abstain}</Typography>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => onClick(isOpen, id, start, end)}
+      >
+        انتخاب
+      </Button>
     </div>
     {isOpen && (
       <div>
@@ -43,8 +50,14 @@ const MeetingBox = ({
             key={index}
           >
             <Typography>{room}</Typography>
-            <Button onClick={() => onRoomClick({ room, start, end })}>
-              choose
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() =>
+                onRoomClick({ room, start, end, reserveStartTime })
+              }
+            >
+              انتخاب
             </Button>
           </div>
         ))}
