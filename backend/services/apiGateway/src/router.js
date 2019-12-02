@@ -18,7 +18,9 @@ module.exports = router => {
     console.log(requestUrl(dest, action), {
       params: { payload: JSON.parse(payload) },
     })
-    const res = await get(requestUrl(dest, action), { params: { payload } })
-    ctx.body = res
+    const { data } = await get(requestUrl(dest, action), {
+      params: { payload },
+    })
+    ctx.body = data
   })
 }

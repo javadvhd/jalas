@@ -18,6 +18,8 @@ export const firstNameView = () =>
   R.path(['main', 'user', 'firstName'], getState())
 export const lastNameView = () =>
   R.path(['main', 'user', 'lastName'], getState())
+export const userNameView = () =>
+  R.path(['main', 'user', 'userName'], getState())
 
 const reducers = {
   [SET_USER_DATA]: (state, data) => ({ ...state, ...data }),

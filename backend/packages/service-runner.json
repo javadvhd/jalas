@@ -39,6 +39,14 @@
       "watch": true,
       "exec_mode": "fork",
       "instances": 1
+    },
+    {
+      "name": "reservation",
+      "script": "./app.js",
+      "cwd": "../services/reservation/src",
+      "watch": true,
+      "exec_mode": "fork",
+      "instances": 1
     }
   ]
 }

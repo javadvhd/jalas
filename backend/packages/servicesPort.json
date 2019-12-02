@@ -18,5 +18,9 @@
   "user": {
     "host": "localhost",
     "port": 8086
+  },
+  "reservation": {
+    "host": "localhost",
+    "port": 8087
   }
 }

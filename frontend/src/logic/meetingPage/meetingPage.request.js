@@ -1,32 +1,36 @@
 import { dispatchSetSnackbarMessage } from '../../App/components/snackbar/snackbar.actions'
-import { get, post } from '../../setup/request'
+import { getRequest } from '../../setup/request'
 import { dispatchSetOptionExpansion } from '../../App/components/meetingPage/meetingPage.actions'
-import { firstNameView, lastNameView, userIdView } from '../user/user.reducer'
+import { userNameView } from '../user/user.reducer'
 import { dispatchSetMeetingStateToDone } from '../meetingList/meetingList.actions'
 
-export const getOptionRooms = (id, start, end) => {
-  dispatchSetOptionExpansion({ rooms: [200, 202], id })
-}
-// get('/getRooms', { params: { start, end } })
-//   .then(res => res.data)
-//   .then(rooms => dispatchSetOptionExpansion({ rooms, id }))
-//   .catch(() => dispatchSetSnackbarMessage('reservation is not available'))
+export const getOptionRooms = (id, start, end) =>
+  getRequest({
+    dest: 'reservation',
+    action: 'RESERVATION_AVAILABLE_ROOMS',
+    payload: { start, end },
+  })
+    .then(({ data }) => dispatchSetOptionExpansion({ rooms: data, id }))
+    .catch(() => dispatchSetSnackbarMessage('reservation is not available'))
 
+// TODO: باید با سرویس میتینگ درخواست بره که میتینگ رو  تغییر بده
 export const reserveRoom = ({
   room,
   start,
   end,
-  meetingId,
-  reserveStartTime,
-}) => {
-  post('/reserveRoom', {
-    room,
-    firstname: firstNameView(),
-    lastname: lastNameView(),
-    reserveStartTime,
+  // meetingId,
+  // reserveStartTime,
+}) =>
+  postRequest({
+    dest: 'reservation',
+    action: 'RESERVATION_RESERVE_ROOM',
+    payload: {
+      username: userNameView(),
+      room,
+      start,
+      end,
+    },
   })
     .then(() => dispatchSetMeetingStateToDone({ room, start, end }))
-    .then()
-    .catch(() => dispatchSetMeetingStateToDone({ room, start, end }))
-  // .catch(() => console.log('room ', room, start, end, meetingId))
-}
+    // TODO: show appropriate error
+    .catch(console.log)
