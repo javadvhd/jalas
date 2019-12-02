@@ -1,0 +1,11 @@
+{
+  "name": "jalas",
+  "version": "0.0.0",
+  "private": true,
+  "repository": "https://github.com/javadvhd/jalas",
+  "author": "",
+  "workspaces": [
+    "backend/services/*",
+    "frontend"
+  ]
+}
