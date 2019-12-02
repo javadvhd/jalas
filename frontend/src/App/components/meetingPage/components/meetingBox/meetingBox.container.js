@@ -18,7 +18,7 @@ const mapStateToProps = state => ({
   reserveStartTime: state.view.meetingPage.startTime,
 })
 
-const mapDispatchToProps = (_, { meetingId, loading }) => ({
+const mapDispatchToProps = (_, { meetingId }) => ({
   onClick: option => {
     // console.log('option ', option)
     const { isOpen, id } = option
@@ -28,7 +28,7 @@ const mapDispatchToProps = (_, { meetingId, loading }) => ({
   },
   onRoomClick: ({ ...args }) => {
     dispatchSetLoading(true)
-    reserveRoom({ ...args, meetingId, loading })
+    reserveRoom({ ...args, meetingId })
   },
   onCancel: () => {
     // setLoading ===> false

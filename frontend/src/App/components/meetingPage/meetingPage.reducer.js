@@ -1,5 +1,8 @@
+// module
 import * as R from 'ramda'
-// consts
+// setup
+import { getState } from '../../../setup/redux'
+
 const initialState = {
   meetingId: '',
   optionsRooms: [
@@ -8,6 +11,9 @@ const initialState = {
   startTime: '',
   loading: false,
 }
+
+export const meetingPageLoadingView = () =>
+  R.path(['view', 'meetingPage', 'loading'], getState())
 
 const reducers = {
   SET_MEETING_PAGE_DATA: (state, { field, value }) => ({
