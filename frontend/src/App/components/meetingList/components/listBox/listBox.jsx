@@ -34,10 +34,10 @@ const listBox = ({
       <Typography>{title}</Typography>
     </div>
     {status === 'submitted' && (
-      <div style={{ direction: 'rtl' }}>
-        <Typography>اتاق:{room}</Typography>
-        <Typography>از:{start}</Typography>
-        <Typography>تا:{end}</Typography>
+      <div style={{ direction: 'ltr' }}>
+        <Typography dir="ltr">{room}</Typography>
+        <Typography dir="ltr">{start}</Typography>
+        <Typography dir="ltr">{end}</Typography>
       </div>
     )}
   </div>

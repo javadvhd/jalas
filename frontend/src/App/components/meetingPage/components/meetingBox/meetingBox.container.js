@@ -5,7 +5,7 @@ import MeetingBox from './meetingBox'
 import {
   getOptionRooms,
   reserveRoom,
-} from '../../../../../logic/meetingPage/meetingPage.request'
+} from '../../../../../logic/reservation/reservation.request'
 import { dispatchSetOptionExpansion } from '../../meetingPage.actions'
 // views
 
@@ -17,6 +17,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (_, { meetingId }) => ({
   onClick: option => {
+    // console.log('option ', option)
     const { isOpen, id } = option
     !isOpen && getOptionRooms(option)
     isOpen && dispatchSetOptionExpansion({ id, rooms: [] })
