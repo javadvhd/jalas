@@ -1,5 +1,4 @@
 // modules
-import * as R from 'ramda'
 import { connect } from 'react-redux'
 // components
 import MeetingBox from './meetingBox'
@@ -17,8 +16,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (_, { meetingId }) => ({
-  onClick: (isOpen, id, start, end) => {
-    !isOpen && getOptionRooms(id, start, end)
+  onClick: option => {
+    const { isOpen, id } = option
+    !isOpen && getOptionRooms(option)
     isOpen && dispatchSetOptionExpansion({ id, rooms: [] })
   },
   onRoomClick: ({ ...args }) => reserveRoom({ ...args, meetingId }),

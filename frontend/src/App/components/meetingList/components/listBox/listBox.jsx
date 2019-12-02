@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
@@ -29,7 +29,7 @@ const listBox = ({
         انتخاب
       </Button>
       <Typography dir="rtl">
-        {status === 'poll-done' ? 'رزرو نشده' : status}{' '}
+        {status === 'poll-done' ? 'رزرو نشده' : status}
       </Typography>
       <Typography>{title}</Typography>
     </div>
