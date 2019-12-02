@@ -6,6 +6,13 @@ const { getRequest, postRequest } = require('./helper')
 module.exports = router => {
   router.post('/MEETING_SET_ROOM_AND_SELECTED_OPTION', async ctx => {
     const { selectedOption, room, id, userId } = ctx.request.body.payload
+    console.log(
+      'selectedOption, room, id, userId ',
+      selectedOption,
+      room,
+      id,
+      userId,
+    )
     const { nModified } = await setRoomAndSelectedOption({
       selectedOption,
       room,

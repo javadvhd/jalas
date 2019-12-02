@@ -33,15 +33,15 @@ export const reserveRoom = ({
   reserveStartTime,
   loading,
 }) =>
-  // console.log(
-  //   'start ',
-  //   room,
-  //   start,
-  //   end,
-  //   // option,
-  //   meetingId,
-  //   reserveStartTime,
-  // ) ||
+  console.log(
+    'start ',
+    room,
+    start,
+    end,
+    // option,
+    meetingId,
+    reserveStartTime,
+  ) ||
   postRequest({
     dest: 'reservation',
     action: 'RESERVATION_RESERVE_ROOM',
@@ -55,6 +55,7 @@ export const reserveRoom = ({
     .then(() =>
       saveRoomSelectedOption({ id: meetingId, selectedOption: option, room }),
     )
+    .then(() => console.log('hello'))
     .then(() => dispatchSetMeetingStateToDone({ room, start, end }))
     .then(() => navigate('all'))
     .then(() => dispatchSetLoading(true))

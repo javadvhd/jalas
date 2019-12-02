@@ -24,7 +24,7 @@ const createMeeting = ({ title, creatorId, option }) =>
 exports.setRoomAndSelectedOption = ({ id, room, selectedOption, userId }) =>
   Meeting.updateOne(
     { _id: id, creatorId: userId },
-    { $set: { selectedOption, room }, state: 'created' },
+    { $set: { selectedOption, room }, state: 'submitted' },
   )
 
 exports.findMeetingById = id => Meeting.findOne({ _id: id })

@@ -2,6 +2,7 @@ import React from 'react'
 import ListBox from './components/listBox/listBox.container'
 
 const MeetingList = ({ meetingList, clickListBox }) =>
+  meetingList &&
   meetingList.map((meeting, index) => (
     <ListBox key={index} meeting={meeting} onClick={clickListBox} />
   ))

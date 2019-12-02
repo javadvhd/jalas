@@ -10,6 +10,7 @@ import { postRequest } from '../../setup/request'
 import { userIdView } from '../user/user.reducer'
 
 export const saveRoomSelectedOption = ({ id, selectedOption, room }) =>
+  console.log('id, selectedOption, room ', id, selectedOption, room) ||
   postRequest({
     dest: 'meeting',
     action: 'MEETING_SET_ROOM_AND_SELECTED_OPTION',
