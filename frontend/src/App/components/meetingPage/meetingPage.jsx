@@ -11,7 +11,11 @@ const MeetingPage = ({ meeting, optionsRooms }) => (
   <div dir="rtl">
     <Typography>{meeting.title}</Typography>
     {meeting.options.map((option, index) => (
-      <MeetingBox option={{ ...option, ...optionsRooms[index] }} />
+      <MeetingBox
+        key={index}
+        option={{ ...option, ...optionsRooms[index] }}
+        meetingId={meeting.id}
+      />
     ))}
   </div>
 )

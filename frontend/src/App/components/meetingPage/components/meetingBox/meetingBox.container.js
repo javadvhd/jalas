@@ -3,7 +3,10 @@ import * as R from 'ramda'
 import { connect } from 'react-redux'
 // components
 import MeetingBox from './meetingBox'
-import { getOptionRooms } from '../../../../../logic/meetingPage/meetingPage.request'
+import {
+  getOptionRooms,
+  reserveRoom,
+} from '../../../../../logic/meetingPage/meetingPage.request'
 import { dispatchSetOptionExpansion } from '../../meetingPage.actions'
 // views
 
@@ -11,11 +14,12 @@ import { dispatchSetOptionExpansion } from '../../meetingPage.actions'
 
 const mapStateToProps = state => ({})
 
-const mapDispatchToProps = () => ({
+const mapDispatchToProps = (_, { meetingId }) => ({
   onClick: (isOpen, id, start, end) => {
     !isOpen && getOptionRooms(id, start, end)
     isOpen && dispatchSetOptionExpansion({ id, rooms: [] })
   },
+  onRoomClick: ({ ...args }) => reserveRoom({ ...args, meetingId }),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MeetingBox)
