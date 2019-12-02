@@ -1,5 +1,5 @@
 // modules
-const { get, post } = require('axios')
+const { get } = require('axios')
 const config = require('../../../packages/servicesPort.json')
 
 requestUrl = (dest, action) =>
@@ -10,9 +10,4 @@ exports.getRequest = ({ dest, action, payload }) =>
     params: {
       payload,
     },
-  })
-
-exports.postRequest = ({ dest, action, payload }) =>
-  post(requestUrl(dest, action), {
-    payload,
   })

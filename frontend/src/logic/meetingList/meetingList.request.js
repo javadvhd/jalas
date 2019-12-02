@@ -7,6 +7,7 @@ import * as R from 'ramda'
 // import {} from ''
 // actions
 // import {} from ''
+import { userIdView } from '../user/user.reducer'
 
 // این به سروس میتینگ میره و جلسه رو نهایی میکنه و اتاق و گزینه ی نهایی شده رو  ثبت میکنه
 // یه اسم واسه تابع انتخاب کن
@@ -19,6 +20,7 @@ export const foooooooooo = ({ id, selectedOption, room }) =>
       id,
       selectedOption,
       room,
+      userId: userIdView(),
     },
   })
     .then()
