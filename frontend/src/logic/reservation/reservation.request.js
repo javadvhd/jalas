@@ -7,6 +7,8 @@ import {
 import { userNameView } from '../user/user.reducer'
 import { dispatchSetMeetingStateToDone } from '../meetingList/meetingList.actions'
 import { navigate } from '../../setup/history'
+import { saveRoomSelectedOption } from '../meetingList/meetingList.request'
+import { saveAnalytics } from '../analytics/analytics.request'
 
 export const getOptionRooms = ({ id, start, end }) =>
   getRequest({
@@ -25,20 +27,21 @@ export const getOptionRooms = ({ id, start, end }) =>
 // TODO: باید با سرویس میتینگ درخواست بره که میتینگ رو  تغییر بده
 export const reserveRoom = ({
   room,
+  option,
   option: { start, end },
   meetingId,
   reserveStartTime,
   loading,
 }) =>
-  console.log(
-    'start ',
-    room,
-    start,
-    end,
-    // option,
-    meetingId,
-    reserveStartTime,
-  ) ||
+  // console.log(
+  //   'start ',
+  //   room,
+  //   start,
+  //   end,
+  //   // option,
+  //   meetingId,
+  //   reserveStartTime,
+  // ) ||
   postRequest({
     dest: 'reservation',
     action: 'RESERVATION_RESERVE_ROOM',
@@ -49,7 +52,9 @@ export const reserveRoom = ({
       end,
     },
   })
-    .then(console.log)
+    .then(() =>
+      saveRoomSelectedOption({ id: meetingId, selectedOption: option, room }),
+    )
     .then(() => dispatchSetMeetingStateToDone({ room, start, end }))
     .then(() => navigate('all'))
     .then(() => dispatchSetLoading(true))
@@ -59,7 +64,17 @@ export const reserveRoom = ({
         message: 'room is reserved',
       }),
     )
-    // TODO: show appropriate error
+    .then(() =>
+      saveAnalytics({
+        type: 'creationTime',
+        length: new Date() - new Date(reserveStartTime),
+      }),
+    )
+    .then(() =>
+      saveAnalytics({
+        type: 'reserveCounter',
+      }),
+    )
     .catch(() => {
       dispatchSetSnackbarMessage({
         type: 'error',

@@ -6,9 +6,12 @@ import { SET_USER_DATA } from './user.actions'
 import { getState } from '../../setup/redux'
 
 const initialState = {
+  userId: 'javad',
   email: 'vahedi.r46@gmail.com',
   userName: 'javad-vahedi',
 }
+
+export const userIdView = () => R.path(['main', 'user', 'userId'], getState())
 
 export const userNameView = () =>
   R.path(['main', 'user', 'userName'], getState())
