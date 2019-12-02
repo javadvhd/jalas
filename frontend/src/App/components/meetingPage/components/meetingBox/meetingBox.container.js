@@ -12,7 +12,9 @@ import { dispatchSetOptionExpansion } from '../../meetingPage.actions'
 
 // action
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  reserveStartTime: state.view.meetingPage.startTime,
+})
 
 const mapDispatchToProps = (_, { meetingId }) => ({
   onClick: (isOpen, id, start, end) => {

@@ -7,9 +7,30 @@ const initialState = [
     creatorId: '22',
     status: 'poll-done',
     options: [
-      { id: '1', start: 's1', end: 'e1', agree: 10, disagree: 5, abstain: 3 },
-      { id: '2', start: 's2', end: 'e2', agree: 8, disagree: 6, abstain: 4 },
-      { id: '3', start: 's3', end: 'e3', agree: 6, disagree: 8, abstain: 4 },
+      {
+        id: '1',
+        start: new Date('December 4, 2019 11:30:00'),
+        end: new Date('December 4, 2019 13:00:00'),
+        agree: 10,
+        disagree: 5,
+        abstain: 3,
+      },
+      {
+        id: '2',
+        start: new Date('December 5, 2019 15:30:00'),
+        end: new Date('December 5, 2019 17:00:00'),
+        agree: 8,
+        disagree: 6,
+        abstain: 4,
+      },
+      {
+        id: '3',
+        start: new Date('December 6, 2019 8:30:00'),
+        end: new Date('December 6, 2019 10:00:00'),
+        agree: 6,
+        disagree: 8,
+        abstain: 4,
+      },
     ],
     selectedOption: 'no selected option',
     room: 200,
@@ -26,13 +47,15 @@ const reducers = {
 
   SET_MEETING_LIST: meeting => [{ ...meeting }],
 
-  SET_MEETING_STATE_TO_DONE: (state, room) =>
+  SET_MEETING_STATE_TO_DONE: (state, { room, start, end }) =>
     R.update(
       0,
       {
         ...state[0],
         room,
         status: 'submitted',
+        start,
+        end,
       },
       state,
     ),

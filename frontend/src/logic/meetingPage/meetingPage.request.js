@@ -12,13 +12,21 @@ export const getOptionRooms = (id, start, end) => {
 //   .then(rooms => dispatchSetOptionExpansion({ rooms, id }))
 //   .catch(() => dispatchSetSnackbarMessage('reservation is not available'))
 
-export const reserveRoom = ({ room, start, end, meetingId }) => {
+export const reserveRoom = ({
+  room,
+  start,
+  end,
+  meetingId,
+  reserveStartTime,
+}) => {
   post('/reserveRoom', {
     room,
     firstname: firstNameView(),
     lastname: lastNameView(),
+    reserveStartTime,
   })
-    .then(() => dispatchSetMeetingStateToDone(room))
-    .catch(() => dispatchSetMeetingStateToDone(room))
+    .then(() => dispatchSetMeetingStateToDone({ room, start, end }))
+    .then()
+    .catch(() => dispatchSetMeetingStateToDone({ room, start, end }))
   // .catch(() => console.log('room ', room, start, end, meetingId))
 }
