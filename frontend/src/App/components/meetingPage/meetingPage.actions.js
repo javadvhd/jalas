@@ -10,3 +10,7 @@ export const dispatchSetMeetingPageData = (key, value) =>
 export const SET_OPTION_EXPANSION = 'SET_OPTION_EXPANSION'
 export const dispatchSetOptionExpansion = (...args) =>
   dispatch(createAction(SET_OPTION_EXPANSION)(...args))
+
+export const SET_LOADING = 'SET_LOADING'
+export const dispatchSetLoading = (...args) =>
+  dispatch(createAction(SET_LOADING)(...args))

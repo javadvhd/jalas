@@ -6,7 +6,10 @@ import {
   getOptionRooms,
   reserveRoom,
 } from '../../../../../logic/reservation/reservation.request'
-import { dispatchSetOptionExpansion } from '../../meetingPage.actions'
+import {
+  dispatchSetOptionExpansion,
+  dispatchSetLoading,
+} from '../../meetingPage.actions'
 // views
 
 // action
@@ -15,14 +18,21 @@ const mapStateToProps = state => ({
   reserveStartTime: state.view.meetingPage.startTime,
 })
 
-const mapDispatchToProps = (_, { meetingId }) => ({
+const mapDispatchToProps = (_, { meetingId, loading }) => ({
   onClick: option => {
     // console.log('option ', option)
     const { isOpen, id } = option
+    // setLoading ===> true
     !isOpen && getOptionRooms(option)
     isOpen && dispatchSetOptionExpansion({ id, rooms: [] })
   },
-  onRoomClick: ({ ...args }) => reserveRoom({ ...args, meetingId }),
+  onRoomClick: ({ ...args }) => {
+    dispatchSetLoading(true)
+    reserveRoom({ ...args, meetingId, loading })
+  },
+  onCancel: () => {
+    // setLoading ===> false
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MeetingBox)

@@ -6,6 +6,7 @@ const initialState = {
     // { optionNumber: '', opened: false, rooms: [] }
   ],
   startTime: '',
+  loading: false,
 }
 
 const reducers = {
@@ -25,6 +26,11 @@ const reducers = {
       },
       state.optionsRooms,
     ),
+  }),
+
+  SET_LOADING: (state, loading) => ({
+    ...state,
+    loading,
   }),
 }
 
