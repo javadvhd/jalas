@@ -7,13 +7,17 @@ import { getState } from '../../setup/redux'
 
 const initialState = {
   userId: '',
-  firstName: '',
-  lastName: '',
-  email: '',
+  firstName: 'javad',
+  lastName: 'vahedi',
+  email: 'vahedi.r46@gmail.com',
   userName: '',
 }
 
 export const userIdView = () => R.path(['main', 'user', 'userId'], getState())
+export const firstNameView = () =>
+  R.path(['main', 'user', 'firstName'], getState())
+export const lastNameView = () =>
+  R.path(['main', 'user', 'lastName'], getState())
 
 const reducers = {
   [SET_USER_DATA]: (state, data) => ({ ...state, ...data }),

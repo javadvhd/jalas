@@ -10,3 +10,7 @@ export const dispatchSetFieldValue = (...args) =>
 export const SET_MEETING_LIST = 'SET_MEETING_LIST'
 export const dispatchSetMeetingList = (...args) =>
   dispatch(createAction(SET_MEETING_LIST)(...args))
+
+export const SET_MEETING_STATE_TO_DONE = 'SET_MEETING_STATE_TO_DONE'
+export const dispatchSetMeetingStateToDone = (...args) =>
+  dispatch(createAction(SET_MEETING_STATE_TO_DONE)(...args))

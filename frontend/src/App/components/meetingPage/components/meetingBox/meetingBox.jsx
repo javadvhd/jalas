@@ -9,6 +9,7 @@ const MeetingBox = ({
   option,
   option: { id, start, end, agree, disagree, abstain, isOpen, rooms },
   onClick,
+  onRoomClick,
 }) => (
   <div>
     {/* {console.log('option ', option)} */}
@@ -32,16 +33,19 @@ const MeetingBox = ({
     </div>
     {isOpen && (
       <div>
-        {rooms.map(room => (
+        {rooms.map((room, index) => (
           <div
             style={{
               display: 'flex',
               flexDirection: 'row',
               border: '1px solid black',
             }}
+            key={index}
           >
             <Typography>{room}</Typography>
-            <Button>choose</Button>
+            <Button onClick={() => onRoomClick({ room, start, end })}>
+              choose
+            </Button>
           </div>
         ))}
       </div>
