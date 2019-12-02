@@ -45,25 +45,26 @@ const MeetingBox = ({
     </div>
     {isOpen && (
       <div>
-        {rooms.map((room, index) => (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              padding: '10px',
-            }}
-            key={index}
-          >
-            <Typography>{room}</Typography>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => onRoomClick({ room, option, reserveStartTime })}
+        {rooms &&
+          rooms.map((room, index) => (
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                padding: '10px',
+              }}
+              key={index}
             >
-              انتخاب
-            </Button>
-          </div>
-        ))}
+              <Typography>{room}</Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => onRoomClick({ room, option, reserveStartTime })}
+              >
+                انتخاب
+              </Button>
+            </div>
+          ))}
       </div>
     )}
   </div>

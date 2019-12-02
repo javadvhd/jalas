@@ -1,3 +1,4 @@
+// actions
 import { dispatchSetSnackbarMessage } from '../../App/components/snackbar/snackbar.actions'
 import { getRequest, postRequest } from '../../setup/request'
 import {
@@ -6,6 +7,9 @@ import {
 } from '../../App/components/meetingPage/meetingPage.actions'
 import { userNameView } from '../user/user.reducer'
 import { dispatchSetMeetingStateToDone } from '../meetingList/meetingList.actions'
+// view
+import { meetingPageLoadingView } from '../../App/components/meetingPage/meetingPage.reducer'
+// helper
 import { navigate } from '../../setup/history'
 import { saveRoomSelectedOption } from '../meetingList/meetingList.request'
 import { saveAnalytics } from '../analytics/analytics.request'
@@ -24,24 +28,13 @@ export const getOptionRooms = ({ id, start, end }) =>
       })
     })
 
-// TODO: باید با سرویس میتینگ درخواست بره که میتینگ رو  تغییر بده
 export const reserveRoom = ({
   room,
   option,
   option: { start, end },
   meetingId,
   reserveStartTime,
-  loading,
 }) =>
-  console.log(
-    'start ',
-    room,
-    start,
-    end,
-    // option,
-    meetingId,
-    reserveStartTime,
-  ) ||
   postRequest({
     dest: 'reservation',
     action: 'RESERVATION_RESERVE_ROOM',
@@ -81,7 +74,7 @@ export const reserveRoom = ({
         type: 'error',
         message: 'reservation is not available',
       })
-      if (loading)
+      if (meetingPageLoadingView())
         setTimeout(
           () =>
             reserveRoom({
@@ -89,8 +82,7 @@ export const reserveRoom = ({
               option: { start, end },
               meetingId,
               reserveStartTime,
-              loading,
             }),
-          1000,
+          2000,
         )
     })
