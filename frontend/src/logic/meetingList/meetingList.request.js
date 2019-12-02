@@ -14,7 +14,7 @@ import * as R from 'ramda'
 export const foooooooooo = ({ id, selectedOption, room }) =>
   postRequest({
     dest: 'meeting',
-    action: 'SET_ROOM_AND_SELECTED_OPTION',
+    action: 'MEETING_SET_ROOM_AND_SELECTED_OPTION',
     payload: {
       id,
       selectedOption,

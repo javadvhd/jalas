@@ -31,6 +31,14 @@
       "watch": true,
       "exec_mode": "fork",
       "instances": 1
+    },
+    {
+      "name": "user",
+      "script": "./app.js",
+      "cwd": "../services/user/src",
+      "watch": true,
+      "exec_mode": "fork",
+      "instances": 1
     }
   ]
 }
