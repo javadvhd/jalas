@@ -12,7 +12,7 @@ app.use(bodyParser())
 
 // db
 const database = require('./database/dbConnector')
-database.connect('meeting_db')
+database.connect('analytics_db')
 
 app.use(async (ctx, next) => {
   try {
