@@ -6,7 +6,7 @@ module.exports = router => {
     const { username, room, start, end } = ctx.request.body.payload
     try {
       const { data } = await post(
-        `http://213.233.176.40/room/${room}/reserve`,
+        `http://213.233.176.40/rooms/${room}/reserve`,
         {
           username,
           start,
@@ -15,6 +15,8 @@ module.exports = router => {
       )
       ctx.body = data
     } catch (e) {
+      const { status, data, statusText } = e.response
+      console.log('reservation error:', { status, data, statusText })
       ctx.body = { error: e }
     }
   })

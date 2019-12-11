@@ -2,7 +2,7 @@ import * as R from 'ramda'
 // actions
 const initialState = [
   {
-    id: '5de121e0fc2dcf279fcd9f01',
+    id: '5de4e710073a5a71bc86b442',
     title: 'جلسه ی اول',
     creatorId: '22',
     status: 'poll-done',
