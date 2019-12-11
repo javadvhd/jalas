@@ -14,3 +14,7 @@ export const dispatchSetMeetingList = (...args) =>
 export const SET_MEETING_STATE_TO_DONE = 'SET_MEETING_STATE_TO_DONE'
 export const dispatchSetMeetingStateToDone = (...args) =>
   dispatch(createAction(SET_MEETING_STATE_TO_DONE)(...args))
+
+export const UPDATE_MEETING = 'UPDATE_MEETING'
+export const dispatchUpdateMeeting = (...args) =>
+  dispatch(createAction(UPDATE_MEETING)(...args))

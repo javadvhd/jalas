@@ -46,24 +46,24 @@ export const reserveRoom = ({
     },
   })
     .then(({ data }) => {
-      if (data.error) {
-        dispatchSetSnackbarMessage({
-          type: 'error',
-          message: 'reservation is not available',
-        })
-        if (meetingPageLoadingView())
-          setTimeout(
-            () =>
-              reserveRoom({
-                room,
-                option: { start, end },
-                meetingId,
-                reserveStartTime,
-              }),
-            2000,
-          )
-        return
-      }
+      // if (data.error) {
+      //   dispatchSetSnackbarMessage({
+      //     type: 'error',
+      //     message: 'reservation is not available',
+      //   })
+      //   if (meetingPageLoadingView())
+      //     setTimeout(
+      //       () =>
+      //         reserveRoom({
+      //           room,
+      //           option: { start, end },
+      //           meetingId,
+      //           reserveStartTime,
+      //         }),
+      //       2000,
+      //     )
+      //   return
+      // }
 
       dispatchSetMeetingStateToDone({ room, start, end })
       navigate('all')
