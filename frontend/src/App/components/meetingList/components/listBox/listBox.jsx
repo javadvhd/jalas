@@ -11,8 +11,8 @@ const listBox = ({
 }) => (
   <div
     style={{
-      width: '50%',
-      margin: 'auto',
+      width: '80%',
+      margin: '20px',
       padding: '30px',
       border: '1px solid black',
     }}

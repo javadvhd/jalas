@@ -10,6 +10,7 @@ import {
   dispatchSetOptionExpansion,
   dispatchSetLoading,
 } from '../../meetingPage.actions'
+import { dispatchRemoveOption } from '../../../../../logic/meetingList/meetingList.actions'
 // views
 
 // action
@@ -33,6 +34,7 @@ const mapDispatchToProps = (_, { meetingId }) => ({
   onCancel: () => {
     // setLoading ===> false
   },
+  onDelete: dispatchRemoveOption,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(optionBox)

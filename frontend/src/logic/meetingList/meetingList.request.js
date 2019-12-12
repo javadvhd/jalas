@@ -33,21 +33,19 @@ export const reqCreateMeeting = meeting =>
     },
   })
     .then(res => res.data)
-    // .then(console.log)
-    .then(meeting => dispatchUpdateMeeting({ meeting, meetingIndex: -1 }))
+    .then(meeting => dispatchUpdateMeeting({ meeting }))
     .catch(console.log)
 
-export const reqUpdateMeeting = (meeting, meetingIndex) =>
+export const reqUpdateMeeting = meeting =>
   postRequest({
     dest: 'meeting',
-    action: 'MEETING_Update_MEETING',
+    action: 'MEETING_UPDATE_MEETING',
     payload: {
       meeting,
     },
   })
     .then(res => res.data)
-    // .then(console.log)
-    .then(meeting => dispatchUpdateMeeting({ meeting, meetingIndex }))
+    .then(meeting => dispatchUpdateMeeting({ meeting }))
     .catch(console.log)
 
 export const reqGetAllMeetings = () =>

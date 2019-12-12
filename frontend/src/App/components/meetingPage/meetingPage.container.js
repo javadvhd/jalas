@@ -3,6 +3,8 @@ import * as R from 'ramda'
 import { connect } from 'react-redux'
 // components
 import MeetingPage from './meetingPage'
+import { reqUpdateMeeting } from '../../../logic/meetingList/meetingList.request'
+import { dispatchSetMeetingTitle } from '../../../logic/meetingList/meetingList.actions'
 
 const mapStateToProps = state => {
   const meetingId = state.view.meetingPage.meetingId
@@ -13,6 +15,9 @@ const mapStateToProps = state => {
   return { meeting, optionsRooms }
 }
 
-const mapDispatchToProps = () => ({})
+const mapDispatchToProps = () => ({
+  onSave: reqUpdateMeeting,
+  onTitleChange: dispatchSetMeetingTitle,
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(MeetingPage)

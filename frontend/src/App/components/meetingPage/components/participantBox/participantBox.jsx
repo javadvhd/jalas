@@ -5,28 +5,27 @@ import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
-const ParticipantBox = ({ email, onDelete, meetingId }) => (
-  <div style={{}}>
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: '',
-        // width: '80%',
-        // margin: '20px auto 20px auto ',
-        // padding: '40px',
-        // border: '1px solid black',
-      }}
+const ParticipantBox = ({ participant, onDelete, meetingId }) => (
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: '',
+      width: '100%',
+      margin: '5px',
+      justifyContent: 'space-between',
+    }}
+  >
+    <Typography style={{ width: '80%', direction: 'ltr' }}>
+      {participant}
+    </Typography>
+    <Button
+      variant="contained"
+      color="primary"
+      onClick={() => onDelete({ participant, meetingId })}
     >
-      <Typography>{email}</Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => onDelete(email, meetingId)}
-      >
-        <img src="delete.svg" alt="" />
-      </Button>
-    </div>
+      <img src="delete.svg" alt="" />
+    </Button>
   </div>
 )
 

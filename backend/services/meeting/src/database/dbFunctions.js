@@ -2,6 +2,9 @@ const { Meeting } = require('./dbModel')
 
 exports.createMeeting = meeting => new Meeting(meeting).save()
 
+exports.updateMeeting = meeting =>
+  console.log('meeting ', meeting) ||
+  Meeting.findOneAndUpdate({ _id: meeting._id }, meeting, { new: true })
 // setTimeout(
 //   () =>
 //     createMeeting({
