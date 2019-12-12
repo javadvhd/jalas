@@ -1,13 +1,14 @@
 // modules
 import * as R from 'ramda'
 // setup
-import { postRequest } from '../../setup/request'
+import { postRequest, getRequest } from '../../setup/request'
 import { userIdView } from '../user/user.reducer'
 import {
   dispatchUpdateMeeting,
-  dispatchAddNewMeeting,
+  dispatchSetMeetingList,
 } from './meetingList.actions'
 import { navigate } from '../../setup/history'
+import { dispatchSetSnackbarMessage } from '../../App/components/snackbar/snackbar.actions'
 
 export const saveRoomSelectedOption = ({ id, selectedOption, room }) =>
   postRequest({
@@ -23,22 +24,39 @@ export const saveRoomSelectedOption = ({ id, selectedOption, room }) =>
     .then(console.log)
     .catch()
 
-export const reqUpdateMeeting = (meeting, meetingIndex) =>
+export const reqCreateMeeting = meeting =>
   postRequest({
     dest: 'meeting',
-    action: 'MEETING_UPDATE',
+    action: 'MEETING_CREATE_MEETING',
     payload: {
       meeting,
     },
   })
     .then(res => res.data)
-    .then(meeting => {
-      dispatchUpdateMeeting({ meeting, meetingIndex })
-    })
-    // TODO: return meetingIndex after post request
-    .then(() => {
-      if (meetingIndex === -1) {
-        navigate('meetingpage')
-      }
-    })
+    // .then(console.log)
+    .then(meeting => dispatchUpdateMeeting({ meeting, meetingIndex: -1 }))
+    .catch(console.log)
+
+export const reqUpdateMeeting = (meeting, meetingIndex) =>
+  postRequest({
+    dest: 'meeting',
+    action: 'MEETING_Update_MEETING',
+    payload: {
+      meeting,
+    },
+  })
+    .then(res => res.data)
+    // .then(console.log)
+    .then(meeting => dispatchUpdateMeeting({ meeting, meetingIndex }))
+    .catch(console.log)
+
+export const reqGetAllMeetings = () =>
+  getRequest({
+    dest: 'meeting',
+    action: 'MEETING_GET_ALL_MEETINGS',
+    payload: {},
+  })
+    .then(res => res.data)
+    // .then(console.log)
+    .then(meeting => dispatchSetMeetingList(meeting))
     .catch(console.log)

@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import MeetingList from './meetingList'
 import { navigate } from '../../../setup/history'
 import { dispatchSetMeetingPageData } from '../meetingPage/meetingPage.actions'
-import { reqUpdateMeeting } from '../../../logic/meetingList/meetingList.request'
+import { reqCreateMeeting } from '../../../logic/meetingList/meetingList.request'
 import { getEmptyMeeting } from '../../../logic/meetingList/meetingList.helper'
 
 const mapStateToProps = state => ({
@@ -13,9 +13,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = () => ({
-  clickListBox: ({ id, options }) => {
+  clickListBox: ({ _id, options }) => {
     navigate('meetingpage')
-    dispatchSetMeetingPageData('meetingId', id)
+    dispatchSetMeetingPageData('meetingId', _id)
     dispatchSetMeetingPageData(
       'optionsRooms',
       R.map(({ id }) => ({ id, isOpen: false, rooms: [] }), options),
@@ -23,7 +23,7 @@ const mapDispatchToProps = () => ({
     dispatchSetMeetingPageData('startTime', new Date())
   },
   createNewMeeting: () => {
-    reqUpdateMeeting(getEmptyMeeting(), -1)
+    reqCreateMeeting(getEmptyMeeting())
   },
 })
 

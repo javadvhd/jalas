@@ -1,7 +1,7 @@
 // modules
 import { connect } from 'react-redux'
 // components
-import MeetingBox from './meetingBox'
+import optionBox from './optionBox'
 import {
   getOptionRooms,
   reserveRoom,
@@ -35,4 +35,4 @@ const mapDispatchToProps = (_, { meetingId }) => ({
   },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MeetingBox)
+export default connect(mapStateToProps, mapDispatchToProps)(optionBox)

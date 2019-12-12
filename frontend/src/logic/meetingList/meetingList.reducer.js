@@ -11,12 +11,12 @@ const reducers = {
   ],
 
   UPDATE_MEETING: (state, { meeting, meetingIndex }) => {
-    if (state.length) {
+    if (meetingIndex !== -1) {
       R.update(meetingIndex, meeting, state)
-    } else return [meeting]
+    } else return [...state, meeting]
   },
 
-  SET_MEETING_LIST: meeting => [{ ...meeting }],
+  SET_MEETING_LIST: (state, meetingList) => meetingList,
 
   SET_MEETING_STATE_TO_DONE: (state, { room, start, end }) =>
     R.update(

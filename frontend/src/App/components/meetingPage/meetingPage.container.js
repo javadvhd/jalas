@@ -7,7 +7,7 @@ import MeetingPage from './meetingPage'
 const mapStateToProps = state => {
   const meetingId = state.view.meetingPage.meetingId
   const meetingList = state.main.meetingList
-  const meeting = R.find(R.propEq('id', meetingId), meetingList)
+  const meeting = R.find(R.propEq('_id', meetingId), meetingList)
   const optionsRooms = state.view.meetingPage.optionsRooms
 
   return { meeting, optionsRooms }

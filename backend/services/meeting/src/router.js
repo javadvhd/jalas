@@ -1,18 +1,15 @@
 // db
-const { setRoomAndSelectedOption } = require('./database/dbFunctions')
+const {
+  setRoomAndSelectedOption,
+  createMeeting,
+  getAllMeetings,
+} = require('./database/dbFunctions')
 // helper
 const { getRequest, postRequest } = require('./helper')
 
 module.exports = router => {
   router.post('/MEETING_SET_ROOM_AND_SELECTED_OPTION', async ctx => {
     const { selectedOption, room, id, userId } = ctx.request.body.payload
-    console.log(
-      'selectedOption, room, id, userId ',
-      selectedOption,
-      room,
-      id,
-      userId,
-    )
     const { nModified } = await setRoomAndSelectedOption({
       selectedOption,
       room,
@@ -41,5 +38,18 @@ module.exports = router => {
 
     const meetings = findMeetingsById(meetingIds)
     ctx.body = meetings
+  })
+
+  router.post('/MEETING_CREATE_MEETING', async ctx => {
+    const { meeting } = ctx.request.body.payload
+    const createdMeeting = await createMeeting(meeting)
+    ctx.body = createdMeeting
+    ctx.status = 200
+  })
+
+  router.get('/MEETING_GET_ALL_MEETINGS', async ctx => {
+    const meetingList = await getAllMeetings()
+    ctx.body = meetingList
+    ctx.status = 200
   })
 }

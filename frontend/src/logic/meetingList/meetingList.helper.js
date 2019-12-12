@@ -11,7 +11,8 @@ export const getEmptyMeeting = () => ({
     //   disagree: 5,
     // },
   ],
-  selectedOption: {},
+  participants: [],
+  selectedOption: null,
   room: null,
 })
 

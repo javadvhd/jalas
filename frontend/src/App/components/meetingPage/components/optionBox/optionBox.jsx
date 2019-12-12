@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 
 const MeetingBox = ({
   option,
-  option: { start, end, agree, disagree, abstain, isOpen, rooms },
+  option: { start, end, agree, disagree, isOpen, rooms },
   onClick,
   onRoomClick,
   reserveStartTime,

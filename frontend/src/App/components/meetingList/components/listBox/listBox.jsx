@@ -3,7 +3,10 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
 const listBox = ({
-  meeting: { title, status, id, options, start, end, room },
+  meeting: { title, status, _id, options },
+  start,
+  end,
+  room,
   onClick,
 }) => (
   <div
@@ -24,13 +27,11 @@ const listBox = ({
       <Button
         variant="contained"
         color="primary"
-        onClick={() => onClick({ id, options })}
+        onClick={() => onClick({ _id, options })}
       >
         انتخاب
       </Button>
-      <Typography dir="rtl">
-        {status === 'poll-done' ? 'رزرو نشده' : status}
-      </Typography>
+      <Typography dir="rtl">{status}</Typography>
       <Typography>{title}</Typography>
     </div>
     {status === 'submitted' && (

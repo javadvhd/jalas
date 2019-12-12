@@ -2,21 +2,22 @@
 import React from 'react'
 // components
 import Typography from '@material-ui/core/Typography'
-import MeetingBox from './components/meetingBox/meetingBox.container'
+import OptionBox from './components/optionBox/optionBox.container'
+import Participant from './components/participantBox/participantBox.container'
+import OptionList from './components/optionList/optionList.container'
 
-const MeetingPage = ({ meeting, optionsRooms, reserveStartTime }) => (
-  //   console.log('meeting ', meeting) || (
-  <div dir="rtl">
-    <Typography>{meeting.title}</Typography>
-    {meeting.options.map((option, index) => (
-      <MeetingBox
-        key={index}
-        option={{ ...option, ...optionsRooms[index] }}
-        meetingId={meeting.id}
-      />
-    ))}
-  </div>
-)
+const MeetingPage = ({ meeting, optionsRooms, onParticipantDelete }) =>
+  console.log('meeting ', meeting) || (
+    <div dir="rtl">
+      <Typography>{meeting.title}</Typography>
+
+      {/* optionList */}
+      <OptionList meeting={meeting} />
+
+      {/* add new participant */}
+      {/* <ParticipantList /> */}
+    </div>
+  )
 //   )
 
 export default MeetingPage

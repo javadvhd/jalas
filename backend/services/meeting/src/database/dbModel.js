@@ -3,13 +3,17 @@ const mongoose = require('mongoose')
 
 const { Schema, model } = mongoose
 
-const meetingSchema = new Schema({
-  title: String,
-  creatorId: String,
-  state: { type: String, default: 'not-created' },
-  option: Array,
-  selectedOption: Number,
-  room: String,
-})
+const meetingSchema = new Schema(
+  {
+    title: String,
+    creatorId: String,
+    status: String,
+    options: Array,
+    participants: Array,
+    selectedOption: Number,
+    room: String,
+  },
+  { versionKey: false },
+)
 
 exports.Meeting = model('Meeting', meetingSchema)

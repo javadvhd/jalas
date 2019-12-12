@@ -7,7 +7,7 @@ module.exports = router => {
   router.post('/', async ctx => {
     const { dest, action, payload } = ctx.request.body
     // TODO: check
-    console.log(requestUrl(dest, action), { payload })
+    // console.log(requestUrl(dest, action), { payload })
     const { data } = await post(requestUrl(dest, action), { payload })
     ctx.body = data
   })
@@ -15,9 +15,9 @@ module.exports = router => {
   router.get('/', async ctx => {
     const { dest, action, payload } = ctx.query
     // TODO: check
-    console.log(requestUrl(dest, action), {
-      params: { payload: JSON.parse(payload) },
-    })
+    // console.log(requestUrl(dest, action), {
+    //   params: { payload: JSON.parse(payload) },
+    // })
     const { data } = await get(requestUrl(dest, action), {
       params: { payload },
     })
