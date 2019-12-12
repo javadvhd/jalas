@@ -12,9 +12,7 @@ jobs:
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/repo
+      - image: circleci/mongo:4.2.1
 
     steps:
       - checkout
@@ -26,12 +24,15 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
+      - run: sudo npm install -g pm2
+
       - run: yarn install
+
+      - run: cd backend/packages && pm2 start service-runner.json cd -
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-
-      # run tests!
-      - run: yarn test
+          # run tests!
+    # - run: yarn test
