@@ -1,5 +1,5 @@
-import { reqGetAllMeetings } from '../logic/meetingList/meetingList.request'
+import { reqGetUserMeetings } from '../logic/meetingList/meetingList.request'
 
 export default () => {
-  reqGetAllMeetings()
+  reqGetUserMeetings()
 }

@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
 const listBox = ({
-  meeting: { title, status, _id, options },
+  meeting: { title, status, _id },
   start,
   end,
   room,
@@ -27,7 +27,7 @@ const listBox = ({
       <Button
         variant="contained"
         color="primary"
-        onClick={() => onClick({ _id, options })}
+        onClick={() => onClick({ _id })}
       >
         انتخاب
       </Button>

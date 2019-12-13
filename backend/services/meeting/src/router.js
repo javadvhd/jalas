@@ -4,6 +4,7 @@ const {
   createMeeting,
   getAllMeetings,
   updateMeeting,
+  findMeetingsById,
 } = require('./database/dbFunctions')
 // helper
 const { getRequest, postRequest } = require('./helper')
@@ -37,7 +38,7 @@ module.exports = router => {
       payload: { userId },
     })
 
-    const meetings = findMeetingsById(meetingIds)
+    const meetings = await findMeetingsById(meetingIds)
     ctx.body = meetings
   })
 

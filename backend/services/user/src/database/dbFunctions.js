@@ -31,3 +31,4 @@ const createUser = ({
 // )
 
 exports.findUserById = id => User.findOne({ _id: id })
+exports.findUserByEmail = email => User.findOne({ email })
