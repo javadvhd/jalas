@@ -25,7 +25,7 @@ module.exports = router => {
     const { start, end } = JSON.parse(ctx.query.payload)
     try {
       const { data } = await get(
-        'http://213.233.176.40/available_rooms' + `?start=${start}&end=${end}`,
+        'http://5.253.27.176/available_rooms' + `?start=${start}&end=${end}`,
       )
       ctx.body = data.availableRooms
     } catch (e) {

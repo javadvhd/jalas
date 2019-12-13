@@ -43,6 +43,7 @@ module.exports = router => {
 
   router.post('/MEETING_CREATE_MEETING', async ctx => {
     const { meeting } = ctx.request.body.payload
+    // console.log('meeting ', meeting)
     const createdMeeting = await createMeeting(meeting)
     ctx.body = createdMeeting
     ctx.status = 200
@@ -50,7 +51,6 @@ module.exports = router => {
 
   router.post('/MEETING_UPDATE_MEETING', async ctx => {
     const { meeting } = ctx.request.body.payload.meeting
-    // console.log('meeting ', meeting)
     const createdMeeting = await updateMeeting(meeting)
     // console.log('createdMeeting ', createdMeeting)
     ctx.body = createdMeeting

@@ -1,7 +1,7 @@
 // modules
 import { connect } from 'react-redux'
 // components
-import optionBox from './optionBox'
+import OptionBox from './optionBox'
 import {
   getOptionRooms,
   reserveRoom,
@@ -11,6 +11,7 @@ import {
   dispatchSetLoading,
 } from '../../meetingPage.actions'
 import { dispatchRemoveOption } from '../../../../../logic/meetingList/meetingList.actions'
+import { reqSubmiteVote } from '../../../../../logic/meetingList/meetingList.request'
 // views
 
 // action
@@ -20,12 +21,12 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (_, { meetingId }) => ({
-  onClick: option => {
+  onClick: (option, optionIndex) => {
     // console.log('option ', option)
-    const { isOpen, id } = option
+    const { isOpen } = option
     // setLoading ===> true
-    !isOpen && getOptionRooms(option)
-    isOpen && dispatchSetOptionExpansion({ id, rooms: [] })
+    !isOpen && getOptionRooms({ option, optionIndex })
+    isOpen && dispatchSetOptionExpansion({ optionIndex, rooms: [] })
   },
   onRoomClick: ({ ...args }) => {
     dispatchSetLoading(true)
@@ -35,6 +36,8 @@ const mapDispatchToProps = (_, { meetingId }) => ({
     // setLoading ===> false
   },
   onDelete: dispatchRemoveOption,
+
+  onSubmitVote: reqSubmiteVote,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(optionBox)
+export default connect(mapStateToProps, mapDispatchToProps)(OptionBox)

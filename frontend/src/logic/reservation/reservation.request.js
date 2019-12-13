@@ -13,20 +13,35 @@ import { meetingPageLoadingView } from '../../App/components/meetingPage/meeting
 import { navigate } from '../../setup/history'
 import { saveRoomSelectedOption } from '../meetingList/meetingList.request'
 import { saveAnalytics } from '../analytics/analytics.request'
+import moment from 'moment'
 
-export const getOptionRooms = ({ id, start, end }) =>
+export const getOptionRooms = ({ optionIndex, option: { start, end } }) => {
+  // console.log(
+  //   moment(end).format('YYYY-MM-DDTHH:mm:ss'),
+  // )
   getRequest({
     dest: 'reservation',
     action: 'RESERVATION_AVAILABLE_ROOMS',
-    payload: { start, end },
+    payload: {
+      start: moment(start).format('YYYY-MM-DDTHH:mm:ss'),
+      end: moment(end).format('YYYY-MM-DDTHH:mm:ss'),
+    },
   })
-    .then(({ data }) => dispatchSetOptionExpansion({ rooms: data, id }))
+    .then(res => ({ rooms: res.data, optionIndex }))
+    .then(dispatchSetOptionExpansion)
+    .then(() =>
+      dispatchSetSnackbarMessage({
+        type: 'success',
+        message: 'اتاق های قابل رزرو وارد شده اند',
+      }),
+    )
     .catch(() => {
       dispatchSetSnackbarMessage({
         type: 'error',
         message: 'reservation is not available',
       })
     })
+}
 
 export const reserveRoom = ({
   room,
