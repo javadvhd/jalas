@@ -10,6 +10,30 @@ const reducers = {
   //   },
   // ],
 
+  UPDATE_MEETING_VOTE: (state, { meetingId, optionIndex, vote }) => {
+    const meetingIndex = R.findIndex(R.propEq('_id', meetingId), state)
+    return R.update(
+      meetingIndex,
+      {
+        ...state[meetingIndex],
+        options: R.update(
+          optionIndex,
+          {
+            ...state[meetingIndex].options[optionIndex],
+            agree: vote
+              ? state[meetingIndex].options[optionIndex].agree + 1
+              : state[meetingIndex].options[optionIndex].agree,
+            disagree: !vote
+              ? state[meetingIndex].options[optionIndex].disagree + 1
+              : state[meetingIndex].options[optionIndex].disagree,
+          },
+          state[meetingIndex].options,
+        ),
+      },
+      state,
+    )
+  },
+
   UPDATE_MEETING: (state, { meeting }) => {
     const meetingIndex = R.findIndex(R.propEq('_id', meeting._id), state)
     if (meetingIndex !== -1) {

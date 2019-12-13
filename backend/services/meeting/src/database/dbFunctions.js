@@ -31,3 +31,6 @@ exports.findMeetingsById = meetingIds =>
   Meeting.find({ _id: { $in: meetingIds } })
 
 exports.getAllMeetings = () => Meeting.find()
+
+exports.submitVote = ({ meetingId, optionIndex, vote, username }) =>
+  Meeting.findOneAndUpdate({ _id: meetingId })
