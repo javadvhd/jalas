@@ -4,7 +4,7 @@ const {
   createMeeting,
   getAllMeetings,
   updateMeeting,
-  findMeetingsById,
+  findMeetingsByParticipant,
 } = require('./database/dbFunctions')
 // helper
 const { getRequest, postRequest } = require('./helper')
@@ -30,15 +30,9 @@ module.exports = router => {
   })
 
   router.get('/MEETING_GET_USER_MEETINGS', async ctx => {
-    const { userId } = ctx.query.payload
-
-    const { data: meetingIds } = await getRequest({
-      dest: 'user',
-      action: 'USER_GET_MEETINGIDS_BY_ID',
-      payload: { userId },
-    })
-
-    const meetings = await findMeetingsById(meetingIds)
+    const { userId } = JSON.parse(ctx.query.payload)
+    const email = userId
+    const meetings = await findMeetingsByParticipant(email)
     ctx.body = meetings
   })
 
@@ -46,6 +40,7 @@ module.exports = router => {
     const { meeting } = ctx.request.body.payload
     // console.log('meeting ', meeting)
     const createdMeeting = await createMeeting(meeting)
+
     ctx.body = createdMeeting
     ctx.status = 200
   })

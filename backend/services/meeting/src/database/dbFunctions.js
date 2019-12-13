@@ -27,7 +27,7 @@ exports.setRoomAndSelectedOption = ({ id, room, selectedOption, userId }) =>
 
 exports.findMeetingById = id => Meeting.findOne({ _id: id })
 
-exports.findMeetingsById = meetingIds =>
-  Meeting.find({ _id: { $in: meetingIds } })
+exports.findMeetingsByParticipant = email =>
+  Meeting.find({ participants: { $elemMatch: { $eq: email } } })
 
 exports.getAllMeetings = () => Meeting.find()
