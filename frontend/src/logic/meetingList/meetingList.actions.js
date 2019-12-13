@@ -23,6 +23,10 @@ export const UPDATE_MEETING = 'UPDATE_MEETING'
 export const dispatchUpdateMeeting = (...args) =>
   dispatch(createAction(UPDATE_MEETING)(...args))
 
+export const UPDATE_MEETING_VOTE = 'UPDATE_MEETING_VOTE'
+export const dispatchUpdateMeetingVote = (...args) =>
+  dispatch(createAction(UPDATE_MEETING_VOTE)(...args))
+
 export const ADD_NEW_OPTION = 'ADD_NEW_OPTION'
 export const dispatchAddNewOption = (...args) =>
   dispatch(createAction(ADD_NEW_OPTION)(...args))
