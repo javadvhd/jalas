@@ -1,12 +1,12 @@
 // modules
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
+import { navigate } from '@reach/router'
 // components
 import AppBar from '@material-ui/core/AppBar'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 // helper
-import { navigate } from '../../../setup/history.js'
 
 const { W } = window
 const StyledTabs = withStyles({

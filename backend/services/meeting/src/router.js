@@ -5,6 +5,7 @@ const {
   getAllMeetings,
   updateMeeting,
   submitVote,
+  findMeetingsById,
 } = require('./database/dbFunctions')
 // helper
 const { getRequest, postRequest } = require('./helper')
@@ -38,7 +39,7 @@ module.exports = router => {
       payload: { userId },
     })
 
-    const meetings = findMeetingsById(meetingIds)
+    const meetings = await findMeetingsById(meetingIds)
     ctx.body = meetings
   })
 
@@ -66,7 +67,7 @@ module.exports = router => {
 
   router.post('/MEETING_SUBMITE_VOTE', async ctx => {
     const payload = ctx.request.body.payload
-    // const createdMeeting = await submitVote(payload)
+    const createdMeeting = await submitVote(payload)
     // console.log('createdMeeting ', createdMeeting)
     // ctx.body = createdMeeting
     ctx.status = 200

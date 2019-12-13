@@ -1,5 +1,5 @@
 // db
-const { findUserById } = require('./database/dbFunctions')
+const { findUserById, findUserByEmail } = require('./database/dbFunctions')
 
 module.exports = router => {
   router.get('/USER_GET_USER_BY_ID', async ctx => {
@@ -11,8 +11,11 @@ module.exports = router => {
 
   router.get('/USER_GET_MEETINGIDS_BY_ID', async ctx => {
     const { userId } = ctx.query.payload
-    const { meetings } = await findUserById(userId)
-    ctx.body = meetings
+
+    // const { meetings } = await findUserById(userId)
+    const email = userId
+    await findUserByEmail(email)
+    ctx.body = []
     ctx.status = 200
   })
 
