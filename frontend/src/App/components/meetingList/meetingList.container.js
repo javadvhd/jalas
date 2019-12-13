@@ -18,7 +18,7 @@ const mapDispatchToProps = () => ({
     dispatchSetMeetingPageData('meetingId', _id)
     dispatchSetMeetingPageData(
       'optionsRooms',
-      R.map(({ id }) => ({ id, isOpen: false, rooms: [] }), options),
+      R.map(() => ({ isOpen: false, rooms: [] }), options),
     )
     dispatchSetMeetingPageData('startTime', new Date())
   },

@@ -4,15 +4,17 @@ import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import { getDate, getTime } from './optionBox.helper'
-const MeetingBox = ({
+const OptionBox = ({
   option,
   option: { start, end, agree, disagree, isOpen, rooms },
   onClick,
   onRoomClick,
   reserveStartTime,
-  meetingIndex,
+  optionIndex,
   onDelete,
   meetingId,
+  isAdmin,
+  onSubmitVote,
 }) => (
   <div
     style={{
@@ -22,36 +24,63 @@ const MeetingBox = ({
       border: '1px solid black',
     }}
   >
-    {console.log('option ', option)}
     <div
       style={{
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
       }}
     >
-      <Typography>تاریخ:{getDate(new Date(start)).toString()}</Typography>
-      <Typography>از:{getTime(new Date(start)).toString()}</Typography>
-      <Typography>تا:{getTime(new Date(end)).toString()}</Typography>
-      <Typography>موافق:{agree}</Typography>
-      <Typography>مخالف:{disagree}</Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => onClick(option)}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+        }}
       >
-        {isOpen ? 'بستن' : 'انتخاب'}
-      </Button>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => onDelete({ meetingIndex, meetingId })}
-      >
-        <img src="delete.svg" alt="" />
-      </Button>
+        <Typography>تاریخ:{getDate(new Date(start)).toString()}</Typography>
+        <Typography>از:{getTime(new Date(start)).toString()}</Typography>
+        <Typography>تا:{getTime(new Date(end)).toString()}</Typography>
+        <Typography>موافق:{agree}</Typography>
+        <Typography>مخالف:{disagree}</Typography>
+      </div>
+      <div style={{ margin: '10px 0px 10px auto' }}>
+        {isAdmin && (
+          <Button
+            variant="contained"
+            onClick={() => onClick(option, optionIndex)}
+          >
+            {isOpen ? 'بستن' : 'انتخاب'}
+          </Button>
+        )}
+        {isAdmin && (
+          <Button
+            variant="contained"
+            onClick={() => onDelete({ optionIndex, meetingId })}
+          >
+            <img src="delete.svg" alt="" />
+          </Button>
+        )}
+      </div>
+      <div>
+        <Button
+          variant="contained"
+          onClick={() => onSubmitVote({ meetingId, vote: 'agree' })}
+        >
+          <img src="agree.svg" alt="" />
+        </Button>
+
+        <Button
+          variant="contained"
+          onClick={() => onSubmitVote({ meetingId, vote: 'disagree' })}
+        >
+          <img src="disagree.svg" alt="" />
+        </Button>
+      </div>
     </div>
-    {isOpen && (
+    {isOpen && isAdmin && (
       <div>
         {rooms.length &&
           rooms.map((room, index) => (
@@ -78,4 +107,4 @@ const MeetingBox = ({
   </div>
 )
 
-export default MeetingBox
+export default OptionBox

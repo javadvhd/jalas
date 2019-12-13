@@ -7,19 +7,22 @@ import AppBar from '../components/AppBar/appBar'
 import MeetingList from '../components/meetingList/meetingList.container'
 import MeetingPage from '../components/meetingPage/meetingPage.container'
 import AppSnackbar from '../components/snackbar/snackbar.container'
+import EmailEntrance from '../components/emailEntrance/emailEntrance.container'
 
 // styles
 import './app.css'
 // setup
 import store from '../../setup/redux'
-import { history } from '../../setup/history.js'
+import { history, navigate } from '../../setup/history.js'
 
 const HEADER_HEIGHT = 80
+// navigate('emailEntrance')
 
 const App = () => (
   <Provider store={store}>
     <LocationProvider history={history}>
       <AppBar />
+
       {/* <Router>
         <Tabs path=":selected" />
       </Router> */}
@@ -34,6 +37,7 @@ const App = () => (
         }}
       >
         <Router>
+          <EmailEntrance path="emailEntrance" />
           <MeetingList path="all" />
           <MeetingPage path="meetingpage" />
         </Router>

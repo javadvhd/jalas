@@ -21,18 +21,19 @@ const reducers = {
     [field]: value,
   }),
 
-  SET_OPTION_EXPANSION: (state, { id, rooms }) => ({
-    ...state,
-    optionsRooms: R.update(
-      id - 1,
-      {
-        ...state.optionsRooms[id - 1],
-        isOpen: !state.optionsRooms[id - 1].isOpen,
-        rooms,
-      },
-      state.optionsRooms,
-    ),
-  }),
+  SET_OPTION_EXPANSION: (state, { optionIndex, rooms }) =>
+    console.log(optionIndex, rooms) || {
+      ...state,
+      optionsRooms: R.update(
+        optionIndex,
+        {
+          ...state.optionsRooms[optionIndex],
+          isOpen: !state.optionsRooms[optionIndex].isOpen,
+          rooms,
+        },
+        state.optionsRooms,
+      ),
+    },
 
   SET_LOADING: (state, loading) => ({
     ...state,
