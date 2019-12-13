@@ -31,3 +31,6 @@ exports.findMeetingsByParticipant = email =>
   Meeting.find({ participants: { $elemMatch: { $eq: email } } })
 
 exports.getAllMeetings = () => Meeting.find()
+
+exports.submitVote = ({ meetingId, optionIndex, vote, username }) =>
+  Meeting.findOneAndUpdate({ _id: meetingId })

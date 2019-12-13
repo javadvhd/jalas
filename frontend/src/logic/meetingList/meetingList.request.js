@@ -6,6 +6,7 @@ import { getState } from '../../setup/redux'
 import {
   dispatchUpdateMeeting,
   dispatchSetMeetingList,
+  dispatchUpdateMeetingVote,
 } from './meetingList.actions'
 // import { navigate } from '@reach/router'
 import { dispatchSetSnackbarMessage } from '../../App/components/snackbar/snackbar.actions'
@@ -80,18 +81,19 @@ export const reqGetUserMeetings = () =>
     .then(meeting => dispatchSetMeetingList(meeting))
     .catch(console.log)
 
-export const reqSubmiteVote = ({ meetingId, vote }) =>
+export const reqSubmiteVote = ({ meetingId, vote, optionIndex }) =>
   postRequest({
     dest: 'meeting',
     action: 'MEETING_SUBMITE_VOTE',
     payload: {
       meetingId,
+      optionIndex,
       vote,
       username: getState().main.user.username,
     },
   })
-    .then(res => res.data)
-    .then(() => dispatchUpdateMeeting({ meetingId, vote }))
+    // .then(res => res.data)
+    .then(() => dispatchUpdateMeetingVote({ meetingId, optionIndex, vote }))
     .then(() =>
       dispatchSetSnackbarMessage({
         type: 'success',
