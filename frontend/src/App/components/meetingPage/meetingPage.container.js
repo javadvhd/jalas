@@ -1,12 +1,12 @@
 import * as R from 'ramda'
 // modules
 import { connect } from 'react-redux'
+import { navigate } from '@reach/router'
 // components
 import MeetingPage from './meetingPage'
 import { reqUpdateMeeting } from '../../../logic/meetingList/meetingList.request'
 import { dispatchSetMeetingTitle } from '../../../logic/meetingList/meetingList.actions'
 import { userIdView } from '../../../logic/user/user.reducer'
-import { navigate } from '../../../setup/history'
 
 const mapStateToProps = state => {
   const meetingId = state.view.meetingPage.meetingId

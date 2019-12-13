@@ -1,9 +1,9 @@
 import * as R from 'ramda'
 // modules
 import { connect } from 'react-redux'
+import { navigate } from '@reach/router'
 // components
 import MeetingList from './meetingList'
-import { navigate } from '../../../setup/history'
 import { dispatchSetMeetingPageData } from '../meetingPage/meetingPage.actions'
 import { reqCreateMeeting } from '../../../logic/meetingList/meetingList.request'
 import { getEmptyMeeting } from '../../../logic/meetingList/meetingList.helper'

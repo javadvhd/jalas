@@ -7,7 +7,7 @@ import {
   dispatchUpdateMeeting,
   dispatchSetMeetingList,
 } from './meetingList.actions'
-import { navigate } from '../../setup/history'
+// import { navigate } from '@reach/router'
 import { dispatchSetSnackbarMessage } from '../../App/components/snackbar/snackbar.actions'
 
 export const saveRoomSelectedOption = ({ id, selectedOption, room }) =>

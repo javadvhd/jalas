@@ -1,3 +1,5 @@
+// modules
+import { navigate } from '@reach/router'
 // actions
 import { dispatchSetSnackbarMessage } from '../../App/components/snackbar/snackbar.actions'
 import { getRequest, postRequest } from '../../setup/request'
@@ -10,7 +12,6 @@ import { dispatchSetMeetingStateToDone } from '../meetingList/meetingList.action
 // view
 import { meetingPageLoadingView } from '../../App/components/meetingPage/meetingPage.reducer'
 // helper
-import { navigate } from '../../setup/history'
 import { saveRoomSelectedOption } from '../meetingList/meetingList.request'
 import { saveAnalytics } from '../analytics/analytics.request'
 import moment from 'moment'

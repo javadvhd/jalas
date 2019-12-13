@@ -1,9 +1,9 @@
 import * as R from 'ramda'
 // modules
 import { connect } from 'react-redux'
+import { navigate } from '@reach/router'
 // components
 import EmailEntrance from './emailEntrance'
-import { navigate } from '../../../setup/history'
 import { dispatchSetUserData } from '../../../logic/user/user.actions'
 import { dialogIsOpenView } from '../../../logic/user/user.reducer'
 
