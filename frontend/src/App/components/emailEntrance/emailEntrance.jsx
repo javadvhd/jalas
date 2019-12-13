@@ -6,12 +6,12 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import TextField from '@material-ui/core/TextField'
 
-const EmailEntrance = ({ onSubmit, open, handleClose }) => {
+const EmailEntrance = ({ onSubmit, handleClose }) => {
   const [state, setState] = React.useState({})
   return (
     <>
       <Dialog
-        open={open}
+        open={true}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >

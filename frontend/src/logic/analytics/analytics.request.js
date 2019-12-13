@@ -1,7 +1,6 @@
 // setup
 import { postRequest } from '../../setup/request'
-
-import { userIdView } from '../user/user.reducer'
+import { getState } from '../../setup/redux'
 
 export const saveAnalytics = data =>
   postRequest({
@@ -10,7 +9,7 @@ export const saveAnalytics = data =>
     payload: {
       data: {
         data,
-        userId: userIdView(),
+        userId: getState().main.user.email,
       },
     },
   })

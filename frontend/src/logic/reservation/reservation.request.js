@@ -3,11 +3,11 @@ import { navigate } from '@reach/router'
 // actions
 import { dispatchSetSnackbarMessage } from '../../App/components/snackbar/snackbar.actions'
 import { getRequest, postRequest } from '../../setup/request'
+import { getState } from '../../setup/redux'
 import {
   dispatchSetOptionExpansion,
   dispatchSetLoading,
 } from '../../App/components/meetingPage/meetingPage.actions'
-import { userNameView } from '../user/user.reducer'
 import { dispatchSetMeetingStateToDone } from '../meetingList/meetingList.actions'
 // view
 import { meetingPageLoadingView } from '../../App/components/meetingPage/meetingPage.reducer'
@@ -55,7 +55,7 @@ export const reserveRoom = ({
     dest: 'reservation',
     action: 'RESERVATION_RESERVE_ROOM',
     payload: {
-      username: userNameView(),
+      username: getState().main.user.username,
       room,
       start,
       end,
@@ -82,7 +82,7 @@ export const reserveRoom = ({
       // }
 
       dispatchSetMeetingStateToDone({ room, start, end })
-      navigate('all')
+      navigate('/all')
       dispatchSetLoading(true)
       dispatchSetSnackbarMessage({
         type: 'success',

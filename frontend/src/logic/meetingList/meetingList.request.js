@@ -2,7 +2,7 @@
 import * as R from 'ramda'
 // setup
 import { postRequest, getRequest } from '../../setup/request'
-import { userIdView, userNameView } from '../user/user.reducer'
+import { getState } from '../../setup/redux'
 import {
   dispatchUpdateMeeting,
   dispatchSetMeetingList,
@@ -18,7 +18,7 @@ export const saveRoomSelectedOption = ({ id, selectedOption, room }) =>
       id,
       selectedOption,
       room,
-      userId: userIdView(),
+      userId: getState().main.user.email,
     },
   })
     .then(console.log)
@@ -29,7 +29,7 @@ export const reqCreateMeeting = meeting =>
     dest: 'meeting',
     action: 'MEETING_CREATE_MEETING',
     payload: {
-      meeting: { ...meeting, creatorId: userIdView() },
+      meeting: { ...meeting, creatorId: getState().main.user.email },
     },
   })
     .then(res => res.data)
@@ -60,14 +60,23 @@ export const reqUpdateMeeting = meeting =>
     )
     .catch(console.log)
 
-export const reqGetAllMeetings = () =>
+// export const reqGetAllMeetings = () =>
+//   getRequest({
+//     dest: 'meeting',
+//     action: 'MEETING_GET_ALL_MEETINGS',
+//     payload: {},
+//   })
+//     .then(res => res.data)
+//     .then(meeting => dispatchSetMeetingList(meeting))
+//     .catch(console.log)
+
+export const reqGetUserMeetings = () =>
   getRequest({
     dest: 'meeting',
-    action: 'MEETING_GET_ALL_MEETINGS',
-    payload: {},
+    action: 'MEETING_GET_USER_MEETINGS',
+    payload: { userId: getState().main.user.email },
   })
     .then(res => res.data)
-    // .then(console.log)
     .then(meeting => dispatchSetMeetingList(meeting))
     .catch(console.log)
 
@@ -78,7 +87,7 @@ export const reqSubmiteVote = ({ meetingId, vote }) =>
     payload: {
       meetingId,
       vote,
-      username: userNameView(),
+      username: getState().main.user.username,
     },
   })
     .then(res => res.data)

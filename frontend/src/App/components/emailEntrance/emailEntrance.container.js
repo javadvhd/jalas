@@ -1,22 +1,17 @@
-import * as R from 'ramda'
 // modules
 import { connect } from 'react-redux'
-import { navigate } from '@reach/router'
 // components
 import EmailEntrance from './emailEntrance'
 import { dispatchSetUserData } from '../../../logic/user/user.actions'
-import { dialogIsOpenView } from '../../../logic/user/user.reducer'
-
-const mapStateToProps = state => ({
-  open: dialogIsOpenView(),
-})
+// helper
+import loadData from '../../../helpers/loadData'
 
 const mapDispatchToProps = () => ({
-  onSubmit: (email, username) => {
-    dispatchSetUserData(email)
-    dispatchSetUserData(username)
-    navigate('all')
+  onSubmit: ({ email, username }) => {
+    dispatchSetUserData({ email, username })
+    loadData()
+    window.history.back()
   },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(EmailEntrance)
+export default connect(null, mapDispatchToProps)(EmailEntrance)

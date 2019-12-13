@@ -32,8 +32,8 @@ const App = () => (
     >
       <MeetingList path="all" />
       <EmailEntrance path="emailEntrance" />
-      <MeetingPage path="meetingpage" />
-      <Redirect default to="all" />
+      <MeetingPage path="meetingpage/:meetingId" />
+      <Redirect default to="/all" />
     </Router>
 
     <AppSnackbar />
