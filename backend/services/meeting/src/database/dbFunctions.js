@@ -1,12 +1,10 @@
 const { Meeting } = require('./dbModel')
 
-const createMeeting = ({ title, creatorId, option }) =>
-  new Meeting({
-    title,
-    creatorId,
-    option,
-  }).save()
+exports.createMeeting = meeting => new Meeting(meeting).save()
 
+exports.updateMeeting = meeting =>
+  console.log('meeting ', meeting) ||
+  Meeting.findOneAndUpdate({ _id: meeting._id }, meeting, { new: true })
 // setTimeout(
 //   () =>
 //     createMeeting({
@@ -24,10 +22,12 @@ const createMeeting = ({ title, creatorId, option }) =>
 exports.setRoomAndSelectedOption = ({ id, room, selectedOption, userId }) =>
   Meeting.updateOne(
     { _id: id, creatorId: userId },
-    { $set: { selectedOption, room }, state: 'submitted' },
+    { $set: { selectedOption, room }, status: 'submitted' },
   )
 
 exports.findMeetingById = id => Meeting.findOne({ _id: id })
 
 exports.findMeetingsById = meetingIds =>
   Meeting.find({ _id: { $in: meetingIds } })
+
+exports.getAllMeetings = () => Meeting.find()

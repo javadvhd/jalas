@@ -1,7 +1,7 @@
 // modules
 import { connect } from 'react-redux'
 // components
-import MeetingBox from './meetingBox'
+import optionBox from './optionBox'
 import {
   getOptionRooms,
   reserveRoom,
@@ -10,6 +10,7 @@ import {
   dispatchSetOptionExpansion,
   dispatchSetLoading,
 } from '../../meetingPage.actions'
+import { dispatchRemoveOption } from '../../../../../logic/meetingList/meetingList.actions'
 // views
 
 // action
@@ -33,6 +34,7 @@ const mapDispatchToProps = (_, { meetingId }) => ({
   onCancel: () => {
     // setLoading ===> false
   },
+  onDelete: dispatchRemoveOption,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MeetingBox)
+export default connect(mapStateToProps, mapDispatchToProps)(optionBox)

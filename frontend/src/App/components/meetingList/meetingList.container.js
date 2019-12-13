@@ -5,20 +5,25 @@ import { connect } from 'react-redux'
 import MeetingList from './meetingList'
 import { navigate } from '../../../setup/history'
 import { dispatchSetMeetingPageData } from '../meetingPage/meetingPage.actions'
+import { reqCreateMeeting } from '../../../logic/meetingList/meetingList.request'
+import { getEmptyMeeting } from '../../../logic/meetingList/meetingList.helper'
 
 const mapStateToProps = state => ({
   meetingList: state.main.meetingList,
 })
 
 const mapDispatchToProps = () => ({
-  clickListBox: ({ id, options }) => {
+  clickListBox: ({ _id, options }) => {
     navigate('meetingpage')
-    dispatchSetMeetingPageData('meetingId', id)
+    dispatchSetMeetingPageData('meetingId', _id)
     dispatchSetMeetingPageData(
       'optionsRooms',
       R.map(({ id }) => ({ id, isOpen: false, rooms: [] }), options),
     )
     dispatchSetMeetingPageData('startTime', new Date())
+  },
+  createNewMeeting: () => {
+    reqCreateMeeting(getEmptyMeeting())
   },
 })
 
