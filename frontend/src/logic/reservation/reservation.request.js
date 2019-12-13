@@ -50,6 +50,7 @@ export const reserveRoom = ({
   option: { start, end },
   meetingId,
   reserveStartTime,
+  optionIndex,
 }) =>
   postRequest({
     dest: 'reservation',
@@ -62,24 +63,35 @@ export const reserveRoom = ({
     },
   })
     .then(({ data }) => {
-      // if (data.error) {
-      //   dispatchSetSnackbarMessage({
-      //     type: 'error',
-      //     message: 'reservation is not available',
-      //   })
-      //   if (meetingPageLoadingView())
-      //     setTimeout(
-      //       () =>
-      //         reserveRoom({
-      //           room,
-      //           option: { start, end },
-      //           meetingId,
-      //           reserveStartTime,
-      //         }),
-      //       2000,
-      //     )
-      //   return
-      // }
+      if (data.error) {
+        if (data.error.status === 400) {
+          dispatchSetSnackbarMessage({
+            type: 'error',
+            message: 'some body else has reserved',
+          })
+          getOptionRooms({ optionIndex, option: { start, end } })
+          return
+        }
+
+        dispatchSetSnackbarMessage({
+          type: 'error',
+          message: 'reservation service is not available',
+        })
+
+        if (meetingPageLoadingView())
+          setTimeout(
+            () =>
+              meetingPageLoadingView() &&
+              reserveRoom({
+                room,
+                option: { start, end },
+                meetingId,
+                reserveStartTime,
+              }),
+            2000,
+          )
+        return
+      }
 
       dispatchSetMeetingStateToDone({ room, start, end })
       navigate('/all')

@@ -67,18 +67,14 @@ const OptionBox = ({
       <div>
         <Button
           variant="contained"
-          onClick={() =>
-            onSubmitVote({ meetingId, vote: true, optionIndex })
-          }
+          onClick={() => onSubmitVote({ meetingId, vote: true, optionIndex })}
         >
           <img src="agree.svg" alt="" />
         </Button>
 
         <Button
           variant="contained"
-          onClick={() =>
-            onSubmitVote({ meetingId, vote: false, optionIndex })
-          }
+          onClick={() => onSubmitVote({ meetingId, vote: false, optionIndex })}
         >
           <img src="disagree.svg" alt="" />
         </Button>
@@ -100,7 +96,9 @@ const OptionBox = ({
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => onRoomClick({ room, option, reserveStartTime })}
+                onClick={() =>
+                  onRoomClick({ room, option, reserveStartTime, optionIndex })
+                }
               >
                 انتخاب
               </Button>
