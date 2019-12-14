@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:7.10
+      - image: circleci/node:lts
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -34,7 +34,7 @@ jobs:
 
       - run:
           name: run services
-          command: cd backend/packages && pm2 start service-runner.json cd -
+          command: cd backend/packages && pm2 start service-runner.json && cd -
 
       - save_cache:
           paths:
@@ -43,7 +43,7 @@ jobs:
 
   unit-test:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:lts
       - image: circleci/mongo:4.2.1
 
     steps:
@@ -57,7 +57,7 @@ jobs:
 
   integration-test:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:lts
       - image: circleci/mongo:4.2.1
 
     steps:
