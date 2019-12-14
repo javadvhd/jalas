@@ -1,3 +1,5 @@
+// module
+import * as R from 'ramda'
 // db
 const {
   setRoomAndSelectedOption,
@@ -6,6 +8,7 @@ const {
   updateMeeting,
   findMeetingsByParticipant,
   submitVote,
+  findMeetingById,
 } = require('./database/dbFunctions')
 // helper
 const { getRequest, postRequest } = require('./helper')
@@ -24,7 +27,11 @@ module.exports = router => {
       postRequest({
         dest: 'reservation',
         action: 'NOTIFICATION_SEND_EMAIL',
-        payload: { userId },
+        payload: {
+          emails: [userId],
+          subject: 'تشکیل جلسه',
+          body: 'جلسه با موفقیت ساخته شد',
+        },
       })
 
     ctx.status = 200
@@ -44,15 +51,41 @@ module.exports = router => {
       participants: [...meeting.participants, meeting.creatorId],
     })
 
+    postRequest({
+      dest: 'reservation',
+      action: 'NOTIFICATION_SEND_EMAIL',
+      payload: {
+        emails: meeting.participants,
+        subject: 'دعوت به نظر سنجی',
+        body: `http://localhost:3001/meetingpage/${createdMeeting._id}`,
+      },
+    }).catch(console.log)
+
     ctx.body = createdMeeting
     ctx.status = 200
   })
 
   router.post('/MEETING_UPDATE_MEETING', async ctx => {
     const { meeting } = ctx.request.body.payload.meeting
-    const createdMeeting = await updateMeeting(meeting)
-    // console.log('createdMeeting ', createdMeeting)
-    ctx.body = createdMeeting
+    const rawMeeting = await findMeetingById(meeting._id)
+    const updatedMeeting = await updateMeeting(meeting)
+
+    const newParticipants = R.without(
+      rawMeeting.participants,
+      updateMeeting.participants,
+    )
+
+    postRequest({
+      dest: 'reservation',
+      action: 'NOTIFICATION_SEND_EMAIL',
+      payload: {
+        emails: newParticipants,
+        subject: 'دعوت به نظر سنجی',
+        body: `http://localhost:3001/meetingpage/${createdMeeting._id}`,
+      },
+    }).catch(console.log)
+
+    ctx.body = updatedMeeting
     ctx.status = 200
   })
 
