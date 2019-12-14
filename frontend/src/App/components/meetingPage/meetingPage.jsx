@@ -1,6 +1,7 @@
 // modules
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import * as R from 'ramda'
+import moment from 'moment'
 // components
 import Typography from '@material-ui/core/Typography'
 import ParticipantList from './components/participantList/participantList.container'
@@ -11,6 +12,7 @@ import TitleBox from './components/titleBox/titleBox'
 
 // action
 import { dispatchSetMeetingPageData } from './meetingPage.actions'
+import { Paper } from '@material-ui/core'
 
 class MeetingPage extends Component {
   componentDidMount() {
@@ -30,34 +32,79 @@ class MeetingPage extends Component {
         <Button variant="contained" color="primary" onClick={goToList}>
           مشاهده لیست جلسات
         </Button>
+        {meeting.status === 'submitted' ? (
+          <Paper elevation={2}>
+            <div style={{ display: 'flex' }}>
+              <div
+                style={{
+                  marginTop: '20px',
+                  justifyContent: 'space-between',
+                  display: 'flex',
+                  marginBottom: '40px',
+                }}
+              >
+                <TextField
+                  id="date"
+                  label="تاریخ"
+                  type="date"
+                  defaultValue={moment(
+                    meeting.options[meeting.selectedOption].start,
+                  ).format('YYYY-MM-DD')}
+                  disabled
+                />
+                <TextField
+                  id="date"
+                  label="شروع"
+                  type="time"
+                  defaultValue={moment(
+                    meeting.options[meeting.selectedOption].start,
+                  ).format('HH:mm')}
+                  disabled
+                />
+                <TextField
+                  id="date"
+                  label="پایان"
+                  type="time"
+                  defaultValue={moment(
+                    meeting.options[meeting.selectedOption].end,
+                  ).format('HH:mm')}
+                  disabled
+                />
+              </div>
+            </div>
+            <Typography>{meeting.room}:اتاق</Typography>
+          </Paper>
+        ) : (
+          <Fragment>
+            <TitleBox
+              title={meeting.title}
+              onTitleChange={onTitleChange}
+              isAdmin={isAdmin}
+              meetingId={meeting._id}
+            />
 
-        <TitleBox
-          title={meeting.title}
-          onTitleChange={onTitleChange}
-          isAdmin={isAdmin}
-          meetingId={meeting._id}
-        />
+            <OptionList meeting={meeting} isAdmin={isAdmin} />
 
-        <OptionList meeting={meeting} isAdmin={isAdmin} />
+            {isAdmin && <ParticipantList meeting={meeting} />}
 
-        {isAdmin && <ParticipantList meeting={meeting} />}
-
-        {isAdmin && (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              marginTop: '40px',
-            }}
-          >
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => onSave({ meeting })}
-            >
-              ذخیره ی اطلاعات جلسه
-            </Button>
-          </div>
+            {isAdmin && (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginTop: '40px',
+                }}
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => onSave({ meeting })}
+                >
+                  ذخیره ی اطلاعات جلسه
+                </Button>
+              </div>
+            )}
+          </Fragment>
         )}
       </div>
     )
