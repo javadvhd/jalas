@@ -16,25 +16,28 @@ const { voteConvertToArray, voteCounter, postRequest } = require('./helper')
 module.exports = router => {
   router.post('/MEETING_SET_ROOM_AND_SELECTED_OPTION', async ctx => {
     const { selectedOption, room, id, userId } = ctx.request.body.payload
-    const { nModified } = await setRoomAndSelectedOption({
+    const meeting = await setRoomAndSelectedOption({
       selectedOption,
       room,
       id,
       userId,
     })
 
-    // if (nModified)
-    //   postRequest({
-    //     dest: 'reservation',
-    //     action: 'NOTIFICATION_SEND_EMAIL',
-    //     payload: {
-    //       emails: [userId],
-    //       subject: 'تشکیل جلسه',
-    //       body: `جلسه با موفقیت ساخته شد
-    //       http://localhost:3001/meetingpage/${createdMeeting._id}`,
-    //     },
-    //   })
-
+    if (!meeting) {
+      ctx.status = 400
+      return
+    }
+    // postRequest({
+    //   dest: 'reservation',
+    //   action: 'NOTIFICATION_SEND_EMAIL',
+    //   payload: {
+    //     emails: [userId],
+    //     subject: 'تشکیل جلسه',
+    //     body: `جلسه با موفقیت ساخته شد
+    //     http://localhost:3001/meetingpage/${createdMeeting._id}`,
+    //   },
+    // })
+    ctx.body = meeting
     ctx.status = 200
   })
 
@@ -60,7 +63,12 @@ module.exports = router => {
         subject: 'دعوت به نظر سنجی',
         body: `http://localhost:3001/meetingpage/${createdMeeting._id}`,
       },
-    }).catch(console.log)
+    }).catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در سرور پیش آمده',
+      }),
+    )
 
     ctx.body = voteCounter(createdMeeting)
     ctx.status = 200
@@ -84,7 +92,12 @@ module.exports = router => {
         subject: 'دعوت به نظر سنجی',
         body: `http://localhost:3001/meetingpage/${rawMeeting._id}`,
       },
-    }).catch(console.log)
+    }).catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در سرور پیش آمده',
+      }),
+    )
 
     ctx.body = voteCounter(updatedMeeting)
     ctx.status = 200

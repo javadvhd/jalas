@@ -51,12 +51,12 @@ export const getOptionRooms = ({ optionIndex, option: { start, end } }) => {
         message: 'اتاق های قابل رزرو وارد شده اند',
       })
     })
-    .catch(() => {
+    .catch(() =>
       dispatchSetSnackbarMessage({
         type: 'error',
         message: 'مشکلی در سرور پیش آمده',
-      })
-    })
+      }),
+    )
 }
 
 export const reserveRoom = ({
@@ -128,11 +128,9 @@ export const reserveRoom = ({
         room,
       })
     })
-    .catch(
-      error =>
-        console.log(error) ||
-        dispatchSetSnackbarMessage({
-          type: 'error',
-          message: 'مشکلی در سرور پیش آمده',
-        }),
+    .catch(error =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در سرور پیش آمده',
+      }),
     )

@@ -7,10 +7,11 @@ exports.updateMeeting = meeting =>
   Meeting.findOneAndUpdate({ _id: meeting._id }, meeting, { new: true })
 
 exports.setRoomAndSelectedOption = ({ id, room, selectedOption, userId }) =>
-  Meeting.updateOne(
+  Meeting.findOneAndUpdate(
     { _id: id, creatorId: userId },
     { $set: { selectedOption, room }, status: 'submitted' },
-  )
+    { new: true },
+  ).lean()
 
 exports.findMeetingById = id => Meeting.findOne({ _id: id }).lean()
 

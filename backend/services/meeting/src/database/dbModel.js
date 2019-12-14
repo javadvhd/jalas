@@ -7,7 +7,7 @@ const meetingSchema = new Schema(
   {
     title: String,
     creatorId: String,
-    status: String,
+    status: { type: String, default: 'pole' },
     options: Array,
     participants: Array,
     selectedOption: Number,

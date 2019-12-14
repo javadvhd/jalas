@@ -21,8 +21,13 @@ export const saveRoomSelectedOption = ({ id, selectedOption, room }) =>
       userId: getState().main.user.email,
     },
   })
-    .then(console.log)
-    .catch()
+    .then(({ data }) => dispatchUpdateMeeting({ meeting: data }))
+    .catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در سرور پیش آمده',
+      }),
+    )
 
 export const reqCreateMeeting = meeting =>
   postRequest({
@@ -41,7 +46,12 @@ export const reqCreateMeeting = meeting =>
       })
       return meeting._id
     })
-    .catch(console.log)
+    .catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در سرور پیش آمده',
+      }),
+    )
 
 export const reqUpdateMeeting = meeting =>
   postRequest({
@@ -59,7 +69,12 @@ export const reqUpdateMeeting = meeting =>
         message: 'جلسه با موفقیت به روز رسانی شده است',
       }),
     )
-    .catch(console.log)
+    .catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در سرور پیش آمده',
+      }),
+    )
 
 // export const reqGetAllMeetings = () =>
 //   getRequest({
@@ -69,7 +84,12 @@ export const reqUpdateMeeting = meeting =>
 //   })
 //     .then(res => res.data)
 //     .then(meeting => dispatchSetMeetingList(meeting))
-//     .catch(console.log)
+//     .catch(() =>
+//       dispatchSetSnackbarMessage({
+//         type: 'error',
+//         message: 'مشکلی در سرور پیش آمده',
+//       }),
+//     )
 
 export const reqGetUserMeetings = () =>
   getRequest({
@@ -79,7 +99,12 @@ export const reqGetUserMeetings = () =>
   })
     .then(res => res.data)
     .then(meetings => dispatchSetMeetingList(meetings))
-    .catch(console.log)
+    .catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در سرور پیش آمده',
+      }),
+    )
 
 export const reqSubmitVote = ({ meetingId, vote, optionIndex }) =>
   postRequest({
@@ -100,4 +125,9 @@ export const reqSubmitVote = ({ meetingId, vote, optionIndex }) =>
         message: 'نظر شما با موفقیت ثبت شده است',
       }),
     )
-    .catch(console.log)
+    .catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در سرور پیش آمده',
+      }),
+    )
