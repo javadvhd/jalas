@@ -11,5 +11,8 @@
   "workspaces": [
     "backend/services/*",
     "frontend"
-  ]
+  ],
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
 }
