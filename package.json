@@ -5,8 +5,8 @@
   "repository": "https://github.com/javadvhd/jalas",
   "author": "",
   "scripts": {
-    "utest": "cd backend/services/meeting; yarn jest unit",
-    "itest": "cd backend/services/meeting; yarn jest integration"
+    "utest": "cd backend/services/meeting; jest unit",
+    "itest": "cd backend/services/meeting; jest integration"
   },
   "workspaces": [
     "backend/services/*",
