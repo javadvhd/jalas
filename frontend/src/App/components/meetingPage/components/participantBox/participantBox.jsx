@@ -24,7 +24,7 @@ const ParticipantBox = ({ participant, onDelete, meetingId }) => (
       color="primary"
       onClick={() => onDelete({ participant, meetingId })}
     >
-      <img src="delete.svg" alt="" />
+      <img src="delete.svg" alt="delete" />
     </Button>
   </div>
 )

@@ -31,7 +31,7 @@ const ParticipantList = ({ meeting, onAdd }) => {
               onAdd({ meetingId: meeting._id, participant: email })
             }
           >
-            <img src="add.svg" alt="" />
+            <img src="add.svg" alt="add" />
           </Button>
         </div>
         <Typography variant="p" title="wow">

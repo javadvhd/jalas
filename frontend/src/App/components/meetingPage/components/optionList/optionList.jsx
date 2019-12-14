@@ -85,7 +85,7 @@ const OptionList = ({
                   })
                 }
               >
-                <img src="add.svg" alt="" />
+                <img src="add.svg" alt="add" />
               </Button>
             </div>
           </>

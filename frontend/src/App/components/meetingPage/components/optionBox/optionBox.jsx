@@ -60,7 +60,7 @@ const OptionBox = ({
             variant="contained"
             onClick={() => onDelete({ optionIndex, meetingId })}
           >
-            <img src="delete.svg" alt="" />
+            <img src="delete.svg" alt="delete" />
           </Button>
         )}
       </div>
@@ -69,14 +69,14 @@ const OptionBox = ({
           variant="contained"
           onClick={() => onSubmitVote({ meetingId, vote: true, optionIndex })}
         >
-          <img src="agree.svg" alt="" />
+          <img src="agree.svg" alt="agree" />
         </Button>
 
         <Button
           variant="contained"
           onClick={() => onSubmitVote({ meetingId, vote: false, optionIndex })}
         >
-          <img src="disagree.svg" alt="" />
+          <img src="./disagree.svg" alt="disagree" />
         </Button>
       </div>
     </div>

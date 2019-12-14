@@ -12,12 +12,23 @@ exports.setRoomAndSelectedOption = ({ id, room, selectedOption, userId }) =>
     { $set: { selectedOption, room }, status: 'submitted' },
   )
 
-exports.findMeetingById = id => Meeting.findOne({ _id: id })
+exports.findMeetingById = id => Meeting.findOne({ _id: id }).lean()
 
 exports.findMeetingsByParticipant = email =>
-  Meeting.find({ participants: { $elemMatch: { $eq: email } } })
+  Meeting.find({ participants: { $elemMatch: { $eq: email } } }).lean()
 
 exports.getAllMeetings = () => Meeting.find()
 
-exports.submitVote = ({ meetingId, optionIndex, vote, username }) =>
-  Meeting.findOneAndUpdate({ _id: meetingId })
+exports.submitVote = ({ meetingId, optionIndex, vote, email }) =>
+  Meeting.findOneAndUpdate(
+    { _id: meetingId },
+    {
+      $addToSet: {
+        [`options.${optionIndex}.${vote ? 'agree' : 'disagree'}`]: email,
+      },
+      $pull: {
+        [`options.${optionIndex}.${!vote ? 'agree' : 'disagree'}`]: email,
+      },
+    },
+    { new: true },
+  ).lean()

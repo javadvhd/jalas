@@ -11,7 +11,7 @@ const {
   findMeetingById,
 } = require('./database/dbFunctions')
 // helper
-const { getRequest, postRequest } = require('./helper')
+const { voteConvertToArray, voteCounter, postRequest } = require('./helper')
 
 module.exports = router => {
   router.post('/MEETING_SET_ROOM_AND_SELECTED_OPTION', async ctx => {
@@ -42,13 +42,13 @@ module.exports = router => {
     const { userId } = JSON.parse(ctx.query.payload)
     const email = userId
     const meetings = await findMeetingsByParticipant(email)
-    ctx.body = meetings
+    ctx.body = R.map(voteCounter, meetings)
   })
 
   router.post('/MEETING_CREATE_MEETING', async ctx => {
     const { meeting } = ctx.request.body.payload
     const createdMeeting = await createMeeting({
-      ...meeting,
+      ...voteConvertToArray(meeting),
       participants: [...meeting.participants, meeting.creatorId],
     })
 
@@ -62,7 +62,7 @@ module.exports = router => {
       },
     }).catch(console.log)
 
-    ctx.body = createdMeeting
+    ctx.body = voteCounter(createdMeeting)
     ctx.status = 200
   })
 
@@ -73,7 +73,7 @@ module.exports = router => {
 
     const newParticipants = R.without(
       rawMeeting.participants,
-      updateMeeting.participants,
+      updateMeeting.participants || [],
     )
 
     postRequest({
@@ -82,25 +82,30 @@ module.exports = router => {
       payload: {
         emails: newParticipants,
         subject: 'دعوت به نظر سنجی',
-        body: `http://localhost:3001/meetingpage/${createdMeeting._id}`,
+        body: `http://localhost:3001/meetingpage/${rawMeeting._id}`,
       },
     }).catch(console.log)
 
-    ctx.body = updatedMeeting
+    ctx.body = voteCounter(updatedMeeting)
     ctx.status = 200
   })
 
   router.get('/MEETING_GET_ALL_MEETINGS', async ctx => {
     const meetingList = await getAllMeetings()
-    ctx.body = meetingList
+    ctx.body = R.map(voteCounter, meetingList)
     ctx.status = 200
   })
 
   router.post('/MEETING_SUBMIT_VOTE', async ctx => {
-    const payload = ctx.request.body.payload
-    const createdMeeting = await submitVote(payload)
-    // console.log('createdMeeting ', createdMeeting)
-    // ctx.body = createdMeeting
+    const { meetingId, optionIndex, vote, email } = ctx.request.body.payload
+    const updatedMeeting = await submitVote({
+      meetingId,
+      optionIndex,
+      vote,
+      email,
+    })
+
+    ctx.body = voteCounter(updatedMeeting)
     ctx.status = 200
   })
 }
