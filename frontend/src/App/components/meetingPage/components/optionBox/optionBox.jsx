@@ -15,6 +15,7 @@ const OptionBox = ({
   meetingId,
   isAdmin,
   onSubmitVote,
+  mode,
 }) => (
   <div
     style={{
@@ -47,7 +48,7 @@ const OptionBox = ({
         <Typography>مخالف:{disagree}</Typography>
       </div>
       <div style={{ margin: '10px 0px 10px auto' }}>
-        {isAdmin && (
+        {isAdmin && mode === 'pole' && (
           <Button
             variant="contained"
             onClick={() => onClick(option, optionIndex)}
@@ -55,7 +56,7 @@ const OptionBox = ({
             {isOpen ? 'بستن' : 'انتخاب'}
           </Button>
         )}
-        {isAdmin && (
+        {isAdmin && mode === 'creatingPole' && (
           <Button
             variant="contained"
             onClick={() => onDelete({ optionIndex, meetingId })}

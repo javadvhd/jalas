@@ -83,11 +83,17 @@ class MeetingPage extends Component {
               meetingId={meeting._id}
             />
 
-            <OptionList meeting={meeting} isAdmin={isAdmin} />
+            <OptionList
+              meeting={meeting}
+              isAdmin={isAdmin}
+              mode={meeting.status}
+            />
 
-            {isAdmin && <ParticipantList meeting={meeting} />}
+            {meeting.status === 'creatingPole' && (
+              <ParticipantList meeting={meeting} />
+            )}
 
-            {isAdmin && (
+            {meeting.status === 'creatingPole' && (
               <div
                 style={{
                   display: 'flex',

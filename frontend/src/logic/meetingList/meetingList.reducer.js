@@ -120,7 +120,7 @@ const reducers = {
       _id: 'newMeeting',
       title: '',
       creatorId: '',
-      // status: 'creating',
+      status: 'creatingPole',
       options: [],
       participants: [],
       // selectedOption: null,

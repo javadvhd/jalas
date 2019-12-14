@@ -15,6 +15,7 @@ const OptionList = ({
   selectedDate,
   addOption,
   isAdmin,
+  mode,
 }) => {
   const [state, setState] = React.useState({
     start: '10:30',
@@ -29,7 +30,7 @@ const OptionList = ({
       <Divider />
       <div style={{ margin: '20px  auto 20px auto' }}>
         {/* {console.log('option ', option)} */}
-        {isAdmin && (
+        {mode === 'creatingPole' && (
           <>
             <Typography variant="p" title="wow">
               اطلاعات ایجاد بازه زمانی جدید
@@ -112,6 +113,7 @@ const OptionList = ({
               option={{ ...option, ...optionsRooms[index] }}
               meetingId={meeting._id}
               isAdmin={isAdmin}
+              mode={mode}
             />
           ))}
         </div>
