@@ -42,3 +42,11 @@ export const dispatchAddNewParticipant = (...args) =>
 export const REMOVE_PARTICIPANT = 'REMOVE_PARTICIPANT'
 export const dispatchRemoveParticipant = (...args) =>
   dispatch(createAction(REMOVE_PARTICIPANT)(...args))
+
+export const CREATE_MEETING = 'CREATE_MEETING'
+export const dispatchCreateMeeting = (...args) =>
+  dispatch(createAction(CREATE_MEETING)(...args))
+
+export const REMOVE_MEETING = 'REMOVE_MEETING'
+export const dispatchRemoveMeeting = (...args) =>
+  dispatch(createAction(REMOVE_MEETING)(...args))

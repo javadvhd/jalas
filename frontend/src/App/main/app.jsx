@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import AppBar from '../components/AppBar/appBar'
 import MeetingList from '../components/meetingList/meetingList.container'
 import MeetingPage from '../components/meetingPage/meetingPage.container'
+import CreateMeeting from '../components/createMeeting/createMeeting.container'
 import AppSnackbar from '../components/snackbar/snackbar.container'
 import EmailEntrance from '../components/emailEntrance/emailEntrance.container'
 import Redirect from '../../helpers/redirect'
@@ -33,6 +34,7 @@ const App = () => (
       <MeetingList path="all" />
       <EmailEntrance path="emailEntrance" />
       <MeetingPage path="meetingpage/:meetingId" />
+      <CreateMeeting path="createMeeting" />
       <Redirect default to="/all" />
     </Router>
 

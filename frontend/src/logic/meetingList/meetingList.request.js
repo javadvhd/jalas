@@ -34,13 +34,14 @@ export const reqCreateMeeting = meeting =>
     },
   })
     .then(res => res.data)
-    .then(meeting => dispatchUpdateMeeting({ meeting }))
-    .then(() =>
+    .then(meeting => {
+      dispatchUpdateMeeting({ meeting })
       dispatchSetSnackbarMessage({
         type: 'success',
         message: 'جلسه ی جدید ایجاد شده است',
-      }),
-    )
+      })
+      return meeting._id
+    })
     .catch(console.log)
 
 export const reqUpdateMeeting = meeting =>
@@ -81,10 +82,10 @@ export const reqGetUserMeetings = () =>
     .then(meeting => dispatchSetMeetingList(meeting))
     .catch(console.log)
 
-export const reqSubmiteVote = ({ meetingId, vote, optionIndex }) =>
+export const reqSubmitVote = ({ meetingId, vote, optionIndex }) =>
   postRequest({
     dest: 'meeting',
-    action: 'MEETING_SUBMITE_VOTE',
+    action: 'MEETING_SUBMIT_VOTE',
     payload: {
       meetingId,
       optionIndex,

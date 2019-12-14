@@ -39,8 +39,10 @@ module.exports = router => {
 
   router.post('/MEETING_CREATE_MEETING', async ctx => {
     const { meeting } = ctx.request.body.payload
-    // console.log('meeting ', meeting)
-    const createdMeeting = await createMeeting(meeting)
+    const createdMeeting = await createMeeting({
+      ...meeting,
+      participants: [...meeting.participants, meeting.creatorId],
+    })
 
     ctx.body = createdMeeting
     ctx.status = 200
@@ -60,7 +62,7 @@ module.exports = router => {
     ctx.status = 200
   })
 
-  router.post('/MEETING_SUBMITE_VOTE', async ctx => {
+  router.post('/MEETING_SUBMIT_VOTE', async ctx => {
     const payload = ctx.request.body.payload
     const createdMeeting = await submitVote(payload)
     // console.log('createdMeeting ', createdMeeting)

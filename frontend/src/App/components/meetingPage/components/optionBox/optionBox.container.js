@@ -11,7 +11,7 @@ import {
   dispatchSetLoading,
 } from '../../meetingPage.actions'
 import { dispatchRemoveOption } from '../../../../../logic/meetingList/meetingList.actions'
-import { reqSubmiteVote } from '../../../../../logic/meetingList/meetingList.request'
+import { reqSubmitVote } from '../../../../../logic/meetingList/meetingList.request'
 // views
 
 // action
@@ -37,7 +37,7 @@ const mapDispatchToProps = (_, { meetingId }) => ({
   },
   onDelete: dispatchRemoveOption,
 
-  onSubmitVote: reqSubmiteVote,
+  onSubmitVote: reqSubmitVote,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(OptionBox)

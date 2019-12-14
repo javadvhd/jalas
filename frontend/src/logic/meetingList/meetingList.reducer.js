@@ -114,6 +114,22 @@ const reducers = {
     )
   },
 
+  CREATE_MEETING: state => [
+    ...state,
+    {
+      _id: 'newMeeting',
+      title: '',
+      creatorId: '',
+      // status: 'creating',
+      options: [],
+      participants: [],
+      // selectedOption: null,
+      // room: null,
+    },
+  ],
+
+  REMOVE_MEETING: (state, id) => R.reject(R.propEq('_id', id), state),
+
   // SET_MEETING_STATE_TO_DONE: (state, { room, start, end }) =>
   //   R.update(
   //     0,
