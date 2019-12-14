@@ -1,5 +1,5 @@
 // module
-import * as R from 'ramda'
+const R = require('ramda')
 // db
 const {
   setRoomAndSelectedOption,
@@ -30,7 +30,8 @@ module.exports = router => {
         payload: {
           emails: [userId],
           subject: 'تشکیل جلسه',
-          body: 'جلسه با موفقیت ساخته شد',
+          body: `جلسه با موفقیت ساخته شد
+          http://localhost:3001/meetingpage/${createdMeeting._id}`,
         },
       })
 
