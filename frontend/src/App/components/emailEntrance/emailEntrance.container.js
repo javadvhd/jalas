@@ -3,14 +3,12 @@ import { connect } from 'react-redux'
 // components
 import EmailEntrance from './emailEntrance'
 import { dispatchSetUserData } from '../../../logic/user/user.actions'
-// helper
-import loadData from '../../../helpers/loadData'
+import { reqGetUserMeetings } from '../../../logic/meetingList/meetingList.request'
 
 const mapDispatchToProps = () => ({
   onSubmit: ({ email, username }) => {
     dispatchSetUserData({ email, username })
-    loadData()
-    window.history.back()
+    reqGetUserMeetings().then(() => window.history.back())
   },
 })
 
