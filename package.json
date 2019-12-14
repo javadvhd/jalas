@@ -4,6 +4,10 @@
   "private": true,
   "repository": "https://github.com/javadvhd/jalas",
   "author": "",
+  "scripts": {
+    "utest": "cd backend/services/meeting; yarn jest unit",
+    "itest": "cd backend/services/meeting; yarn jest integration"
+  },
   "workspaces": [
     "backend/services/*",
     "frontend"
