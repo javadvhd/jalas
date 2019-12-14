@@ -79,7 +79,7 @@ class MeetingPage extends Component {
             <TitleBox
               title={meeting.title}
               onTitleChange={onTitleChange}
-              isAdmin={isAdmin}
+              mode={meeting.status}
               meetingId={meeting._id}
             />
 

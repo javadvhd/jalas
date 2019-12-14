@@ -4,9 +4,9 @@ import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 
-const TitleBox = ({ title, meetingId, onTitleChange, isAdmin }) => (
+const TitleBox = ({ title, meetingId, onTitleChange, mode }) => (
   <div dir="rtl" style={{ margin: ' 10px 20px auto 20px' }}>
-    {isAdmin ? (
+    {mode === 'creatingPole' ? (
       <TextField
         label="عنوان جلسه"
         value={title}
