@@ -28,18 +28,33 @@ export const getOptionRooms = ({ optionIndex, option: { start, end } }) => {
       end: moment(end).format('YYYY-MM-DDTHH:mm:ss'),
     },
   })
-    .then(res => ({ rooms: res.data, optionIndex }))
-    .then(dispatchSetOptionExpansion)
-    .then(() =>
+    .then(({ data }) => {
+      if (data.error) {
+        dispatchSetSnackbarMessage({
+          type: 'error',
+          message: 'سرویس رزرواسیون در دسترس نیست',
+        })
+        return
+      }
+
+      if (!data.length) {
+        dispatchSetSnackbarMessage({
+          type: 'error',
+          message: 'متاسفانه اتاقی  برای این زمان وجود ندارد',
+        })
+        return
+      }
+
+      dispatchSetOptionExpansion({ rooms: data, optionIndex })
       dispatchSetSnackbarMessage({
         type: 'success',
         message: 'اتاق های قابل رزرو وارد شده اند',
-      }),
-    )
+      })
+    })
     .catch(() => {
       dispatchSetSnackbarMessage({
         type: 'error',
-        message: 'reservation is not available',
+        message: 'مشکلی در سرور پیش آمده',
       })
     })
 }
@@ -58,8 +73,8 @@ export const reserveRoom = ({
     payload: {
       username: getState().main.user.username,
       room,
-      start,
-      end,
+      start: moment(start).format('YYYY-MM-DDTHH:mm:ss'),
+      end: moment(end).format('YYYY-MM-DDTHH:mm:ss'),
     },
   })
     .then(({ data }) => {
@@ -67,7 +82,7 @@ export const reserveRoom = ({
         if (data.error.status === 400) {
           dispatchSetSnackbarMessage({
             type: 'error',
-            message: 'some body else has reserved',
+            message: 'اتاق توسط کس دیگری رزرو شده',
           })
           getOptionRooms({ optionIndex, option: { start, end } })
           return
@@ -75,7 +90,7 @@ export const reserveRoom = ({
 
         dispatchSetSnackbarMessage({
           type: 'error',
-          message: 'reservation service is not available',
+          message: 'سرویس رزرواسیون در دسترس نیست',
         })
 
         if (meetingPageLoadingView())
@@ -98,7 +113,7 @@ export const reserveRoom = ({
       dispatchSetLoading(true)
       dispatchSetSnackbarMessage({
         type: 'success',
-        message: 'room is reserved',
+        message: 'اتاق با موفقیت رزرو شده',
       })
       saveAnalytics({
         type: 'creationTime',
@@ -107,13 +122,17 @@ export const reserveRoom = ({
       saveAnalytics({
         type: 'reserveCounter',
       })
-      saveRoomSelectedOption({ id: meetingId, selectedOption: option, room })
+      saveRoomSelectedOption({
+        id: meetingId,
+        selectedOption: optionIndex,
+        room,
+      })
     })
     .catch(
       error =>
         console.log(error) ||
         dispatchSetSnackbarMessage({
           type: 'error',
-          message: 'some thing went wrong!!!',
+          message: 'مشکلی در سرور پیش آمده',
         }),
     )

@@ -23,17 +23,17 @@ module.exports = router => {
       userId,
     })
 
-    if (nModified)
-      postRequest({
-        dest: 'reservation',
-        action: 'NOTIFICATION_SEND_EMAIL',
-        payload: {
-          emails: [userId],
-          subject: 'تشکیل جلسه',
-          body: `جلسه با موفقیت ساخته شد
-          http://localhost:3001/meetingpage/${createdMeeting._id}`,
-        },
-      })
+    // if (nModified)
+    //   postRequest({
+    //     dest: 'reservation',
+    //     action: 'NOTIFICATION_SEND_EMAIL',
+    //     payload: {
+    //       emails: [userId],
+    //       subject: 'تشکیل جلسه',
+    //       body: `جلسه با موفقیت ساخته شد
+    //       http://localhost:3001/meetingpage/${createdMeeting._id}`,
+    //     },
+    //   })
 
     ctx.status = 200
   })

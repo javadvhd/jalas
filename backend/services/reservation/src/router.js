@@ -26,7 +26,9 @@ module.exports = router => {
       )
       ctx.body = data.availableRooms
     } catch (e) {
-      ctx.body = { error: e }
+      const { status, data, statusText } = e.response
+      console.log('reservation', { status, data, statusText })
+      ctx.body = { error: { status } }
     }
   })
 }
