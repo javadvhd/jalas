@@ -1,12 +1,21 @@
 const { User } = require('./dbModel')
+const cryptography = require('cryptography')
 
-const createUser = ({ firstname, lastname, username, email, phone }) =>
+const createUser = ({
+  firstname,
+  lastname,
+  username,
+  email,
+  phone,
+  password,
+}) =>
   new User({
     firstname,
     lastname,
     username,
     phone,
     email,
+    password: cryptography.encryptSync(password),
   }).save()
 
 // setTimeout(
