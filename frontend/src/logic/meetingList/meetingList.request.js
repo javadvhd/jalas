@@ -91,22 +91,24 @@ export const reqUpdateMeeting = meeting =>
 //       }),
 //     )
 
-export const reqGetUserMeetings = () =>
+export const reqGetUserMeetings = email =>
   getRequest({
     dest: 'meeting',
     action: 'MEETING_GET_USER_MEETINGS',
-    payload: { userId: getState().main.user.email },
+    payload: { userId: email },
   })
     .then(res => res.data)
     .then(meetings => dispatchSetMeetingList(meetings))
+
     .catch(() =>
       dispatchSetSnackbarMessage({
         type: 'error',
-        message: 'مشکلی در سرور پیش آمده',
+        message: 'مشکلی در دریافت لیست جلسات کاربر به وجود آمده است',
       }),
     )
 
-export const reqSubmitVote = ({ meetingId, vote, optionIndex }) =>
+export const reqSubmitVote = ({ meetingId, vote, optionIndex }) => {
+  console.log('meetingId, vote, optionIndex ', meetingId, vote, optionIndex)
   postRequest({
     dest: 'meeting',
     action: 'MEETING_SUBMIT_VOTE',
@@ -131,3 +133,4 @@ export const reqSubmitVote = ({ meetingId, vote, optionIndex }) =>
         message: 'مشکلی در سرور پیش آمده',
       }),
     )
+}

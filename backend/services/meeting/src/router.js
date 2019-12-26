@@ -45,25 +45,28 @@ module.exports = router => {
     const { userId } = JSON.parse(ctx.query.payload)
     const email = userId
     const meetings = await findMeetingsByParticipant(email)
+    console.log('meetings ', meetings[0].options)
+
     ctx.body = R.map(voteCounter, meetings)
   })
 
   router.post('/MEETING_CREATE_MEETING', async ctx => {
     const { meeting } = ctx.request.body.payload
+    console.log('meeting ', meeting)
     const createdMeeting = await createMeeting({
-      ...voteConvertToArray(meeting),
+      ...meeting,
       participants: [...meeting.participants, meeting.creatorId],
     })
 
-    postRequest({
-      dest: 'notification',
-      action: 'NOTIFICATION_SEND_EMAIL',
-      payload: {
-        emails: meeting.participants,
-        subject: 'دعوت به نظر سنجی',
-        body: `http://localhost:3001/meetingpage/${createdMeeting._id}`,
-      },
-    }).catch(console.log)
+    // postRequest({
+    //   dest: 'notification',
+    //   action: 'NOTIFICATION_SEND_EMAIL',
+    //   payload: {
+    //     emails: meeting.participants,
+    //     subject: 'دعوت به نظر سنجی',
+    //     body: `http://localhost:3001/meetingpage/${createdMeeting._id}`,
+    //   },
+    // }).catch(console.log)
 
     ctx.body = voteCounter(createdMeeting)
     ctx.status = 200
@@ -79,15 +82,15 @@ module.exports = router => {
       updateMeeting.participants || [],
     )
 
-    postRequest({
-      dest: 'notification',
-      action: 'NOTIFICATION_SEND_EMAIL',
-      payload: {
-        emails: newParticipants,
-        subject: 'دعوت به نظر سنجی',
-        body: `http://localhost:3001/meetingpage/${rawMeeting._id}`,
-      },
-    }).catch(console, log)
+    // postRequest({
+    //   dest: 'notification',
+    //   action: 'NOTIFICATION_SEND_EMAIL',
+    //   payload: {
+    //     emails: newParticipants,
+    //     subject: 'دعوت به نظر سنجی',
+    //     body: `http://localhost:3001/meetingpage/${rawMeeting._id}`,
+    //   },
+    // }).catch(console, log)
 
     ctx.body = voteCounter(updatedMeeting)
     ctx.status = 200
@@ -107,8 +110,9 @@ module.exports = router => {
       vote,
       email,
     })
+    console.log('updatedMeeting ', updatedMeeting)
 
-    ctx.body = voteCounter(updatedMeeting)
+    // ctx.body = voteCounter(updatedMeeting)
     ctx.status = 200
   })
 }

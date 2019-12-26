@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import TextField from '@material-ui/core/TextField'
 
-const EmailEntrance = ({ onSubmit, handleClose }) => {
+const Login = ({ onSubmit, handleClose }) => {
   const [state, setState] = React.useState({})
   return (
     <>
@@ -18,18 +18,19 @@ const EmailEntrance = ({ onSubmit, handleClose }) => {
         {/* <DialogTitle id="form-dialog-title">Subscribe</DialogTitle> */}
         <DialogContent>
           <DialogContentText>
-            لطفانام کاربری و رمز خود را وارد کنید
+            لطفاایمیل و رمز خود را وارد کنید
           </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
             id="name"
-            label="نام کاربری"
-            type="text"
+            label="ایمیل"
+            type="email"
             fullWidth
             onChange={({ target: { value } }) =>
-              setState({ ...state, username: value })
+              setState({ ...state, email: value })
             }
+            defaultValue="vahedi.r46@gmail.com"
           />
           <TextField
             autoFocus
@@ -41,6 +42,7 @@ const EmailEntrance = ({ onSubmit, handleClose }) => {
             onChange={({ target: { value } }) =>
               setState({ ...state, password: value })
             }
+            defaultValue="javad@jalas"
           />
         </DialogContent>
         <DialogActions>
@@ -56,4 +58,4 @@ const EmailEntrance = ({ onSubmit, handleClose }) => {
   )
 }
 
-export default EmailEntrance
+export default Login

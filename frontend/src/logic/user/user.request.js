@@ -1,22 +1,28 @@
 import { reqGetUserMeetings } from '../meetingList/meetingList.request'
 import { dispatchSetUserData } from './user.actions'
-import { postRequest } from '../../setup/request'
+import { postRequest, getRequest } from '../../setup/request'
 import { dispatchSetSnackbarMessage } from '../../App/components/snackbar/snackbar.actions'
+import { navigate } from '@reach/router'
 
-export const reqLogin = (username, password) => {
-  postRequest({
+export const reqLogin = ({
+  email = 'vahedi.r46@gmail.com',
+  password = 'javad@jalas',
+}) => {
+  getRequest({
     dest: 'user',
     action: 'USER_LOGIN',
     payload: {
-      username,
+      email,
       password,
     },
   })
     // .then(res => res.data)
-    .then(({ username, email }) => {
-      console.log('username, email from server ', username, email)
-      //   dispatchSetUserData({ username, email })
-      //   reqGetUserMeetings().then(() => window.history.back())
+    .then(() => {
+      dispatchSetUserData({ email })
+      reqGetUserMeetings(email).then(() => {
+        // TODO: // window.history.back()
+        navigate('/all')
+      })
     })
     .then(() =>
       dispatchSetSnackbarMessage({

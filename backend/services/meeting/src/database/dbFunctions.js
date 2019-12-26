@@ -20,11 +20,18 @@ exports.findMeetingsByParticipant = email =>
 
 exports.getAllMeetings = () => Meeting.find()
 
-exports.submitVote = ({ meetingId, optionIndex, vote, email }) =>
+exports.submitVote = ({ meetingId, optionIndex, vote, email }) => {
+  console.log(
+    'meetingId, vote, optionIndex email ',
+    meetingId,
+    vote,
+    optionIndex,
+    email,
+  )
   Meeting.findOneAndUpdate(
     { _id: meetingId },
     {
-      $addToSet: {
+      $push: {
         [`options.${optionIndex}.${vote ? 'agree' : 'disagree'}`]: email,
       },
       $pull: {
@@ -33,3 +40,4 @@ exports.submitVote = ({ meetingId, optionIndex, vote, email }) =>
     },
     { new: true },
   ).lean()
+}

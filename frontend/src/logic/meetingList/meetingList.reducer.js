@@ -67,7 +67,7 @@ const reducers = {
       {
         ...state[meetingIndex],
         options: R.prepend(
-          { start, end, agree: 0, disagree: 0 },
+          { start, end, agree: [], disagree: [] },
           state[meetingIndex].options,
         ),
       },
@@ -120,7 +120,7 @@ const reducers = {
       _id: 'newMeeting',
       title: '',
       creatorId: '',
-      status: 'creatingPole',
+      status: 'poll',
       options: [],
       participants: [],
       // selectedOption: null,
