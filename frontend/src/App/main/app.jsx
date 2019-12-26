@@ -32,7 +32,7 @@ const App = () => (
       }}
     >
       <MeetingList path="all" />
-      <EmailEntrance path="emailEntrance" />
+      {/* <EmailEntrance path="emailEntrance" /> */}
       <MeetingPage path="meetingpage/:meetingId" />
       <CreateMeeting path="createMeeting" />
       <Redirect default to="/all" />

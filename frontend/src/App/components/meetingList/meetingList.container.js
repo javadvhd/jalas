@@ -5,9 +5,10 @@ import { navigate } from '@reach/router'
 // components
 import MeetingList from './meetingList'
 import { dispatchCreateMeeting } from '../../../logic/meetingList/meetingList.actions'
+import { filteredList } from './meetingList.helper'
 
 const mapStateToProps = state => ({
-  meetingList: state.main.meetingList,
+  meetingList: filteredList(state.main.meetingList),
 })
 
 const mapDispatchToProps = () => ({

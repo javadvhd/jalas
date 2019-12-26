@@ -9,6 +9,15 @@ const MeetingList = ({ meetingList, clickListBox, createNewMeeting }) => (
         <Button variant="contained" color="primary" onClick={createNewMeeting}>
           ایجاد جلسه جدید
         </Button>
+        <Button variant="contained" color="primary" onClick={createNewMeeting}>
+          همه جلسات
+        </Button>
+        <Button variant="contained" color="primary" onClick={createNewMeeting}>
+          جلسات من
+        </Button>
+        <Button variant="contained" color="primary" onClick={createNewMeeting}>
+          نظرسنجی های من
+        </Button>
       </div>
       {meetingList.map((meeting, index) => (
         <ListBox key={index} meeting={meeting} onClick={clickListBox} />

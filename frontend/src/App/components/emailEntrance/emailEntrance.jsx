@@ -18,7 +18,7 @@ const EmailEntrance = ({ onSubmit, handleClose }) => {
         {/* <DialogTitle id="form-dialog-title">Subscribe</DialogTitle> */}
         <DialogContent>
           <DialogContentText>
-            لطفانام کاربری و ایمیل خود را وارد کنید
+            لطفانام کاربری و رمز خود را وارد کنید
           </DialogContentText>
           <TextField
             autoFocus
@@ -35,11 +35,11 @@ const EmailEntrance = ({ onSubmit, handleClose }) => {
             autoFocus
             margin="dense"
             id="name"
-            label="ایمیل"
-            type="email"
+            label="رمز ورود"
+            type="text"
             fullWidth
             onChange={({ target: { value } }) =>
-              setState({ ...state, email: value })
+              setState({ ...state, password: value })
             }
           />
         </DialogContent>
