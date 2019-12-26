@@ -6,21 +6,29 @@ const { requestUrl } = require('./helper')
 module.exports = router => {
   router.post('/', async ctx => {
     const { dest, action, payload } = ctx.request.body
-    // TODO: check
-    // console.log(requestUrl(dest, action), { payload })
-    const { data } = await post(requestUrl(dest, action), { payload })
-    ctx.body = data
+
+    try {
+      const { data } = await post(requestUrl(dest, action), { payload })
+      ctx.body = data
+    } catch (e) {
+      const { status, data, statusText } = e.response
+      console.log('gateWay', { status, data, statusText })
+      ctx.status = status
+    }
   })
 
   router.get('/', async ctx => {
     const { dest, action, payload } = ctx.query
-    // TODO: check
-    // console.log(requestUrl(dest, action), {
-    //   params: { payload: JSON.parse(payload) },
-    // })
-    const { data } = await get(requestUrl(dest, action), {
-      params: { payload },
-    })
-    ctx.body = data
+
+    try {
+      const { data } = await get(requestUrl(dest, action), {
+        params: { payload },
+      })
+      ctx.body = data
+    } catch (e) {
+      const { status, data, statusText } = e.response
+      console.log('gateWay', { status, data, statusText })
+      ctx.status = status
+    }
   })
 }

@@ -24,3 +24,6 @@ const createUser = ({ firstname, lastname, username, email, phone }) =>
 exports.findUserById = id => User.findOne({ _id: id })
 
 exports.findUserByEmail = email => User.findOne({ email })
+
+exports.findUserByEmailPass = (email, password) =>
+  User.findOne({ email, password }).lean()
