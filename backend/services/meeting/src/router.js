@@ -56,19 +56,14 @@ module.exports = router => {
     })
 
     postRequest({
-      dest: 'reservation',
+      dest: 'notification',
       action: 'NOTIFICATION_SEND_EMAIL',
       payload: {
         emails: meeting.participants,
         subject: 'دعوت به نظر سنجی',
         body: `http://localhost:3001/meetingpage/${createdMeeting._id}`,
       },
-    }).catch(() =>
-      dispatchSetSnackbarMessage({
-        type: 'error',
-        message: 'مشکلی در سرور پیش آمده',
-      }),
-    )
+    }).catch(console.log)
 
     ctx.body = voteCounter(createdMeeting)
     ctx.status = 200
@@ -85,19 +80,14 @@ module.exports = router => {
     )
 
     postRequest({
-      dest: 'reservation',
+      dest: 'notification',
       action: 'NOTIFICATION_SEND_EMAIL',
       payload: {
         emails: newParticipants,
         subject: 'دعوت به نظر سنجی',
         body: `http://localhost:3001/meetingpage/${rawMeeting._id}`,
       },
-    }).catch(() =>
-      dispatchSetSnackbarMessage({
-        type: 'error',
-        message: 'مشکلی در سرور پیش آمده',
-      }),
-    )
+    }).catch(console, log)
 
     ctx.body = voteCounter(updatedMeeting)
     ctx.status = 200

@@ -26,8 +26,8 @@
     },
     {
       "name": "notification",
-      "script": "./app.js",
-      "cwd": "../services/notification/src",
+      "script": "./src/app.js",
+      "cwd": "../services/notification",
       "watch": true,
       "exec_mode": "fork",
       "instances": 1
