@@ -34,6 +34,7 @@ export const reqCreateMeeting = meeting =>
     dest: 'meeting',
     action: 'MEETING_CREATE_MEETING',
     payload: {
+      // TODO: replace email with _id
       meeting: { ...meeting, creatorId: getState().main.user.email },
     },
   })
@@ -52,44 +53,6 @@ export const reqCreateMeeting = meeting =>
         message: 'مشکلی در سرور پیش آمده',
       }),
     )
-
-export const reqUpdateMeeting = meeting =>
-  postRequest({
-    dest: 'meeting',
-    action: 'MEETING_UPDATE_MEETING',
-    payload: {
-      meeting,
-    },
-  })
-    .then(res => res.data)
-    .then(meeting => dispatchUpdateMeeting({ meeting }))
-    .then(() =>
-      dispatchSetSnackbarMessage({
-        type: 'success',
-        message: 'جلسه با موفقیت به روز رسانی شده است',
-      }),
-    )
-    .catch(() =>
-      dispatchSetSnackbarMessage({
-        type: 'error',
-        message: 'مشکلی در سرور پیش آمده',
-      }),
-    )
-
-// export const reqGetAllMeetings = () =>
-//   getRequest({
-//     dest: 'meeting',
-//     action: 'MEETING_GET_ALL_MEETINGS',
-//     payload: {},
-//   })
-//     .then(res => res.data)
-//     .then(meeting => dispatchSetMeetingList(meeting))
-//     .catch(() =>
-//       dispatchSetSnackbarMessage({
-//         type: 'error',
-//         message: 'مشکلی در سرور پیش آمده',
-//       }),
-//     )
 
 export const reqGetUserMeetings = email =>
   getRequest({

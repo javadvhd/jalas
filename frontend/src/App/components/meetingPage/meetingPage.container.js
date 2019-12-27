@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { navigate } from '@reach/router'
 // components
 import MeetingPage from './meetingPage'
-import { reqUpdateMeeting } from '../../../logic/meetingList/meetingList.request'
 import { dispatchSetMeetingTitle } from '../../../logic/meetingList/meetingList.actions'
 
 const mapStateToProps = (state, { meetingId }) => {
@@ -16,7 +15,8 @@ const mapStateToProps = (state, { meetingId }) => {
 }
 
 const mapDispatchToProps = () => ({
-  onSave: reqUpdateMeeting,
+  // on save will never use in this component
+  onSave: Function.prototype,
   onTitleChange: dispatchSetMeetingTitle,
   goToList: () => navigate('/all'),
 })
