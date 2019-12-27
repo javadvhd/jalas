@@ -6,6 +6,7 @@ import moment from 'moment'
 import Typography from '@material-ui/core/Typography'
 import ParticipantList from './components/participantList/participantList.container'
 import OptionList from './components/optionList/optionList.container'
+import CommentList from './components/commentList/commentList.container.js'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import TitleBox from './components/titleBox/titleBox'
@@ -29,9 +30,29 @@ class MeetingPage extends Component {
     const { meeting, onSave, onTitleChange, isAdmin, goToList } = this.props
     return (
       <div dir="rtl" style={{ margin: ' 10px 20px auto 20px' }}>
-        <Button variant="contained" color="primary" onClick={goToList}>
-          مشاهده لیست جلسات
-        </Button>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            marginTop: '40px',
+          }}
+        >
+          <Button variant="contained" color="primary" onClick={goToList}>
+            مشاهده لیست جلسات
+          </Button>
+          {meeting.status === 'poll' && (
+            <div>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => onSave({ meeting })}
+              >
+                ساختن نظر سنجی
+              </Button>
+            </div>
+          )}
+        </div>
+
         {meeting.status === 'meeting' ? (
           <Paper elevation={2}>
             <div style={{ display: 'flex' }}>
@@ -89,27 +110,9 @@ class MeetingPage extends Component {
               mode={meeting.status}
             />
 
-            {meeting.status === 'creatingPoll' && (
-              <ParticipantList meeting={meeting} />
-            )}
+            {meeting.status === 'poll' && <ParticipantList meeting={meeting} />}
 
-            {meeting.status === 'creatingPoll' && (
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  marginTop: '40px',
-                }}
-              >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => onSave({ meeting })}
-                >
-                  ساختن نظر سنجی
-                </Button>
-              </div>
-            )}
+            <CommentList />
           </Fragment>
         )}
       </div>

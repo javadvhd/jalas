@@ -78,13 +78,12 @@ module.exports = router => {
       vote,
       email,
     })
-
-    submitVoteEmail({
-      adminEmail: updateMeeting.creatorId,
-      voterEmail: email,
-      optionIndex,
-      vote,
-    })
+    // submitVoteEmail({
+    //   adminEmail: updateMeeting.creatorId,
+    //   voterEmail: email,
+    //   optionIndex,
+    //   vote,
+    // })
 
     ctx.body = voteCounter(updatedMeeting)
     ctx.status = 200

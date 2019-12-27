@@ -8,7 +8,6 @@ const {
 module.exports = router => {
   router.post('/COMMENT_CREATE', async ctx => {
     const { meetingId, body, userId } = ctx.request.body.payload
-
     ctx.body = await createComment({ meetingId, body, userId })
   })
 

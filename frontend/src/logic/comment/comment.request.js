@@ -1,15 +1,16 @@
 // modules
 import * as R from 'ramda'
 // setup
-import { getRequest } from '../../setup/request'
+import { getRequest, postRequest } from '../../setup/request'
 import { dispatchSetSnackbarMessage } from '../../App/components/snackbar/snackbar.actions'
 // req
 import { reqGetUsersById } from '../users/users.request'
 import { getState } from '../../setup/redux'
+import { dispatchSetMeetingPageData } from '../../App/components/meetingPage/meetingPage.actions'
 
 export const reqGetCommentsByMeetingId = meetingId =>
   getRequest({
-    dest: 'meeting',
+    dest: 'comment',
     action: 'COMMENT_GET_BY_MEETING_ID',
     payload: { meetingId },
   })
@@ -18,6 +19,8 @@ export const reqGetCommentsByMeetingId = meetingId =>
       reqGetUsersById(userIds)
       return data
     })
+
+    .then(comments => dispatchSetMeetingPageData('comments', comments))
     .catch(() =>
       dispatchSetSnackbarMessage({
         type: 'error',
@@ -25,11 +28,11 @@ export const reqGetCommentsByMeetingId = meetingId =>
       }),
     )
 
-export const reqCreateComment = (meetingId, body) =>
-  getRequest({
-    dest: 'meeting',
+export const reqCreateComment = ({ meetingId, comment }) =>
+  postRequest({
+    dest: 'comment',
     action: 'COMMENT_CREATE',
-    payload: { meetingId, body, userId: getState().main.user._id },
+    payload: { meetingId, body: comment, userId: getState().main.user._id },
   })
     .then(() => reqGetCommentsByMeetingId(meetingId))
     .catch(() =>
