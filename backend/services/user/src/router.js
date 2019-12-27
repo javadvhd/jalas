@@ -1,5 +1,9 @@
 // db
-const { findUserById, findUserByEmailPass } = require('./database/dbFunctions')
+const {
+  findUserById,
+  findUserByEmailPass,
+  findUsersById,
+} = require('./database/dbFunctions')
 const cryptography = require('cryptography')
 
 module.exports = router => {
@@ -7,6 +11,13 @@ module.exports = router => {
     const { userId } = JSON.parse(ctx.query.payload)
     const user = await findUserById(userId)
     ctx.body = user
+    ctx.status = 200
+  })
+
+  router.get('/USER_GET_USERS_BY_ID', async ctx => {
+    const { userIds } = JSON.parse(ctx.query.payload)
+    const users = await findUsersById(userIds)
+    ctx.body = users
     ctx.status = 200
   })
 

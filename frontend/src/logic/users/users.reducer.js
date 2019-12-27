@@ -1,21 +1,9 @@
 import * as R from 'ramda'
 
-const initialState = {
-  // meetingId: [email, email, ...],
-}
+const initialState = []
 
 const reducers = {
-  ADD_USERS: (state, { email, meetingId }) => ({
-    ...state,
-    [meetingId]: R.includes(email, state[meetingId])
-      ? state[meetingId]
-      : R.append(email, state[meetingId]),
-  }),
-
-  REMOVE_USERS: (state, { email, meetingId }) => ({
-    ...state,
-    [meetingId]: R.without([email], state[meetingId]),
-  }),
+  ADD_USERS: (state, users) => R.concat(R.difference(users, state), state),
 }
 
 export default (state = initialState, { type, payload }) =>

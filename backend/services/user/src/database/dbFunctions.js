@@ -37,3 +37,5 @@ exports.findUserByEmail = email => User.findOne({ email })
 
 exports.findUserByEmailPass = (email, password) =>
   User.findOne({ email, password }).lean()
+
+exports.findUsersById = userIds => User.find({ _id: { $in: userIds } })
