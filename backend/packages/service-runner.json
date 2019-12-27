@@ -47,6 +47,14 @@
       "watch": true,
       "exec_mode": "fork",
       "instances": 1
+    },
+    {
+      "name": "comment",
+      "script": "./app.js",
+      "cwd": "../services/comment/src",
+      "watch": true,
+      "exec_mode": "fork",
+      "instances": 1
     }
   ]
 }
