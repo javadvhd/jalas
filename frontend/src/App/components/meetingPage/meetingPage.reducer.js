@@ -10,6 +10,7 @@ const initialState = {
   ],
   startTime: '',
   loading: false,
+  comments: [],
 }
 
 export const meetingPageLoadingView = () =>

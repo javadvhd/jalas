@@ -10,7 +10,7 @@ import { dispatchSetSnackbarMessage } from '../../App/components/snackbar/snackb
 export const reqGetUsersById = ids => {
   const userIds = R.difference(ids, R.map(R.prop('_id'), getState().main.users))
   return getRequest({
-    dest: 'meeting',
+    dest: 'user',
     action: 'USER_GET_USERS_BY_ID',
     payload: { userIds },
   })

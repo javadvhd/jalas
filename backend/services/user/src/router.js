@@ -21,6 +21,7 @@ module.exports = router => {
   router.get('/USER_GET_USERS_BY_ID', async ctx => {
     const { userIds } = JSON.parse(ctx.query.payload)
     const users = await findUsersById(userIds)
+    console.log('users ', users)
     ctx.body = R.map(dissocPassword, users)
     ctx.status = 200
   })
