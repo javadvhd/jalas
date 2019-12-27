@@ -9,7 +9,6 @@ const userSchema = new Schema({
   lastname: String,
   username: String,
   email: String,
-  meetings: Array,
 })
 
 exports.User = model('User', userSchema)

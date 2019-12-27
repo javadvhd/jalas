@@ -3,8 +3,8 @@ import * as R from 'ramda'
 // setup
 import { getRequest } from '../../setup/request'
 import { getState } from '../../setup/redux'
-import {} from './users.actions'
-// import { navigate } from '@reach/router'
+import { dispatchAddUsers } from './users.actions'
+
 import { dispatchSetSnackbarMessage } from '../../App/components/snackbar/snackbar.actions'
 
 export const reqGetUsersById = ids => {
