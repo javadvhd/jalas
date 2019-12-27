@@ -9,6 +9,7 @@ const {
   findMeetingsByParticipant,
   submitVote,
   findMeetingById,
+  addOption,
 } = require('./database/dbFunctions')
 // helper
 const { voteConvertToArray, voteCounter, postRequest } = require('./helper')
@@ -27,16 +28,18 @@ module.exports = router => {
       ctx.status = 400
       return
     }
-    // postRequest({
-    //   dest: 'reservation',
-    //   action: 'NOTIFICATION_SEND_EMAIL',
-    //   payload: {
-    //     emails: [userId],
-    //     subject: 'تشکیل جلسه',
-    //     body: `جلسه با موفقیت ساخته شد
-    //     http://localhost:3001/meetingpage/${createdMeeting._id}`,
-    //   },
-    // })
+
+    postRequest({
+      dest: 'reservation',
+      action: 'NOTIFICATION_SEND_EMAIL',
+      payload: {
+        emails: [userId],
+        subject: 'تشکیل جلسه',
+        body: `جلسه با موفقیت ساخته شد
+        http://localhost:3000/meetingpage/${createdMeeting._id}`,
+      },
+    }).catch(console.log)
+
     ctx.body = meeting
     ctx.status = 200
   })
@@ -45,7 +48,6 @@ module.exports = router => {
     const { userId } = JSON.parse(ctx.query.payload)
     const email = userId
     const meetings = await findMeetingsByParticipant(email)
-    console.log('meetings ', meetings[0].options)
 
     ctx.body = R.map(voteCounter, meetings)
   })
@@ -58,15 +60,15 @@ module.exports = router => {
       participants: [...meeting.participants, meeting.creatorId],
     })
 
-    // postRequest({
-    //   dest: 'notification',
-    //   action: 'NOTIFICATION_SEND_EMAIL',
-    //   payload: {
-    //     emails: meeting.participants,
-    //     subject: 'دعوت به نظر سنجی',
-    //     body: `http://localhost:3001/meetingpage/${createdMeeting._id}`,
-    //   },
-    // }).catch(console.log)
+    postRequest({
+      dest: 'notification',
+      action: 'NOTIFICATION_SEND_EMAIL',
+      payload: {
+        emails: meeting.participants,
+        subject: 'دعوت به نظر سنجی',
+        body: `http://localhost:3000/meetingpage/${createdMeeting._id}`,
+      },
+    }).catch(console.log)
 
     ctx.body = voteCounter(createdMeeting)
     ctx.status = 200
@@ -82,15 +84,15 @@ module.exports = router => {
       updateMeeting.participants || [],
     )
 
-    // postRequest({
-    //   dest: 'notification',
-    //   action: 'NOTIFICATION_SEND_EMAIL',
-    //   payload: {
-    //     emails: newParticipants,
-    //     subject: 'دعوت به نظر سنجی',
-    //     body: `http://localhost:3001/meetingpage/${rawMeeting._id}`,
-    //   },
-    // }).catch(console, log)
+    postRequest({
+      dest: 'notification',
+      action: 'NOTIFICATION_SEND_EMAIL',
+      payload: {
+        emails: newParticipants,
+        subject: 'دعوت به نظر سنجی',
+        body: `http://localhost:3000/meetingpage/${rawMeeting._id}`,
+      },
+    }).catch(console, log)
 
     ctx.body = voteCounter(updatedMeeting)
     ctx.status = 200
@@ -110,9 +112,21 @@ module.exports = router => {
       vote,
       email,
     })
-    console.log('updatedMeeting ', updatedMeeting)
 
-    // ctx.body = voteCounter(updatedMeeting)
+    ctx.body = voteCounter(updatedMeeting)
+    ctx.status = 200
+  })
+
+  router.post('/MEETING_ADD_OPTION', async ctx => {
+    const { meetingId, start, end } = ctx.request.body.payload
+
+    const updatedMeeting = await addOption({
+      meetingId,
+      start,
+      end,
+    })
+
+    ctx.body = voteCounter(updatedMeeting)
     ctx.status = 200
   })
 }

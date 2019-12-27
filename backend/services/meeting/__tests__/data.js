@@ -1,7 +1,7 @@
 exports.meetings = [
   {
     _id: '5df517cfc1e9061f252cb75f',
-    status: 'pole',
+    status: 'poll',
     options: [
       {
         start: '2019-12-13T10:30:00.000Z',

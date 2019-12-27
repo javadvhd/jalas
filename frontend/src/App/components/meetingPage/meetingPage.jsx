@@ -89,9 +89,11 @@ class MeetingPage extends Component {
               mode={meeting.status}
             />
 
-            {meeting.status === 'poll' && <ParticipantList meeting={meeting} />}
+            {meeting.status === 'creatingPoll' && (
+              <ParticipantList meeting={meeting} />
+            )}
 
-            {meeting.status === 'poll' && (
+            {meeting.status === 'creatingPoll' && (
               <div
                 style={{
                   display: 'flex',
@@ -104,7 +106,7 @@ class MeetingPage extends Component {
                   color="primary"
                   onClick={() => onSave({ meeting })}
                 >
-                  ذخیره ی اطلاعات جلسه
+                  ساختن نظر سنجی
                 </Button>
               </div>
             )}

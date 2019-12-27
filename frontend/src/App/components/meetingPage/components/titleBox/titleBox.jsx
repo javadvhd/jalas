@@ -6,9 +6,9 @@ import TextField from '@material-ui/core/TextField'
 
 const TitleBox = ({ title, meetingId, onTitleChange, mode }) => (
   <div dir="rtl" style={{ margin: ' 10px 20px auto 20px' }}>
-    {mode === 'creatingPole' ? (
+    {mode === 'creatingPoll' ? (
       <TextField
-        label="عنوان جلسه"
+        label="عنوان نظرسنجی"
         value={title}
         variant="outlined"
         onChange={({ target: { value } }) =>

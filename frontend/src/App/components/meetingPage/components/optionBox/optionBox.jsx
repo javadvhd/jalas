@@ -56,7 +56,7 @@ const OptionBox = ({
             {isOpen ? 'بستن' : 'انتخاب'}
           </Button>
         )}
-        {isAdmin && mode !== 'meeting' && (
+        {mode === 'creatingPoll' && (
           <Button
             variant="contained"
             onClick={() => onDelete({ optionIndex, meetingId })}
@@ -65,21 +65,25 @@ const OptionBox = ({
           </Button>
         )}
       </div>
-      <div>
-        <Button
-          variant="contained"
-          onClick={() => onSubmitVote({ meetingId, vote: true, optionIndex })}
-        >
-          <img src="/agree.svg" alt="agree" />
-        </Button>
+      {mode === 'poll' ? (
+        <div>
+          <Button
+            variant="contained"
+            onClick={() => onSubmitVote({ meetingId, vote: true, optionIndex })}
+          >
+            <img src="/agree.svg" alt="agree" />
+          </Button>
 
-        <Button
-          variant="contained"
-          onClick={() => onSubmitVote({ meetingId, vote: false, optionIndex })}
-        >
-          <img src="/disagree.svg" alt="disagree" />
-        </Button>
-      </div>
+          <Button
+            variant="contained"
+            onClick={() =>
+              onSubmitVote({ meetingId, vote: false, optionIndex })
+            }
+          >
+            <img src="/disagree.svg" alt="disagree" />
+          </Button>
+        </div>
+      ) : null}
     </div>
     {isOpen && isAdmin && (
       <div>

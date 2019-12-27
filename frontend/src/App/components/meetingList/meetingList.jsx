@@ -14,14 +14,14 @@ const MeetingList = ({
     <div style={{ top: '120px' }}>
       <div style={{ direction: 'rtl', margin: '10px' }}>
         <Button variant="contained" color="primary" onClick={createNewMeeting}>
-          ایجاد جلسه جدید
+          ایجاد نظرسنجی جدید
         </Button>
         <Button
           variant="contained"
           color="primary"
           onClick={() => changeView('all')}
         >
-          همه جلسات
+          همه جلسات و نظرسنجی ها
         </Button>
         <Button
           variant="contained"

@@ -107,8 +107,7 @@ export const reqGetUserMeetings = email =>
       }),
     )
 
-export const reqSubmitVote = ({ meetingId, vote, optionIndex }) => {
-  console.log('meetingId, vote, optionIndex ', meetingId, vote, optionIndex)
+export const reqSubmitVote = ({ meetingId, vote, optionIndex }) =>
   postRequest({
     dest: 'meeting',
     action: 'MEETING_SUBMIT_VOTE',
@@ -119,7 +118,6 @@ export const reqSubmitVote = ({ meetingId, vote, optionIndex }) => {
       email: getState().main.user.email,
     },
   })
-    // .then(res => res.data)
     .then(({ data }) => dispatchUpdateMeeting({ meeting: data }))
     .then(() =>
       dispatchSetSnackbarMessage({
@@ -133,4 +131,27 @@ export const reqSubmitVote = ({ meetingId, vote, optionIndex }) => {
         message: 'مشکلی در سرور پیش آمده',
       }),
     )
-}
+
+export const reqAddOption = ({ meetingId, start, end }) =>
+  postRequest({
+    dest: 'meeting',
+    action: 'MEETING_ADD_OPTION',
+    payload: {
+      meetingId,
+      start,
+      end,
+    },
+  })
+    .then(({ data }) => dispatchUpdateMeeting({ meeting: data }))
+    .then(() =>
+      dispatchSetSnackbarMessage({
+        type: 'success',
+        message: 'گذینه با موفقیت اضافه شده است',
+      }),
+    )
+    .catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در سرور پیش آمده',
+      }),
+    )
