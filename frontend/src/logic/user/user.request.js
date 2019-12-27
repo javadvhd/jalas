@@ -16,9 +16,8 @@ export const reqLogin = ({
       password,
     },
   })
-    // .then(res => res.data)
-    .then(() => {
-      dispatchSetUserData({ email })
+    .then(({ data }) => {
+      dispatchSetUserData(data)
       reqGetUserMeetings(email).then(() => {
         // TODO: // window.history.back()
         navigate('/all')
