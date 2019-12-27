@@ -30,10 +30,10 @@ const OptionList = ({
       <Divider />
       <div style={{ margin: '20px  auto 20px auto' }}>
         {/* {console.log('option ', option)} */}
-        {mode === 'creatingPole' && (
+        {isAdmin && (
           <>
             <Typography variant="p" title="wow">
-              اطلاعات ایجاد بازه زمانی جدید
+              اایجاد بازه زمانی جدید
             </Typography>
             <div
               style={{
@@ -47,7 +47,7 @@ const OptionList = ({
                 id="date"
                 label="تاریخ"
                 type="date"
-                defaultValue="2019-12-12"
+                defaultValue="2019-12-27"
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -86,7 +86,7 @@ const OptionList = ({
                   })
                 }
               >
-                <img src="add.svg" alt="add" />
+                <img src="/add.svg" alt="add" />
               </Button>
             </div>
           </>

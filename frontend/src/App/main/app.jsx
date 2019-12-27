@@ -8,7 +8,7 @@ import MeetingList from '../components/meetingList/meetingList.container'
 import MeetingPage from '../components/meetingPage/meetingPage.container'
 import CreateMeeting from '../components/createMeeting/createMeeting.container'
 import AppSnackbar from '../components/snackbar/snackbar.container'
-import EmailEntrance from '../components/emailEntrance/emailEntrance.container'
+import Login from '../components/login/login.container'
 import Redirect from '../../helpers/redirect'
 // styles
 import './app.css'
@@ -32,7 +32,7 @@ const App = () => (
       }}
     >
       <MeetingList path="all" />
-      <EmailEntrance path="emailEntrance" />
+      <Login path="login" />
       <MeetingPage path="meetingpage/:meetingId" />
       <CreateMeeting path="createMeeting" />
       <Redirect default to="/all" />

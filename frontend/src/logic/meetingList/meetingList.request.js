@@ -91,18 +91,19 @@ export const reqUpdateMeeting = meeting =>
 //       }),
 //     )
 
-export const reqGetUserMeetings = () =>
+export const reqGetUserMeetings = email =>
   getRequest({
     dest: 'meeting',
     action: 'MEETING_GET_USER_MEETINGS',
-    payload: { userId: getState().main.user.email },
+    payload: { userId: email },
   })
     .then(res => res.data)
     .then(meetings => dispatchSetMeetingList(meetings))
+
     .catch(() =>
       dispatchSetSnackbarMessage({
         type: 'error',
-        message: 'مشکلی در سرور پیش آمده',
+        message: 'مشکلی در دریافت لیست جلسات کاربر به وجود آمده است',
       }),
     )
 
@@ -117,12 +118,35 @@ export const reqSubmitVote = ({ meetingId, vote, optionIndex }) =>
       email: getState().main.user.email,
     },
   })
-    // .then(res => res.data)
     .then(({ data }) => dispatchUpdateMeeting({ meeting: data }))
     .then(() =>
       dispatchSetSnackbarMessage({
         type: 'success',
         message: 'نظر شما با موفقیت ثبت شده است',
+      }),
+    )
+    .catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در سرور پیش آمده',
+      }),
+    )
+
+export const reqAddOption = ({ meetingId, start, end }) =>
+  postRequest({
+    dest: 'meeting',
+    action: 'MEETING_ADD_OPTION',
+    payload: {
+      meetingId,
+      start,
+      end,
+    },
+  })
+    .then(({ data }) => dispatchUpdateMeeting({ meeting: data }))
+    .then(() =>
+      dispatchSetSnackbarMessage({
+        type: 'success',
+        message: 'گذینه با موفقیت اضافه شده است',
       }),
     )
     .catch(() =>

@@ -32,7 +32,7 @@ class MeetingPage extends Component {
         <Button variant="contained" color="primary" onClick={goToList}>
           مشاهده لیست جلسات
         </Button>
-        {meeting.status === 'submitted' ? (
+        {meeting.status === 'meeting' ? (
           <Paper elevation={2}>
             <div style={{ display: 'flex' }}>
               <div
@@ -89,11 +89,11 @@ class MeetingPage extends Component {
               mode={meeting.status}
             />
 
-            {meeting.status === 'creatingPole' && (
+            {meeting.status === 'creatingPoll' && (
               <ParticipantList meeting={meeting} />
             )}
 
-            {meeting.status === 'creatingPole' && (
+            {meeting.status === 'creatingPoll' && (
               <div
                 style={{
                   display: 'flex',
@@ -106,7 +106,7 @@ class MeetingPage extends Component {
                   color="primary"
                   onClick={() => onSave({ meeting })}
                 >
-                  ذخیره ی اطلاعات جلسه
+                  ساختن نظر سنجی
                 </Button>
               </div>
             )}

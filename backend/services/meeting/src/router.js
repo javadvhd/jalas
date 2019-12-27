@@ -9,6 +9,7 @@ const {
   findMeetingsByParticipant,
   submitVote,
   findMeetingById,
+  addOption,
 } = require('./database/dbFunctions')
 // helper
 const { voteConvertToArray, voteCounter, postRequest } = require('./helper')
@@ -27,16 +28,18 @@ module.exports = router => {
       ctx.status = 400
       return
     }
-    // postRequest({
-    //   dest: 'reservation',
-    //   action: 'NOTIFICATION_SEND_EMAIL',
-    //   payload: {
-    //     emails: [userId],
-    //     subject: 'تشکیل جلسه',
-    //     body: `جلسه با موفقیت ساخته شد
-    //     http://localhost:3001/meetingpage/${createdMeeting._id}`,
-    //   },
-    // })
+
+    postRequest({
+      dest: 'reservation',
+      action: 'NOTIFICATION_SEND_EMAIL',
+      payload: {
+        emails: [userId],
+        subject: 'تشکیل جلسه',
+        body: `جلسه با موفقیت ساخته شد
+        http://localhost:3000/meetingpage/${createdMeeting._id}`,
+      },
+    }).catch(console.log)
+
     ctx.body = meeting
     ctx.status = 200
   })
@@ -45,13 +48,15 @@ module.exports = router => {
     const { userId } = JSON.parse(ctx.query.payload)
     const email = userId
     const meetings = await findMeetingsByParticipant(email)
+
     ctx.body = R.map(voteCounter, meetings)
   })
 
   router.post('/MEETING_CREATE_MEETING', async ctx => {
     const { meeting } = ctx.request.body.payload
+    console.log('meeting ', meeting)
     const createdMeeting = await createMeeting({
-      ...voteConvertToArray(meeting),
+      ...meeting,
       participants: [...meeting.participants, meeting.creatorId],
     })
 
@@ -61,7 +66,7 @@ module.exports = router => {
       payload: {
         emails: meeting.participants,
         subject: 'دعوت به نظر سنجی',
-        body: `http://localhost:3001/meetingpage/${createdMeeting._id}`,
+        body: `http://localhost:3000/meetingpage/${createdMeeting._id}`,
       },
     }).catch(console.log)
 
@@ -85,7 +90,7 @@ module.exports = router => {
       payload: {
         emails: newParticipants,
         subject: 'دعوت به نظر سنجی',
-        body: `http://localhost:3001/meetingpage/${rawMeeting._id}`,
+        body: `http://localhost:3000/meetingpage/${rawMeeting._id}`,
       },
     }).catch(console, log)
 
@@ -106,6 +111,19 @@ module.exports = router => {
       optionIndex,
       vote,
       email,
+    })
+
+    ctx.body = voteCounter(updatedMeeting)
+    ctx.status = 200
+  })
+
+  router.post('/MEETING_ADD_OPTION', async ctx => {
+    const { meetingId, start, end } = ctx.request.body.payload
+
+    const updatedMeeting = await addOption({
+      meetingId,
+      start,
+      end,
     })
 
     ctx.body = voteCounter(updatedMeeting)

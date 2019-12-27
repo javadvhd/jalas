@@ -18,7 +18,7 @@ module.exports = router => {
   })
 
   router.get('/USER_LOGIN', async ctx => {
-    const { email, password } = ctx.query.payload
+    const { email, password } = JSON.parse(ctx.query.payload)
 
     const user = await findUserByEmailPass(
       email,

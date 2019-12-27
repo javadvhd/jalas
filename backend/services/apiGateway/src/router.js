@@ -12,7 +12,7 @@ module.exports = router => {
       ctx.body = data
     } catch (e) {
       const { status, data, statusText } = e.response
-      console.log('gateWay', { status, data, statusText })
+      console.log('gateWay', { action, status, data, statusText })
       ctx.status = status
     }
   })
@@ -27,7 +27,7 @@ module.exports = router => {
       ctx.body = data
     } catch (e) {
       const { status, data, statusText } = e.response
-      console.log('gateWay', { status, data, statusText })
+      console.log('gateWay', { action, status, data, statusText })
       ctx.status = status
     }
   })

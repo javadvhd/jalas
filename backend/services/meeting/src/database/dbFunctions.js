@@ -33,3 +33,19 @@ exports.submitVote = ({ meetingId, optionIndex, vote, email }) =>
     },
     { new: true },
   ).lean()
+
+exports.addOption = ({ meetingId, start, end }) =>
+  Meeting.findOneAndUpdate(
+    { _id: meetingId },
+    {
+      $push: {
+        options: {
+          start,
+          end,
+          agree: [],
+          disagree: [],
+        },
+      },
+    },
+    { new: true },
+  ).lean()

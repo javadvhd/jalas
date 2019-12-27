@@ -21,7 +21,8 @@ const mapDispatchToProps = () => ({
     navigate('/all').then(() => dispatchRemoveMeeting('newMeeting'))
   },
   onTitleChange: dispatchSetMeetingTitle,
-  goToList: () => navigate('/all'),
+  goToList: () =>
+    navigate('/all').then(() => dispatchRemoveMeeting('newMeeting')),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MeetingPage)

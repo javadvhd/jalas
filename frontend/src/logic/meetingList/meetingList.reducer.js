@@ -55,19 +55,14 @@ const reducers = {
     )
   },
 
-  ADD_NEW_OPTION: (
-    state,
-    { option: { start: startTime, end: endTime, date }, meetingId },
-  ) => {
+  ADD_NEW_OPTION: (state, { start, end, meetingId }) => {
     const meetingIndex = R.findIndex(R.propEq('_id', meetingId), state)
-    const start = new Date(`${date}T${startTime}:00.000Z`)
-    const end = new Date(`${date}T${endTime}:00.000Z`)
     return R.update(
       meetingIndex,
       {
         ...state[meetingIndex],
         options: R.prepend(
-          { start, end, agree: 0, disagree: 0 },
+          { start, end, agree: [], disagree: [] },
           state[meetingIndex].options,
         ),
       },
@@ -120,7 +115,7 @@ const reducers = {
       _id: 'newMeeting',
       title: '',
       creatorId: '',
-      status: 'creatingPole',
+      status: 'creatingPoll',
       options: [],
       participants: [],
       // selectedOption: null,
