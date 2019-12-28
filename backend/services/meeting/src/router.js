@@ -5,7 +5,6 @@ const {
   setRoomAndSelectedOption,
   createMeeting,
   getAllMeetings,
-  updateMeeting,
   findMeetingsByParticipant,
   submitVote,
   addOption,
@@ -78,12 +77,13 @@ module.exports = router => {
       vote,
       email,
     })
-    // submitVoteEmail({
-    //   adminEmail: updateMeeting.creatorId,
-    //   voterEmail: email,
-    //   optionIndex,
-    //   vote,
-    // })
+
+    submitVoteEmail({
+      adminEmail: updatedMeeting.creatorId,
+      voterEmail: email,
+      optionIndex,
+      vote,
+    })
 
     ctx.body = voteCounter(updatedMeeting)
     ctx.status = 200
@@ -96,15 +96,14 @@ module.exports = router => {
       meetingId,
       start,
       end,
-      participants,
     })
 
     addOptionEmail({
       participants: R.without(
-        [updateMeeting.creatorId],
-        updateMeeting.participants,
+        [updatedMeeting.creatorId],
+        updatedMeeting.participants,
       ),
-      meetingId: updateMeeting._id,
+      meetingId: updatedMeeting._id,
     })
 
     ctx.body = voteCounter(updatedMeeting)

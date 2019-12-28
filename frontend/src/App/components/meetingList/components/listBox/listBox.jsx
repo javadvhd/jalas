@@ -34,7 +34,7 @@ const listBox = ({
       <Typography dir="rtl">{status}</Typography>
       <Typography>{title}</Typography>
     </div>
-    {status === 'submitted' && (
+    {status === 'meeting' && (
       <div style={{ direction: 'ltr' }}>
         <Typography dir="ltr">{room}</Typography>
         <Typography dir="ltr">{start}</Typography>

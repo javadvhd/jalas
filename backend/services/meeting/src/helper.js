@@ -3,20 +3,24 @@ const R = require('ramda')
 const { get, post } = require('axios')
 const config = require('../../../packages/servicesPort.json')
 
-requestUrl = (dest, action) =>
+const requestUrl = (dest, action) =>
   `http://${config[dest].host}:${config[dest].port}/${action}`
 
-exports.getRequest = ({ dest, action, payload }) =>
+const getRequest = ({ dest, action, payload }) =>
   get(requestUrl(dest, action), {
     params: {
       payload,
     },
   })
 
-exports.postRequest = ({ dest, action, payload }) =>
+exports.getRequest
+
+const postRequest = ({ dest, action, payload }) =>
   post(requestUrl(dest, action), {
     payload,
   })
+
+exports.postRequest
 
 exports.voteCounter = meeting =>
   R.assoc(

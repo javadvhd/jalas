@@ -40,7 +40,7 @@ class MeetingPage extends Component {
           <Button variant="contained" color="primary" onClick={goToList}>
             مشاهده لیست جلسات
           </Button>
-          {meeting.status === 'poll' && (
+          {meeting.status === 'creatingPoll' && (
             <div>
               <Button
                 variant="contained"
@@ -114,7 +114,7 @@ class MeetingPage extends Component {
               <ParticipantList meeting={meeting} />
             )}
 
-            <CommentList />
+            {meeting.status === 'poll' && <CommentList />}
           </Fragment>
         )}
       </div>

@@ -131,7 +131,7 @@ const reducers = {
   //     {
   //       ...state[0],
   //       room,
-  //       status: 'submitted',
+  //       status: 'meeting',
   //       start,
   //       end,
   //     },
