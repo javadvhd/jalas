@@ -30,6 +30,7 @@
       "cwd": "../services/notification",
       "watch": true,
       "exec_mode": "fork",
+      "node_args": "dotenv/config",
       "instances": 1
     },
     {

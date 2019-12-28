@@ -7,7 +7,7 @@ const cors = require('@koa/cors')
 app.use(cors({}))
 
 // .env file enable
-require('dotenv').config({ path: '../.env' })
+require('dotenv').config()
 
 // bodyParser
 const bodyParser = require('koa-bodyparser')

@@ -50,6 +50,12 @@ exports.voteConvertToArray = meeting =>
     meeting,
   )
 
+const errorLogger = R.compose(
+  console.log,
+  R.pick(['status', 'data', 'statusText']),
+  R.prop('response'),
+)
+
 exports.reserveEmail = ({ adminEmail, meetingId }) =>
   postRequest({
     dest: 'reservation',
@@ -60,7 +66,7 @@ exports.reserveEmail = ({ adminEmail, meetingId }) =>
       body: `جلسه با موفقیت ساخته شد
       http://localhost:3000/meetingpage/${meetingId}`,
     },
-  }).catch(console.log)
+  }).catch(errorLogger)
 
 exports.inviteEmail = ({ participants, meetingId }) =>
   postRequest({
@@ -71,7 +77,7 @@ exports.inviteEmail = ({ participants, meetingId }) =>
       subject: 'دعوت به نظر سنجی',
       body: `http://localhost:3000/meetingpage/${meetingId}`,
     },
-  }).catch(console.log)
+  }).catch(errorLogger)
 
 exports.submitVoteEmail = ({ adminEmail, voterEmail, optionIndex, vote }) =>
   postRequest({
@@ -84,7 +90,7 @@ exports.submitVoteEmail = ({ adminEmail, voterEmail, optionIndex, vote }) =>
         vote ? 'موافق' : 'مخالف'
       } داد`,
     },
-  }).catch(console.log)
+  }).catch(errorLogger)
 
 exports.addOptionEmail = ({ participants, meetingId }) =>
   postRequest({
@@ -96,4 +102,4 @@ exports.addOptionEmail = ({ participants, meetingId }) =>
       body: `'گذینه ی جدیدی به نظرسنجی  اضافه شده:
       http://localhost:3000/meetingpage/${meetingId}`,
     },
-  }).catch(console.log)
+  }).catch(errorLogger)

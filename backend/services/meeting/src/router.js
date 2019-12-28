@@ -78,12 +78,13 @@ module.exports = router => {
       email,
     })
 
-    submitVoteEmail({
-      adminEmail: updatedMeeting.creatorId,
-      voterEmail: email,
-      optionIndex,
-      vote,
-    })
+    if (updatedMeeting.creatorId != email)
+      submitVoteEmail({
+        adminEmail: updatedMeeting.creatorId,
+        voterEmail: email,
+        optionIndex,
+        vote,
+      })
 
     ctx.body = voteCounter(updatedMeeting)
     ctx.status = 200
@@ -98,13 +99,15 @@ module.exports = router => {
       end,
     })
 
-    addOptionEmail({
-      participants: R.without(
-        [updatedMeeting.creatorId],
-        updatedMeeting.participants,
-      ),
-      meetingId: updatedMeeting._id,
-    })
+    const participants = R.without(
+      [updatedMeeting.creatorId],
+      updatedMeeting.participants,
+    )
+    if (participants)
+      addOptionEmail({
+        participants,
+        meetingId: updatedMeeting._id,
+      })
 
     ctx.body = voteCounter(updatedMeeting)
     ctx.status = 200

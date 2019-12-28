@@ -56,14 +56,14 @@ const OptionBox = ({
             {isOpen ? 'بستن' : 'انتخاب'}
           </Button>
         )}
-        {/* {mode === 'poll' && (
+        {mode === 'creatingPoll' && (
           <Button
             variant="contained"
             onClick={() => onDelete({ optionIndex, meetingId })}
           >
             <img src="/delete.svg" alt="delete" />
           </Button>
-        )} */}
+        )}
       </div>
       {mode === 'poll' ? (
         <div>

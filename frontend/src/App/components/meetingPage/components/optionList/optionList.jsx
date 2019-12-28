@@ -33,7 +33,7 @@ const OptionList = ({
         {isAdmin && (
           <>
             <Typography variant="p" title="wow">
-              اایجاد بازه زمانی جدید
+              ایجاد بازه زمانی جدید
             </Typography>
             <div
               style={{
