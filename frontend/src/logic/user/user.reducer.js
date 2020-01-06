@@ -6,6 +6,7 @@ import { SET_USER_DATA } from './user.actions'
 const initialState = {
   username: 'javadvhd',
   email: 'vahedi.r46@gmail.com',
+  notificationItems: [],
 }
 
 const reducers = {

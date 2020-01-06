@@ -22,7 +22,7 @@ const CommentBox = ({ comment, onDelete, meetingId }) => (
     <Button
       variant="contained"
       color="primary"
-      onClick={() => onDelete({ comment, meetingId })}
+      onClick={() => onDelete({ commentId: comment._id, meetingId })}
     >
       <img src="/delete.svg" alt="delete" />
     </Button>

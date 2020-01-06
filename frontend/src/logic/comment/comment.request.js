@@ -41,3 +41,17 @@ export const reqCreateComment = ({ meetingId, comment }) =>
         message: 'مشکلی در ثبت کامنت به وجود آمده است',
       }),
     )
+
+export const reqDeleteComment = ({ meetingId, commentId }) =>
+  postRequest({
+    dest: 'comment',
+    action: 'COMMENT_DELETE',
+    payload: { meetingId, commentId },
+  })
+    .then(() => reqGetCommentsByMeetingId(meetingId))
+    .catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در حذف کامنت به وجود آمده است',
+      }),
+    )

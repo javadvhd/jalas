@@ -1,8 +1,9 @@
 import { reqGetUserMeetings } from '../meetingList/meetingList.request'
 import { dispatchSetUserData } from './user.actions'
-import { postRequest, getRequest } from '../../setup/request'
+import { postRequest, getRequest, post } from '../../setup/request'
 import { dispatchSetSnackbarMessage } from '../../App/components/snackbar/snackbar.actions'
 import { navigate } from '@reach/router'
+import { getState } from '../../setup/redux'
 
 export const reqLogin = ({
   email = 'vahedi.r46@gmail.com',
@@ -36,3 +37,12 @@ export const reqLogin = ({
       }),
     )
 }
+
+export const reqSetUserNotifItems = arr =>
+  post({
+    dest: 'user',
+    action: 'SET_USER_NOTIFICATION_STATUS',
+    payload: { userId: getState().main.user.userName, notifItems: arr },
+  })
+    .then(() => dispatchSetUserData({ notifItems: arr }))
+    .catch(console.log)
