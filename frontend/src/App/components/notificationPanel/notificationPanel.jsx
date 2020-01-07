@@ -1,4 +1,5 @@
 // modules
+import * as R from 'ramda'
 import React from 'react'
 import MuiAppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -14,6 +15,7 @@ import {
   makeStyles,
   Slide,
   Divider,
+  Checkbox,
 } from '@material-ui/core'
 // style
 const useStyles = makeStyles(theme => ({
@@ -34,6 +36,10 @@ const NotificationPanel = ({ onClose, onSubmit, notificationItems }) => {
   const classes = useStyles()
   console.log('notificationItems ', notificationItems)
   const [items, makeItems] = React.useState(notificationItems)
+
+  const click = ({ target: { checked } }, index) => {
+    makeItems(R.update(index, { ...items[index], selected: checked }, items))
+  }
   return (
     <div>
       <Dialog
@@ -53,18 +59,24 @@ const NotificationPanel = ({ onClose, onSubmit, notificationItems }) => {
               close
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              Sound
+              صفحه ی مدیریت نوتیف ها
             </Typography>
-            <Button autoFocus color="inherit" onClick={onSubmit}>
+            <Button autoFocus color="inherit" onClick={() => onSubmit(items)}>
               save
             </Button>
           </Toolbar>
         </AppBar>
         <List>
-          {items.map(item => (
+          {items.map((item, index) => (
             <>
               <ListItem>
-                <ListItemText primary={item.title} secondary="Titania" />
+                <Checkbox
+                  checked={item.selected}
+                  onChange={e => click(e, index)}
+                  value="primary"
+                  inputProps={{ 'aria-label': 'primary checkbox' }}
+                />
+                <ListItemText primary={item.title} secondary="" />
               </ListItem>
               <Divider />
             </>

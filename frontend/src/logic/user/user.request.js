@@ -38,11 +38,26 @@ export const reqLogin = ({
     )
 }
 
-export const reqSetUserNotifItems = arr =>
+export const reqSetUserNotifItems = items =>
   post({
     dest: 'user',
     action: 'SET_USER_NOTIFICATION_STATUS',
-    payload: { userId: getState().main.user.userName, notifItems: arr },
+    payload: {
+      userId: getState().main.user.userName,
+      notificationItems: items,
+    },
   })
-    .then(() => dispatchSetUserData({ notifItems: arr }))
-    .catch(console.log)
+    .then(() => dispatchSetUserData({ notificationItems: items }))
+    .then(() => navigate('/all'))
+    .then(() =>
+      dispatchSetSnackbarMessage({
+        type: 'success',
+        message: 'با موفقیت ثبت شد',
+      }),
+    )
+    .catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در ثبت اطلاعات شما وجود دارد',
+      }),
+    )
