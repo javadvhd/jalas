@@ -14,6 +14,10 @@ export const reqGetCommentsByMeetingId = meetingId =>
     action: 'COMMENT_GET_BY_MEETING_ID',
     payload: { meetingId },
   })
+    .then(r => {
+      console.log(r)
+      return r
+    })
     .then(({ data }) => {
       const userIds = R.map(R.prop('_id'), data)
       reqGetUsersById(userIds)
