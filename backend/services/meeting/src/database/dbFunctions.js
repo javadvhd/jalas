@@ -1,7 +1,9 @@
+// db
+const R = require('ramda')
 const { Meeting } = require('./dbModel')
 
-// helper
-const { getOtherTypeOfVote } = require('../helper')
+const getOtherTypeOfVote = vote =>
+  R.without([vote], ['agree', 'disagree', 'agreeIfNeeded'])
 
 exports.createMeeting = ({ title, creatorId, options, participants }) =>
   new Meeting({ title, creatorId, options, participants }).save()
@@ -76,3 +78,28 @@ exports.findMeetingAndRemoveOption = async ({ meetingId, optionIndex }) => {
 
   return meeting
 }
+
+exports.addParticipantToMeeting = ({ meetingId, participant }) =>
+  Meeting.updateOne(
+    { _id: meetingId },
+    {
+      $addToSet: {
+        participants: participant,
+      },
+    },
+  )
+
+exports.removeParticipantFromMeeting = ({
+  meetingId,
+  participant,
+  participantVotes,
+}) =>
+  Meeting.updateOne(
+    { _id: meetingId },
+    {
+      $pull: {
+        participants: participant,
+        ...participantVotes,
+      },
+    },
+  )

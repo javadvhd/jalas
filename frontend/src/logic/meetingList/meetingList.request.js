@@ -7,6 +7,8 @@ import {
   dispatchUpdateMeeting,
   dispatchSetMeetingList,
   dispatchRemoveOption,
+  dispatchAddNewParticipant,
+  dispatchRemoveParticipant,
 } from './meetingList.actions'
 // import { navigate } from '@reach/router'
 import { dispatchSetSnackbarMessage } from '../../App/components/snackbar/snackbar.actions'
@@ -135,6 +137,53 @@ export const reqRemoveOption = ({ meetingId, optionIndex }) =>
       dispatchSetSnackbarMessage({
         type: 'success',
         message: 'گذینه با موفقیت حذف شده است',
+      }),
+    )
+    .catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در سرور پیش آمده',
+      }),
+    )
+
+export const reqAddParticipant = ({ meetingId, participant }) =>
+  console.log({ meetingId, participant }) ||
+  postRequest({
+    dest: 'meeting',
+    action: 'MEETING_ADD_PARTICIPANT',
+    payload: {
+      meetingId,
+      participant,
+    },
+  })
+    .then(() => dispatchAddNewParticipant({ meetingId, participant }))
+    .then(() =>
+      dispatchSetSnackbarMessage({
+        type: 'success',
+        message: 'کاربر با موفقیت به نظرسنجی اضافه شده است',
+      }),
+    )
+    .catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در سرور پیش آمده',
+      }),
+    )
+
+export const reqRemoveParticipant = ({ meetingId, participant }) =>
+  postRequest({
+    dest: 'meeting',
+    action: 'MEETING_REMOVE_PARTICIPANT',
+    payload: {
+      meetingId,
+      participant,
+    },
+  })
+    .then(() => dispatchRemoveParticipant({ meetingId, participant }))
+    .then(() =>
+      dispatchSetSnackbarMessage({
+        type: 'success',
+        message: 'کاربر با موفقیت از نظرسنجی حذف شده است',
       }),
     )
     .catch(() =>

@@ -50,6 +50,7 @@ const ParticipantList = ({ meeting, onAdd }) => {
               key={index}
               participant={participant}
               meetingId={meeting._id}
+              mode={meeting.status}
             />
           ))}
         </div>

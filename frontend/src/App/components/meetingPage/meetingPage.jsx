@@ -110,7 +110,7 @@ class MeetingPage extends Component {
               mode={meeting.status}
             />
 
-            {meeting.status === 'creatingPoll' && (
+            {meeting.status !== 'meeting' && (
               <ParticipantList meeting={meeting} />
             )}
 

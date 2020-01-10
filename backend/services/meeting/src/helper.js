@@ -2,6 +2,8 @@
 const R = require('ramda')
 const { get, post } = require('axios')
 const config = require('../../../packages/servicesPort.json')
+// db
+const { findMeetingById } = require('./database/dbFunctions')
 
 const requestUrl = (dest, action) =>
   `http://${config[dest].host}:${config[dest].port}/${action}`
@@ -51,9 +53,6 @@ exports.voteConvertToArray = meeting =>
     ),
     meeting,
   )
-
-exports.getOtherTypeOfVote = vote =>
-  R.without([vote], ['agree', 'disagree', 'agreeIfNeeded'])
 
 const errorLogger = R.compose(
   console.log,
@@ -120,3 +119,32 @@ exports.removeOptionEmail = ({ participants, meetingId, optionIndex }) =>
       http://localhost:3000/meetingpage/${meetingId}`,
     },
   }).catch(errorLogger)
+
+exports.kickFromMeetingEmail = participant =>
+  postRequest({
+    dest: 'notification',
+    action: 'NOTIFICATION_SEND_EMAIL',
+    payload: {
+      emails: [participant],
+      subject: 'حذف به نظرسنجی',
+      body: 'شما از نظرسنجی حذف شدید',
+    },
+  }).catch(errorLogger)
+
+exports.getParticipantVotes = async (participant, meetingId) => {
+  const { options } = await findMeetingById(meetingId)
+  let obj
+
+  for (let index = 0; index < options.length; index++) {
+    const { agreeIfNeeded, agree, disagree } = options[index]
+
+    if (R.includes(participant, agree))
+      obj = R.assoc(`options.${index}.agree`, participant, obj)
+    if (R.includes(participant, agreeIfNeeded))
+      obj = R.assoc(`options.${index}.agreeIfNeeded`, participant, obj)
+    if (R.includes(participant, disagree))
+      obj = R.assoc(`options.${index}.disagree`, participant, obj)
+  }
+
+  return obj
+}
