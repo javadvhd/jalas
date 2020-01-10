@@ -7,8 +7,23 @@ const {
 
 module.exports = router => {
   router.post('/COMMENT_CREATE', async ctx => {
-    const { meetingId, body, userId } = ctx.request.body.payload
-    ctx.body = await createComment({ meetingId, body, userId })
+    const { meetingId, body, writerId } = ctx.request.body.payload
+
+    await createComment({ meetingId, body, writerId })
+    ctx.status = 200
+  })
+
+  router.post('/COMMENT_REPLY', async ctx => {
+    const {
+      meetingId,
+      body,
+      writerId,
+      depth,
+      parentId,
+    } = ctx.request.body.payload
+
+    await createComment({ meetingId, body, writerId, depth, parentId })
+    ctx.status = 200
   })
 
   router.get('/COMMENT_GET_BY_MEETING_ID', async ctx => {

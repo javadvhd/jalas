@@ -9,6 +9,8 @@ const CommentSchema = new Schema(
     body: String,
     writerId: String,
     deleted: Boolean,
+    depth: { type: Number, default: 1 },
+    parentId: String,
   },
   { versionKey: false, timestamps: true },
 )

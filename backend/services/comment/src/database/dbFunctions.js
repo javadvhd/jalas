@@ -1,11 +1,6 @@
 const { Comment } = require('./dbModel')
 
-exports.createComment = ({ meetingId, body, writerId }) =>
-  Comment.create({
-    meetingId,
-    body,
-    writerId,
-  })
+exports.createComment = comment => Comment.create(comment)
 
 exports.getCommentsByMeetingId = meetingId =>
   Comment.find({ meetingId, deleted: { $exists: false } })

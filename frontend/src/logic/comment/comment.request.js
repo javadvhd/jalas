@@ -15,7 +15,7 @@ export const reqGetCommentsByMeetingId = meetingId =>
     payload: { meetingId },
   })
     .then(({ data }) => {
-      const userIds = R.map(R.prop('_id'), data)
+      const userIds = R.map(R.prop('writerId'), data)
       reqGetUsersById(userIds)
       return data
     })
@@ -32,7 +32,28 @@ export const reqCreateComment = ({ meetingId, comment }) =>
   postRequest({
     dest: 'comment',
     action: 'COMMENT_CREATE',
-    payload: { meetingId, body: comment, userId: getState().main.user._id },
+    payload: { meetingId, body: comment, writerId: getState().main.user._id },
+  })
+    .then(() => reqGetCommentsByMeetingId(meetingId))
+    .catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در ثبت کامنت به وجود آمده است',
+      }),
+    )
+
+// TODO: javad send parentId and parentDepth
+export const reqReply = ({ meetingId, comment, parentId, parentDepth }) =>
+  postRequest({
+    dest: 'comment',
+    action: 'COMMENT_REPLY',
+    payload: {
+      meetingId,
+      body: comment,
+      writerId: getState().main.user._id,
+      parentId,
+      depth: parentDepth + 1,
+    },
   })
     .then(() => reqGetCommentsByMeetingId(meetingId))
     .catch(() =>
