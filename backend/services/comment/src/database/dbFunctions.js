@@ -7,8 +7,18 @@ exports.getCommentsByMeetingId = meetingId =>
     .sort({ createdAt: 1 })
     .lean()
 
-exports.deleteComment = ({ meetingId, commentId, writerId, isAdmin }) =>
+exports.deleteCommentWithAuthorization = ({
+  meetingId,
+  commentId,
+  writerId,
+  isAdmin,
+}) =>
   Comment.updateOne(
     { _id: commentId, meetingId, ...(!isAdmin && { writerId }) },
     { $set: { deleted: true } },
   )
+
+exports.deleteCommentByParentId = parentId =>
+  Comment.updateMany({ parentId }, { $set: { deleted: true } })
+
+exports.findCommentByParentId = parentId => Comment.find({ parentId }).lean()
