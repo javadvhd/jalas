@@ -3,33 +3,28 @@ import * as R from 'ramda'
 // setup
 import { getState } from '../../setup/redux'
 
-const initialState = {}
+const initialState = {
+  creatingAverageTime: null,
+  numberOfReservedRoom: null,
+  throughput: null,
+  averageResponseTime: null,
+}
 
-export const meetingPageLoadingView = () =>
-  R.path(['view', 'meetingPage', 'loading'], getState())
+export const creatingAverageTimeView = () =>
+  R.path(['app', 'creatingAverageTime'])(getState())
+
+export const numberOfReservedRoomView = () =>
+  R.path(['app', 'numberOfReservedRoom'])(getState())
+
+export const throughputView = () => R.path(['app', 'throughput'])(getState())
+
+export const averageResponseTimeView = () =>
+  R.path(['app', 'averageResponseTime'])(getState())
 
 const reducers = {
-  SET_MEETING_PAGE_DATA: (state, { field, value }) => ({
+  SET_DATA: (state, { title, value }) => ({
     ...state,
-    [field]: value,
-  }),
-
-  SET_OPTION_EXPANSION: (state, { optionIndex, rooms }) => ({
-    ...state,
-    optionsRooms: R.update(
-      optionIndex,
-      {
-        ...state.optionsRooms[optionIndex],
-        isOpen: !state.optionsRooms[optionIndex].isOpen,
-        rooms,
-      },
-      state.optionsRooms,
-    ),
-  }),
-
-  SET_LOADING: (state, loading) => ({
-    ...state,
-    loading,
+    [title]: value,
   }),
 }
 

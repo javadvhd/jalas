@@ -1,12 +1,20 @@
 // modules
 import * as R from 'ramda'
 import React from 'react'
-import Toolbar from '@material-ui/core/Toolbar'
-import Button from '@material-ui/core/Button'
-import {} from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 
-const AdminPanel = ({}) => {
-  return 'admin panel'
-}
+const AdminPanel = ({
+  creatingAverageTime,
+  numberOfReservedRoom,
+  throughput,
+  averageResponseTime,
+}) => (
+  <div style={{ margin: '20px' }}>
+    <Typography>creatingAverageTime {creatingAverageTime}</Typography>
+    <Typography>numberOfReservedRoom: {numberOfReservedRoom}</Typography>
+    <Typography>throughput: {throughput}</Typography>
+    <Typography>averageResponseTime: {averageResponseTime}</Typography>
+  </div>
+)
 
 export default AdminPanel

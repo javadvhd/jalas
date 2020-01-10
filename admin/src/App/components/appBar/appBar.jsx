@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 // style
 import './appBar.scss'
 
-const AppBar = ({ openNotifPanel }) => (
+const AppBar = ({}) => (
   <MuiAppBar position="static">
     <Toolbar dir="rtl">
       <div>پنل ادمین</div>

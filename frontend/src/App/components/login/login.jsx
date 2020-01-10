@@ -7,7 +7,10 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import TextField from '@material-ui/core/TextField'
 
 const Login = ({ onSubmit, handleClose }) => {
-  const [state, setState] = React.useState({})
+  const [state, setState] = React.useState({
+    email: 'vahedi.r46@gmail.com',
+    password: 'javad',
+  })
   return (
     <>
       <Dialog
@@ -27,10 +30,10 @@ const Login = ({ onSubmit, handleClose }) => {
             label="ایمیل"
             type="email"
             fullWidth
+            value={state.email}
             onChange={({ target: { value } }) =>
               setState({ ...state, email: value })
             }
-            defaultValue="vahedi.r46@gmail.com"
           />
           <TextField
             autoFocus
@@ -39,10 +42,10 @@ const Login = ({ onSubmit, handleClose }) => {
             label="رمز ورود"
             type="text"
             fullWidth
+            value={state.password}
             onChange={({ target: { value } }) =>
               setState({ ...state, password: value })
             }
-            defaultValue="javad@jalas"
           />
         </DialogContent>
         <DialogActions>

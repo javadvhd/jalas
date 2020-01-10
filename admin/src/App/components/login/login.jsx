@@ -30,6 +30,7 @@ const Login = ({ onSubmit, handleClose }) => {
             label="ایمیل"
             type="email"
             fullWidth
+            value={state.email}
             onChange={({ target: { value } }) =>
               setState({ ...state, email: value })
             }
@@ -41,15 +42,13 @@ const Login = ({ onSubmit, handleClose }) => {
             label="رمز ورود"
             type="password"
             fullWidth
+            value={state.password}
             onChange={({ target: { value } }) =>
               setState({ ...state, password: value })
             }
           />
         </DialogContent>
         <DialogActions>
-          {/* <Button onClick={handleClose} color="primary">
-          Cancel
-        </Button> */}
           <Button onClick={() => onSubmit(state)} color="primary">
             تایید
           </Button>

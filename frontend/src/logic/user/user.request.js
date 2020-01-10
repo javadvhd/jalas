@@ -5,10 +5,7 @@ import { dispatchSetSnackbarMessage } from '../../App/components/snackbar/snackb
 import { navigate } from '@reach/router'
 import { getState } from '../../setup/redux'
 
-export const reqLogin = ({
-  email = 'vahedi.r46@gmail.com',
-  password = 'javad@jalas',
-}) => {
+export const reqLogin = ({ email, password }) => {
   getRequest({
     dest: 'user',
     action: 'USER_LOGIN',
