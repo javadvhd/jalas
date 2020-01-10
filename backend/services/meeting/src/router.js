@@ -92,13 +92,19 @@ module.exports = router => {
   })
 
   router.post('/MEETING_ADD_OPTION', async ctx => {
-    const { meetingId, start, end } = ctx.request.body.payload
+    const { meetingId, start, end, userId } = ctx.request.body.payload
 
     const updatedMeeting = await addOption({
       meetingId,
       start,
       end,
+      userId,
     })
+
+    if (!updatedMeeting) {
+      ctx.status = 401
+      return
+    }
 
     const participants = R.without(
       [updatedMeeting.creatorId],
