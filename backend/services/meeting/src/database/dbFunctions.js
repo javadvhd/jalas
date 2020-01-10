@@ -49,3 +49,25 @@ exports.addOption = ({ meetingId, start, end }) =>
     },
     { new: true },
   ).lean()
+
+exports.findMeetingAndRemoveOption = async ({ meetingId, optionIndex }) => {
+  const meeting = await Meeting.findOneAndUpdate(
+    { _id: meetingId },
+    {
+      $unset: {
+        [`options.${optionIndex}`]: 1,
+      },
+    },
+  ).lean()
+
+  await Meeting.updateOne(
+    { _id: meetingId },
+    {
+      $pull: {
+        options: null,
+      },
+    },
+  )
+
+  return meeting
+}

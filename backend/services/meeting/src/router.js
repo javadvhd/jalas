@@ -8,6 +8,7 @@ const {
   findMeetingsByParticipant,
   submitVote,
   addOption,
+  findMeetingAndRemoveOption,
 } = require('./database/dbFunctions')
 // helper
 const {
@@ -110,6 +111,30 @@ module.exports = router => {
       })
 
     ctx.body = voteCounter(updatedMeeting)
+    ctx.status = 200
+  })
+
+  router.post('/MEETING_REMOVE_OPTION', async ctx => {
+    const { meetingId, optionIndex } = ctx.request.body.payload
+
+    const { options, creatorId } = await findMeetingAndRemoveOption({
+      meetingId,
+      optionIndex,
+    })
+
+    //  TODO: add options[optionIndex].agreeIfNeeded after implementing this feature
+    const participants = R.without(
+      [creatorId],
+      R.concat(options[optionIndex].agree, options[optionIndex].disagree),
+    )
+
+    if (participants)
+      removeOptionEmail({
+        participants,
+        meetingId: updatedMeeting._id,
+        optionIndex,
+      })
+
     ctx.status = 200
   })
 }

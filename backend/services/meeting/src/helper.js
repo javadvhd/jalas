@@ -103,3 +103,15 @@ exports.addOptionEmail = ({ participants, meetingId }) =>
       http://localhost:3000/meetingpage/${meetingId}`,
     },
   }).catch(errorLogger)
+
+exports.removeOptionEmail = ({ participants, meetingId, optionIndex }) =>
+  postRequest({
+    dest: 'notification',
+    action: 'NOTIFICATION_SEND_EMAIL',
+    payload: {
+      emails: [participants],
+      subject: 'اضافه شدن گذینه جدید',
+      body: `گذینه ی ${optionIndex} که شما برای آن نظری ثبت کرده اید از نظرسنجی حذف شده:
+      http://localhost:3000/meetingpage/${meetingId}`,
+    },
+  }).catch(errorLogger)

@@ -6,6 +6,7 @@ import { getState } from '../../setup/redux'
 import {
   dispatchUpdateMeeting,
   dispatchSetMeetingList,
+  dispatchRemoveOption,
 } from './meetingList.actions'
 // import { navigate } from '@reach/router'
 import { dispatchSetSnackbarMessage } from '../../App/components/snackbar/snackbar.actions'
@@ -110,6 +111,29 @@ export const reqAddOption = ({ meetingId, start, end }) =>
       dispatchSetSnackbarMessage({
         type: 'success',
         message: 'گذینه با موفقیت اضافه شده است',
+      }),
+    )
+    .catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در سرور پیش آمده',
+      }),
+    )
+
+export const reqRemoveOption = ({ meetingId, optionIndex }) =>
+  postRequest({
+    dest: 'meeting',
+    action: 'MEETING_ADD_OPTION',
+    payload: {
+      meetingId,
+      optionIndex,
+    },
+  })
+    .then(() => dispatchRemoveOption({ optionIndex, meetingId }))
+    .then(() =>
+      dispatchSetSnackbarMessage({
+        type: 'success',
+        message: 'گذینه با موفقیت حذف شده است',
       }),
     )
     .catch(() =>
