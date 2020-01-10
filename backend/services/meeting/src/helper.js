@@ -30,6 +30,7 @@ exports.voteCounter = meeting =>
         ...option,
         agree: option.agree.length,
         disagree: option.disagree.length,
+        agreeIfNeeded: option.agreeIfNeeded.length,
       }),
       meeting.options,
     ),
@@ -44,11 +45,15 @@ exports.voteConvertToArray = meeting =>
         ...option,
         agree: [],
         disagree: [],
+        agreeIfNeeded: [],
       }),
       meeting.options,
     ),
     meeting,
   )
+
+exports.getOtherTypeOfVote = vote =>
+  R.without([vote], ['agree', 'disagree', 'agreeIfNeeded'])
 
 const errorLogger = R.compose(
   console.log,
@@ -100,6 +105,18 @@ exports.addOptionEmail = ({ participants, meetingId }) =>
       emails: [participants],
       subject: 'اضافه شدن گذینه جدید',
       body: `'گذینه ی جدیدی به نظرسنجی  اضافه شده:
+      http://localhost:3000/meetingpage/${meetingId}`,
+    },
+  }).catch(errorLogger)
+
+exports.removeOptionEmail = ({ participants, meetingId, optionIndex }) =>
+  postRequest({
+    dest: 'notification',
+    action: 'NOTIFICATION_SEND_EMAIL',
+    payload: {
+      emails: [participants],
+      subject: 'اضافه شدن گذینه جدید',
+      body: `گذینه ی ${optionIndex} که شما برای آن نظری ثبت کرده اید از نظرسنجی حذف شده:
       http://localhost:3000/meetingpage/${meetingId}`,
     },
   }).catch(errorLogger)

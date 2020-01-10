@@ -1,5 +1,8 @@
 const { Meeting } = require('./dbModel')
 
+// helper
+const { getOtherTypeOfVote } = require('../helper')
+
 exports.createMeeting = ({ title, creatorId, options, participants }) =>
   new Meeting({ title, creatorId, options, participants }).save()
 
@@ -25,18 +28,19 @@ exports.submitVote = ({ meetingId, optionIndex, vote, email }) =>
     { _id: meetingId },
     {
       $addToSet: {
-        [`options.${optionIndex}.${vote ? 'agree' : 'disagree'}`]: email,
+        [`options.${optionIndex}.${vote}`]: email,
       },
       $pull: {
-        [`options.${optionIndex}.${!vote ? 'agree' : 'disagree'}`]: email,
+        [`options.${optionIndex}.${getOtherTypeOfVote(vote)[0]}`]: email,
+        [`options.${optionIndex}.${getOtherTypeOfVote(vote)[1]}`]: email,
       },
     },
     { new: true },
   ).lean()
 
-exports.addOption = ({ meetingId, start, end }) =>
+exports.addOption = ({ meetingId, start, end, userId }) =>
   Meeting.findOneAndUpdate(
-    { _id: meetingId },
+    { _id: meetingId, creatorId: userId },
     {
       $push: {
         options: {
@@ -44,8 +48,31 @@ exports.addOption = ({ meetingId, start, end }) =>
           end,
           agree: [],
           disagree: [],
+          agreeIfNeeded: [],
         },
       },
     },
     { new: true },
   ).lean()
+
+exports.findMeetingAndRemoveOption = async ({ meetingId, optionIndex }) => {
+  const meeting = await Meeting.findOneAndUpdate(
+    { _id: meetingId },
+    {
+      $unset: {
+        [`options.${optionIndex}`]: 1,
+      },
+    },
+  ).lean()
+
+  await Meeting.updateOne(
+    { _id: meetingId },
+    {
+      $pull: {
+        options: null,
+      },
+    },
+  )
+
+  return meeting
+}

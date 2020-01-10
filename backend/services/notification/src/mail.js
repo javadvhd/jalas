@@ -1,18 +1,13 @@
 const nodemailer = require('nodemailer')
 
-let testAccount = {}
-nodemailer.createTestAccount().then(account => {
-  testAccount = account
-})
-
 // async..await is not allowed in global scope, must use a wrapper
 exports.mailSender = async function main({ from, to, subject, body }) {
   // Generate test SMTP service account from ethereal.email
   // Only needed if you don't have a real mail account for testing
 
   const account = {
-    user: process.env.user || testAccount.user,
-    pass: process.env.pass || testAccount.pass,
+    user: 'jalas.bhb@gmail.com',
+    pass: 'bhbjalasbhb',
   }
 
   // create reusable transporter object using the default SMTP transport

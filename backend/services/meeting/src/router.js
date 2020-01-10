@@ -8,6 +8,7 @@ const {
   findMeetingsByParticipant,
   submitVote,
   addOption,
+  findMeetingAndRemoveOption,
 } = require('./database/dbFunctions')
 // helper
 const {
@@ -71,6 +72,7 @@ module.exports = router => {
 
   router.post('/MEETING_SUBMIT_VOTE', async ctx => {
     const { meetingId, optionIndex, vote, email } = ctx.request.body.payload
+
     const updatedMeeting = await submitVote({
       meetingId,
       optionIndex,
@@ -91,13 +93,19 @@ module.exports = router => {
   })
 
   router.post('/MEETING_ADD_OPTION', async ctx => {
-    const { meetingId, start, end } = ctx.request.body.payload
+    const { meetingId, start, end, userId } = ctx.request.body.payload
 
     const updatedMeeting = await addOption({
       meetingId,
       start,
       end,
+      userId,
     })
+
+    if (!updatedMeeting) {
+      ctx.status = 401
+      return
+    }
 
     const participants = R.without(
       [updatedMeeting.creatorId],
@@ -110,6 +118,33 @@ module.exports = router => {
       })
 
     ctx.body = voteCounter(updatedMeeting)
+    ctx.status = 200
+  })
+
+  router.post('/MEETING_REMOVE_OPTION', async ctx => {
+    const { meetingId, optionIndex } = ctx.request.body.payload
+
+    const { options, creatorId } = await findMeetingAndRemoveOption({
+      meetingId,
+      optionIndex,
+    })
+
+    const participants = R.without(
+      [creatorId],
+      R.concat(
+        options[optionIndex].agree,
+        options[optionIndex].disagree,
+        options[optionIndex].agreeIfNeeded,
+      ),
+    )
+
+    if (participants)
+      removeOptionEmail({
+        participants,
+        meetingId: updatedMeeting._id,
+        optionIndex,
+      })
+
     ctx.status = 200
   })
 }
