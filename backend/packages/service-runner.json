@@ -26,11 +26,10 @@
     },
     {
       "name": "notification",
-      "script": "./src/app.js",
-      "cwd": "../services/notification",
+      "script": "./app.js",
+      "cwd": "../services/notification/src",
       "watch": true,
       "exec_mode": "fork",
-      "node_args": "dotenv/config",
       "instances": 1
     },
     {
