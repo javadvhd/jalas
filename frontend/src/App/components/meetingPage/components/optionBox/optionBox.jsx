@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 import { getDate, getTime } from './optionBox.helper'
 const OptionBox = ({
   option,
-  option: { start, end, agree, disagree, isOpen, rooms },
+  option: { start, end, agree, disagree, agreeIfNeeded, isOpen, rooms },
   onClick,
   onRoomClick,
   reserveStartTime,
@@ -46,6 +46,7 @@ const OptionBox = ({
         <Typography>تا:{getTime(new Date(end)).toString()}</Typography>
         <Typography>موافق:{agree}</Typography>
         <Typography>مخالف:{disagree}</Typography>
+        <Typography>موافق در صورت نیاز:{agreeIfNeeded}</Typography>
       </div>
       <div style={{ margin: '10px 0px 10px auto' }}>
         {isAdmin && mode === 'poll' && (
@@ -69,7 +70,9 @@ const OptionBox = ({
         <div>
           <Button
             variant="contained"
-            onClick={() => onSubmitVote({ meetingId, vote: true, optionIndex })}
+            onClick={() =>
+              onSubmitVote({ meetingId, vote: 'agree', optionIndex })
+            }
           >
             <img src="/agree.svg" alt="agree" />
           </Button>
@@ -77,10 +80,19 @@ const OptionBox = ({
           <Button
             variant="contained"
             onClick={() =>
-              onSubmitVote({ meetingId, vote: false, optionIndex })
+              onSubmitVote({ meetingId, vote: 'disagree', optionIndex })
             }
           >
             <img src="/disagree.svg" alt="disagree" />
+          </Button>
+
+          <Button
+            variant="contained"
+            onClick={() =>
+              onSubmitVote({ meetingId, vote: 'agreeIfNeeded', optionIndex })
+            }
+          >
+            agree if needed
           </Button>
         </div>
       ) : null}

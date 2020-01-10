@@ -62,7 +62,7 @@ const reducers = {
       {
         ...state[meetingIndex],
         options: R.prepend(
-          { start, end, agree: [], disagree: [] },
+          { start, end, agree: [], disagree: [], agreeIfNeeded: [] },
           state[meetingIndex].options,
         ),
       },

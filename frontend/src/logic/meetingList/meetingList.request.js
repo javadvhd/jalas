@@ -104,6 +104,7 @@ export const reqAddOption = ({ meetingId, start, end }) =>
       meetingId,
       start,
       end,
+      userId: getState().main.user.email,
     },
   })
     .then(({ data }) => dispatchUpdateMeeting({ meeting: data }))
@@ -123,7 +124,7 @@ export const reqAddOption = ({ meetingId, start, end }) =>
 export const reqRemoveOption = ({ meetingId, optionIndex }) =>
   postRequest({
     dest: 'meeting',
-    action: 'MEETING_ADD_OPTION',
+    action: 'MEETING_REMOVE_OPTION',
     payload: {
       meetingId,
       optionIndex,

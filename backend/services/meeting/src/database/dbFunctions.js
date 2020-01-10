@@ -1,5 +1,8 @@
 const { Meeting } = require('./dbModel')
 
+// helper
+const { getOtherTypeOfVote } = require('../helper')
+
 exports.createMeeting = ({ title, creatorId, options, participants }) =>
   new Meeting({ title, creatorId, options, participants }).save()
 
@@ -25,10 +28,11 @@ exports.submitVote = ({ meetingId, optionIndex, vote, email }) =>
     { _id: meetingId },
     {
       $addToSet: {
-        [`options.${optionIndex}.${vote ? 'agree' : 'disagree'}`]: email,
+        [`options.${optionIndex}.${vote}`]: email,
       },
       $pull: {
-        [`options.${optionIndex}.${!vote ? 'agree' : 'disagree'}`]: email,
+        [`options.${optionIndex}.${getOtherTypeOfVote(vote)[0]}`]: email,
+        [`options.${optionIndex}.${getOtherTypeOfVote(vote)[1]}`]: email,
       },
     },
     { new: true },
@@ -44,6 +48,7 @@ exports.addOption = ({ meetingId, start, end, userId }) =>
           end,
           agree: [],
           disagree: [],
+          agreeIfNeeded: [],
         },
       },
     },

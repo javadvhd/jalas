@@ -30,6 +30,7 @@ exports.voteCounter = meeting =>
         ...option,
         agree: option.agree.length,
         disagree: option.disagree.length,
+        agreeIfNeeded: option.agreeIfNeeded.length,
       }),
       meeting.options,
     ),
@@ -44,11 +45,15 @@ exports.voteConvertToArray = meeting =>
         ...option,
         agree: [],
         disagree: [],
+        agreeIfNeeded: [],
       }),
       meeting.options,
     ),
     meeting,
   )
+
+exports.getOtherTypeOfVote = vote =>
+  R.without([vote], ['agree', 'disagree', 'agreeIfNeeded'])
 
 const errorLogger = R.compose(
   console.log,

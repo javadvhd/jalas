@@ -72,6 +72,7 @@ module.exports = router => {
 
   router.post('/MEETING_SUBMIT_VOTE', async ctx => {
     const { meetingId, optionIndex, vote, email } = ctx.request.body.payload
+
     const updatedMeeting = await submitVote({
       meetingId,
       optionIndex,
@@ -128,10 +129,13 @@ module.exports = router => {
       optionIndex,
     })
 
-    //  TODO: add options[optionIndex].agreeIfNeeded after implementing this feature
     const participants = R.without(
       [creatorId],
-      R.concat(options[optionIndex].agree, options[optionIndex].disagree),
+      R.concat(
+        options[optionIndex].agree,
+        options[optionIndex].disagree,
+        options[optionIndex].agreeIfNeeded,
+      ),
     )
 
     if (participants)
