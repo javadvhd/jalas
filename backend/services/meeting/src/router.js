@@ -9,15 +9,18 @@ const {
   submitVote,
   addOption,
   findMeetingAndRemoveOption,
+  addParticipantToMeeting,
+  removeParticipantFromMeeting,
 } = require('./database/dbFunctions')
 // helper
 const {
-  voteConvertToArray,
   voteCounter,
   reserveEmail,
   inviteEmail,
   submitVoteEmail,
   addOptionEmail,
+  getParticipantVotes,
+  kickFromMeetingEmail,
 } = require('./helper')
 
 module.exports = router => {
@@ -144,6 +147,32 @@ module.exports = router => {
         meetingId: updatedMeeting._id,
         optionIndex,
       })
+
+    ctx.status = 200
+  })
+
+  router.post('/MEETING_ADD_PARTICIPANT', async ctx => {
+    const { meetingId, participant } = ctx.request.body.payload
+
+    await addParticipantToMeeting({ meetingId, participant })
+
+    inviteEmail({ participants: [participant], meetingId })
+
+    ctx.status = 200
+  })
+
+  router.post('/MEETING_REMOVE_PARTICIPANT', async ctx => {
+    const { meetingId, participant } = ctx.request.body.payload
+
+    const participantVotes = await getParticipantVotes(participant, meetingId)
+
+    await removeParticipantFromMeeting({
+      meetingId,
+      participant,
+      participantVotes,
+    })
+
+    kickFromMeetingEmail(participant)
 
     ctx.status = 200
   })
