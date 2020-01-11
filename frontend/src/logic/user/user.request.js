@@ -1,6 +1,6 @@
 import { reqGetUserMeetings } from '../meetingList/meetingList.request'
 import { dispatchSetUserData } from './user.actions'
-import { postRequest, getRequest, post } from '../../setup/request'
+import { postRequest, getRequest } from '../../setup/request'
 import { dispatchSetSnackbarMessage } from '../../App/components/snackbar/snackbar.actions'
 import { navigate } from '@reach/router'
 import { getState } from '../../setup/redux'
@@ -36,16 +36,16 @@ export const reqLogin = ({ email, password }) => {
 }
 
 export const reqSetUserNotifItems = items =>
-  post({
+  postRequest({
     dest: 'user',
     action: 'SET_USER_NOTIFICATION_STATUS',
     payload: {
-      userId: getState().main.user.userName,
+      userId: getState().main.user._id,
       notificationItems: items,
     },
   })
     .then(() => dispatchSetUserData({ notificationItems: items }))
-    .then(() => navigate('/all'))
+    .then(() => window.history.back())
     .then(() =>
       dispatchSetSnackbarMessage({
         type: 'success',

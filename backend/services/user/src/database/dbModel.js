@@ -9,6 +9,7 @@ const userSchema = new Schema({
   lastname: String,
   username: String,
   email: String,
+  notificationItems: Object,
 })
 
 exports.User = model('User', userSchema)

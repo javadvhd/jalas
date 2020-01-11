@@ -66,6 +66,7 @@ exports.reserveEmail = ({ adminEmail, meetingId }) =>
     action: 'NOTIFICATION_SEND_EMAIL',
     payload: {
       emails: [adminEmail],
+      type: 'createMeeting',
       subject: 'تشکیل جلسه',
       body: `جلسه با موفقیت ساخته شد
       http://localhost:3000/meetingpage/${meetingId}`,
@@ -78,6 +79,7 @@ exports.inviteEmail = ({ participants, meetingId }) =>
     action: 'NOTIFICATION_SEND_EMAIL',
     payload: {
       emails: participants,
+      type: 'inviteMeeting',
       subject: 'دعوت به نظر سنجی',
       body: `http://localhost:3000/meetingpage/${meetingId}`,
     },
@@ -89,6 +91,7 @@ exports.submitVoteEmail = ({ adminEmail, voterEmail, optionIndex, vote }) =>
     action: 'NOTIFICATION_SEND_EMAIL',
     payload: {
       emails: [adminEmail],
+      type: 'submitVote',
       subject: 'ثبت نظر',
       body: `کاربر ${voterEmail} به گذینه ${optionIndex} رای ${
         vote ? 'موافق' : 'مخالف'
@@ -102,6 +105,7 @@ exports.addOptionEmail = ({ participants, meetingId }) =>
     action: 'NOTIFICATION_SEND_EMAIL',
     payload: {
       emails: [participants],
+      type: 'addOption',
       subject: 'اضافه شدن گذینه جدید',
       body: `'گذینه ی جدیدی به نظرسنجی  اضافه شده:
       http://localhost:3000/meetingpage/${meetingId}`,
@@ -114,7 +118,8 @@ exports.removeOptionEmail = ({ participants, meetingId, optionIndex }) =>
     action: 'NOTIFICATION_SEND_EMAIL',
     payload: {
       emails: [participants],
-      subject: 'اضافه شدن گذینه جدید',
+      subject: 'حذف شدن گذینه از نظر سنجی',
+      type: 'removeOption',
       body: `گذینه ی ${optionIndex} که شما برای آن نظری ثبت کرده اید از نظرسنجی حذف شده:
       http://localhost:3000/meetingpage/${meetingId}`,
     },
@@ -126,7 +131,8 @@ exports.kickFromMeetingEmail = participant =>
     action: 'NOTIFICATION_SEND_EMAIL',
     payload: {
       emails: [participant],
-      subject: 'حذف به نظرسنجی',
+      type: 'removeFromParticipants',
+      subject: 'حذف از نظرسنجی',
       body: 'شما از نظرسنجی حذف شدید',
     },
   }).catch(errorLogger)
