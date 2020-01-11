@@ -5,7 +5,6 @@ import React from 'react'
 import Participant from '../participantBox/participantBox.container'
 // materials
 import Typography from '@material-ui/core/Typography'
-import Input from '@material-ui/core/Input'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { Divider } from '@material-ui/core'
