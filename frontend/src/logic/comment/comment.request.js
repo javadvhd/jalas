@@ -14,10 +14,6 @@ export const reqGetCommentsByMeetingId = meetingId =>
     action: 'COMMENT_GET_BY_MEETING_ID',
     payload: { meetingId },
   })
-    .then(r => {
-      console.log(r)
-      return r
-    })
     .then(({ data }) => {
       const userIds = R.map(R.prop('writerId'), data)
       reqGetUsersById(userIds)
@@ -83,5 +79,23 @@ export const reqDeleteComment = ({ meetingId, commentId, isAdmin }) =>
       dispatchSetSnackbarMessage({
         type: 'error',
         message: 'مشکلی در حذف کامنت به وجود آمده است',
+      }),
+    )
+
+export const reqEditComment = ({ meetingId, commentId, body }) =>
+  postRequest({
+    dest: 'comment',
+    action: 'COMMENT_EDIT',
+    payload: {
+      commentId,
+      writerId: getState().main.user._id,
+      body,
+    },
+  })
+    .then(() => reqGetCommentsByMeetingId(meetingId))
+    .catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در تغییر کامنت به وجود آمده است',
       }),
     )

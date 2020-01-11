@@ -10,6 +10,7 @@ import {
   findParentIndex,
 } from './commentBox.helper'
 import { TextField } from '@material-ui/core'
+import { connect } from 'react-redux'
 
 const CommentBox = ({
   comment,
@@ -25,7 +26,7 @@ const CommentBox = ({
   isAdmin,
 }) => {
   const [state, setState] = React.useState({
-    isEdit: false,
+    editingComment: '',
     commentBody: comment.body,
     isReply: false,
     replyBody: '',
@@ -42,7 +43,7 @@ const CommentBox = ({
         justifyContent: 'space-between',
       }}
     >
-      {state.isEdit ? (
+      {state.editingComment ? (
         <>
           <TextField
             type="text"
@@ -57,8 +58,12 @@ const CommentBox = ({
             variant="contained"
             color="primary"
             onClick={() => {
-              setState({ ...state, isEdit: false })
-              updateComment({ meetingId, comment: state.commentBody })
+              updateComment({
+                meetingId,
+                body: state.commentBody,
+                commentId: state.editingComment,
+              })
+              setState({ ...state, editingComment: '' })
             }}
           >
             <img src="/done.svg" alt="delete" />
@@ -118,7 +123,9 @@ const CommentBox = ({
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => setState({ ...state, isEdit: !state.isEdit })}
+                  onClick={() =>
+                    setState({ ...state, editingComment: comment._id })
+                  }
                 >
                   <img src="/edit.svg" alt="edit" />
                 </Button>
