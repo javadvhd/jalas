@@ -4,7 +4,6 @@ import React from 'react'
 import OptionBox from '../optionBox/optionBox.container'
 // materials
 import Typography from '@material-ui/core/Typography'
-import Input from '@material-ui/core/Input'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { Divider } from '@material-ui/core'
@@ -100,10 +99,7 @@ const OptionList = ({
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            // width: '80%',
             margin: 'auto auto 20px auto ',
-            // padding: '40px',
-            // border: '1px solid black',
           }}
         >
           {meeting.options.map((option, index) => (

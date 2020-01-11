@@ -1,4 +1,3 @@
-import * as R from 'ramda'
 // modules
 import { connect } from 'react-redux'
 import { navigate } from '@reach/router'

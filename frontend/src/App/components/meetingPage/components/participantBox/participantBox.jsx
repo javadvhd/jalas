@@ -1,6 +1,5 @@
 // modules
 import React from 'react'
-
 // components
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
@@ -10,7 +9,6 @@ const ParticipantBox = ({ participant, onDelete, meetingId, creatorId }) => (
     style={{
       display: 'flex',
       flexDirection: 'row',
-      justifyContent: '',
       width: '100%',
       margin: '5px',
       justifyContent: 'space-between',

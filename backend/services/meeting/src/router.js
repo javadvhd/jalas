@@ -65,7 +65,10 @@ module.exports = router => {
       participants: [...meeting.participants, meeting.creatorId],
     })
 
-    inviteEmail({ participants: meeting.participants, meetingId: meeting._id })
+    inviteEmail({
+      participants: meeting.participants,
+      meetingId: createdMeeting._id,
+    })
 
     ctx.body = voteCounter(createdMeeting)
     ctx.status = 200
