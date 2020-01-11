@@ -5,7 +5,7 @@ import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
-const ParticipantBox = ({ participant, onDelete, meetingId }) => (
+const ParticipantBox = ({ participant, onDelete, meetingId, creatorId }) => (
   <div
     style={{
       display: 'flex',
@@ -19,13 +19,15 @@ const ParticipantBox = ({ participant, onDelete, meetingId }) => (
     <Typography style={{ width: '80%', direction: 'ltr' }}>
       {participant}
     </Typography>
-    <Button
-      variant="contained"
-      color="primary"
-      onClick={() => onDelete({ participant, meetingId })}
-    >
-      <img src="/delete.svg" alt="delete" />
-    </Button>
+    {creatorId !== participant && (
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => onDelete({ participant, meetingId })}
+      >
+        <img src="/delete.svg" alt="delete" />
+      </Button>
+    )}
   </div>
 )
 

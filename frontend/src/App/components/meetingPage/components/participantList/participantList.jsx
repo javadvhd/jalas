@@ -51,6 +51,7 @@ const ParticipantList = ({ meeting, onAdd }) => {
               participant={participant}
               meetingId={meeting._id}
               mode={meeting.status}
+              creatorId={meeting.creatorId}
             />
           ))}
         </div>
