@@ -10,7 +10,8 @@
   },
   "workspaces": [
     "backend/services/*",
-    "frontend"
+    "frontend",
+    "admin"
   ],
   "devDependencies": {
     "jest": "^24.9.0"

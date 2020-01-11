@@ -67,11 +67,16 @@ export const reqReply = ({ meetingId, comment, parentId, parentDepth }) =>
       }),
     )
 
-export const reqDeleteComment = ({ meetingId, commentId }) =>
+export const reqDeleteComment = ({ meetingId, commentId, isAdmin }) =>
   postRequest({
     dest: 'comment',
     action: 'COMMENT_DELETE',
-    payload: { meetingId, commentId },
+    payload: {
+      meetingId,
+      commentId,
+      writerId: getState().main.user._id,
+      isAdmin,
+    },
   })
     .then(() => reqGetCommentsByMeetingId(meetingId))
     .catch(() =>

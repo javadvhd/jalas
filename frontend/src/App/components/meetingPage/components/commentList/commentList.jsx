@@ -9,7 +9,13 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { Divider } from '@material-ui/core'
 
-const CommentList = ({ meetingId, onAdd, comments, updateComment }) => {
+const CommentList = ({
+  meetingId,
+  onAdd,
+  comments,
+  updateComment,
+  isAdmin,
+}) => {
   const [comment, setComment] = React.useState('')
 
   const scrollToComment = id => {
@@ -49,17 +55,16 @@ const CommentList = ({ meetingId, onAdd, comments, updateComment }) => {
             margin: '40px auto 20px auto ',
           }}
         >
-          {comments.map((comment, index) => {
-            return (
-              <Comment
-                scrollId={index}
-                onParentClick={scrollToComment}
-                key={index}
-                comment={comment}
-                comments={comments}
-              />
-            )
-          })}
+          {comments.map((comment, index) => (
+            <Comment
+              scrollId={index}
+              onParentClick={scrollToComment}
+              key={index}
+              comment={comment}
+              comments={comments}
+              isAdmin={isAdmin}
+            />
+          ))}
         </div>
       </div>
     </>

@@ -114,7 +114,7 @@ class MeetingPage extends Component {
               <ParticipantList meeting={meeting} />
             )}
 
-            {meeting.status === 'poll' && <CommentList />}
+            {meeting.status === 'poll' && <CommentList isAdmin={isAdmin} />}
           </Fragment>
         )}
       </div>
