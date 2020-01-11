@@ -34,7 +34,8 @@ module.exports = router => {
   })
 
   router.post('/COMMENT_DELETE', async ctx => {
-    const { meetingId, commentId, writerId, isAdmin } = ctx.request.body
+    const { meetingId, commentId, writerId, isAdmin } = ctx.request.body.payload
+
     const { nModified } = await deleteCommentWithAuthorization({
       meetingId,
       commentId,

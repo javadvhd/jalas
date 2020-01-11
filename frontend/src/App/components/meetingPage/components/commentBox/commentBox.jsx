@@ -16,6 +16,7 @@ const CommentBox = ({
   updateComment,
   reply,
   comments,
+  isAdmin,
 }) => {
   const [state, setState] = React.useState({
     isEdit: false,
@@ -82,13 +83,17 @@ const CommentBox = ({
                 {findWriter(comment, users)}
               </Typography>
 
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => onDelete({ commentId: comment._id, meetingId })}
-              >
-                <img src="/delete.svg" alt="delete" />
-              </Button>
+              {(isAdmin || comment.writerId === userId) && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() =>
+                    onDelete({ commentId: comment._id, meetingId, isAdmin })
+                  }
+                >
+                  <img src="/delete.svg" alt="delete" />
+                </Button>
+              )}
               <Button
                 variant="contained"
                 color="primary"

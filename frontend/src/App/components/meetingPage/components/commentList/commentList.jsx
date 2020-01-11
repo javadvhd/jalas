@@ -9,7 +9,13 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { Divider } from '@material-ui/core'
 
-const CommentList = ({ meetingId, onAdd, comments, updateComment }) => {
+const CommentList = ({
+  meetingId,
+  onAdd,
+  comments,
+  updateComment,
+  isAdmin,
+}) => {
   const [comment, setComment] = React.useState('')
 
   return (
@@ -45,7 +51,12 @@ const CommentList = ({ meetingId, onAdd, comments, updateComment }) => {
           }}
         >
           {comments.map((comment, index) => (
-            <Comment key={index} comment={comment} comments={comments} />
+            <Comment
+              key={index}
+              comment={comment}
+              comments={comments}
+              isAdmin={isAdmin}
+            />
           ))}
         </div>
       </div>
