@@ -5,6 +5,7 @@ const { mailSender } = require('./mail')
 module.exports = router => {
   router.post('/NOTIFICATION_SEND_EMAIL', async ctx => {
     const { emails, body, subject, type } = ctx.request.body.payload
+    console.log({ emails, type })
     const { data: emailsPolicy } = await getRequest({
       dest: 'user',
       action: 'USER_GET_NOTIFICATION_POLICY_BY_EMAIL',
@@ -16,6 +17,7 @@ module.exports = router => {
       '',
     )
 
+    console.log({ to })
     if (to)
       await mailSender({
         to,

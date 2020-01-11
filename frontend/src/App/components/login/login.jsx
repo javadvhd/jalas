@@ -8,8 +8,8 @@ import TextField from '@material-ui/core/TextField'
 
 const Login = ({ onSubmit, handleClose }) => {
   const [state, setState] = React.useState({
-    email: 'vahedi.r46@gmail.com',
-    password: 'javad',
+    email: 'hosein.norouzi76@gmail.com',
+    password: '1',
   })
   return (
     <>

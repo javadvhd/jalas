@@ -104,7 +104,7 @@ exports.addOptionEmail = ({ participants, meetingId }) =>
     dest: 'notification',
     action: 'NOTIFICATION_SEND_EMAIL',
     payload: {
-      emails: [participants],
+      emails: participants,
       type: 'addOption',
       subject: 'اضافه شدن گذینه جدید',
       body: `'گذینه ی جدیدی به نظرسنجی  اضافه شده:
@@ -117,7 +117,7 @@ exports.removeOptionEmail = ({ participants, meetingId, optionIndex }) =>
     dest: 'notification',
     action: 'NOTIFICATION_SEND_EMAIL',
     payload: {
-      emails: [participants],
+      emails: participants,
       subject: 'حذف شدن گذینه از نظر سنجی',
       type: 'removeOption',
       body: `گذینه ی ${optionIndex} که شما برای آن نظری ثبت کرده اید از نظرسنجی حذف شده:
@@ -137,24 +137,24 @@ exports.kickFromMeetingEmail = participant =>
     },
   }).catch(errorLogger)
 
-exports.cancelMeetingEmail = (participant, meetingTitle) =>
+exports.cancelMeetingEmail = (participants, meetingTitle) =>
   postRequest({
     dest: 'notification',
     action: 'NOTIFICATION_SEND_EMAIL',
     payload: {
-      emails: [participant],
+      emails: participants,
       type: 'cancelMeeting',
       subject: 'لغو جلسه',
       body: `جلسه ${meetingTitle} لغو شده`,
     },
   }).catch(errorLogger)
 
-exports.cancelPollEmail = (participant, meetingTitle) =>
+exports.cancelPollEmail = (participants, meetingTitle) =>
   postRequest({
     dest: 'notification',
     action: 'NOTIFICATION_SEND_EMAIL',
     payload: {
-      emails: [participant],
+      emails: participants,
       type: 'cancelPoll',
       subject: 'لغو نظرسنجی',
       body: `نظرسنجی ${meetingTitle} لغو شده`,

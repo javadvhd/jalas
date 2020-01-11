@@ -113,7 +113,7 @@ export const reqAddOption = ({ meetingId, start, end }) =>
     .then(() =>
       dispatchSetSnackbarMessage({
         type: 'success',
-        message: 'گذینه با موفقیت اضافه شده است',
+        message: 'گزینه با موفقیت اضافه شده است',
       }),
     )
     .catch(() =>
@@ -136,7 +136,7 @@ export const reqRemoveOption = ({ meetingId, optionIndex }) =>
     .then(() =>
       dispatchSetSnackbarMessage({
         type: 'success',
-        message: 'گذینه با موفقیت حذف شده است',
+        message: 'گزینه با موفقیت حذف شده است',
       }),
     )
     .catch(() =>
