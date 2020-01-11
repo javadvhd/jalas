@@ -12,7 +12,10 @@ const mapStateToProps = () => ({
 
 const mapDispatchToProps = () => ({
   onSubmit: reqSetUserNotifItems,
-  onClose: () => navigate('/all'),
+  onClose: () => {
+    console.log('11')
+    navigate('/all')
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotificationPanel)

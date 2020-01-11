@@ -34,7 +34,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const NotificationPanel = ({ onClose, onSubmit, notificationItems }) => {
   const classes = useStyles()
-  console.log('notificationItems ', notificationItems)
   const [items, makeItems] = React.useState(notificationItems)
 
   const click = ({ target: { checked } }, index) => {
