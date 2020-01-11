@@ -15,6 +15,8 @@ exports.createUser = ({ firstname, lastname, username, email, password }) =>
       inviteMeeting: true,
       createMeeting: true,
       submitVote: true,
+      cancelPoll: true,
+      cancelMeeting: true,
     },
   }).save()
 

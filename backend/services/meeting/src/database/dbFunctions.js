@@ -103,3 +103,10 @@ exports.removeParticipantFromMeeting = ({
       },
     },
   )
+
+exports.findMeetingAndCancel = ({ meetingId, userId }) =>
+  Meeting.findOneAndUpdate(
+    { _id: meetingId, creatorId: userId },
+    { status: 'meeting-cancel' },
+    { new: true },
+  ).lean()

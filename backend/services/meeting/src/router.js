@@ -11,6 +11,7 @@ const {
   findMeetingAndRemoveOption,
   addParticipantToMeeting,
   removeParticipantFromMeeting,
+  findMeetingAndCancel,
 } = require('./database/dbFunctions')
 // helper
 const {
@@ -21,6 +22,7 @@ const {
   addOptionEmail,
   getParticipantVotes,
   kickFromMeetingEmail,
+  cancelMeetingEmail,
 } = require('./helper')
 
 module.exports = router => {
@@ -174,6 +176,24 @@ module.exports = router => {
 
     kickFromMeetingEmail(participant)
 
+    ctx.status = 200
+  })
+
+  router.post('/MEETING_CANCEL_MEETING', async ctx => {
+    // TODO: convert userId to email
+    const { meetingId, userId } = ctx.request.body.payload
+
+    const updatedMeeting = await findMeetingAndCancel({
+      meetingId,
+      userId,
+    })
+
+    cancelMeetingEmail(
+      R.without([userId], updatedMeeting.participants),
+      updatedMeeting.title || '',
+    )
+
+    ctx.body = updatedMeeting
     ctx.status = 200
   })
 }
