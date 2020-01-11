@@ -9,6 +9,7 @@ import { reqDeleteComment } from '../../../../../logic/comment/comment.request'
 
 const mapStateToProps = state => ({
   meetingId: state.view.meetingPage.meetingId,
+  users: state.main.users,
 })
 
 const mapDispatchToProps = () => ({

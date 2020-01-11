@@ -80,15 +80,6 @@ const OptionBox = ({
           <Button
             variant="contained"
             onClick={() =>
-              onSubmitVote({ meetingId, vote: 'ifNeeded', optionIndex })
-            }
-          >
-            <img src="/maximize.svg" alt="agreeIfNeeded" />
-          </Button>
-
-          <Button
-            variant="contained"
-            onClick={() =>
               onSubmitVote({ meetingId, vote: 'disagree', optionIndex })
             }
           >
