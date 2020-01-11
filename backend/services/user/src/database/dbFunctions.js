@@ -1,35 +1,16 @@
 const { User } = require('./dbModel')
 const cryptography = require('cryptography')
 
-const createUser = ({
-  firstname,
-  lastname,
-  username,
-  email,
-  phone,
-  password,
-}) =>
+exports.createUser = ({ firstname, lastname, username, email, password }) =>
   new User({
     firstname,
     lastname,
     username,
-    phone,
     email,
     password: cryptography.encryptSync(password),
   }).save()
 
-// setTimeout(
-//   () =>
-//     createUser({
-//       firstname: 'hosein',
-//       lastname: 'norouzi',
-//       username: 'hoseinnorouzi',
-//       password: 'hosein',
-//       phone: '+98 --- --- ----',
-//       email: 'hosein@gmail.com',
-//     }),
-//   3000,
-// )
+exports.findAllUsers = () => User.find().lean()
 
 exports.findUserById = id => User.findOne({ _id: id })
 

@@ -1,6 +1,6 @@
 {
-  "short_name": "jalas",
-  "name": "jalas",
+  "short_name": "admin",
+  "name": "admin",
   "icons": [],
   "start_url": ".",
   "display": "standalone",

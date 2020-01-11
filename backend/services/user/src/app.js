@@ -14,6 +14,9 @@ app.use(bodyParser())
 const database = require('./database/dbConnector')
 database.connect('user_db')
 
+// script for add user
+require('./addUserScript')
+
 app.use(async (ctx, next) => {
   try {
     await next()
