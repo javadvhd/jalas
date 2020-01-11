@@ -10,7 +10,6 @@ import {
   findParentIndex,
 } from './commentBox.helper'
 import { TextField } from '@material-ui/core'
-import { connect } from 'react-redux'
 
 const CommentBox = ({
   comment,
@@ -37,7 +36,6 @@ const CommentBox = ({
       style={{
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: '',
         width: '100%',
         margin: '5px',
         justifyContent: 'space-between',
@@ -77,7 +75,7 @@ const CommentBox = ({
               flexDirection: 'column',
               justifyContent: 'space-between',
               border: '1px solid black',
-              marginRight: `${20 * (comment.depth + 1)}px`,
+              marginRight: `20px`,
               marginBottom: '30px',
             }}
           >

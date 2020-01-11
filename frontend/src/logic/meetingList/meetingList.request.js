@@ -1,8 +1,7 @@
-// modules
-import * as R from 'ramda'
 // setup
 import { postRequest, getRequest } from '../../setup/request'
 import { getState } from '../../setup/redux'
+// actions
 import {
   dispatchUpdateMeeting,
   dispatchSetMeetingList,
@@ -10,8 +9,19 @@ import {
   dispatchAddNewParticipant,
   dispatchRemoveParticipant,
 } from './meetingList.actions'
-// import { navigate } from '@reach/router'
 import { dispatchSetSnackbarMessage } from '../../App/components/snackbar/snackbar.actions'
+
+const serverErrorSnackbar = () =>
+  dispatchSetSnackbarMessage({
+    type: 'error',
+    message: 'مشکلی در سرور پیش آمده',
+  })
+
+const successSnackbar = message =>
+  dispatchSetSnackbarMessage({
+    type: 'success',
+    message,
+  })
 
 export const saveRoomSelectedOption = ({ id, selectedOption, room }) =>
   postRequest({
@@ -25,37 +35,22 @@ export const saveRoomSelectedOption = ({ id, selectedOption, room }) =>
     },
   })
     .then(({ data }) => dispatchUpdateMeeting({ meeting: data }))
-    .catch(() =>
-      dispatchSetSnackbarMessage({
-        type: 'error',
-        message: 'مشکلی در سرور پیش آمده',
-      }),
-    )
+    .catch(serverErrorSnackbar)
 
 export const reqCreateMeeting = meeting =>
   postRequest({
     dest: 'meeting',
     action: 'MEETING_CREATE_MEETING',
     payload: {
-      // TODO: replace email with _id
       meeting: { ...meeting, creatorId: getState().main.user.email },
     },
   })
-    .then(res => res.data)
-    .then(meeting => {
+    .then(({ data: meeting }) => {
       dispatchUpdateMeeting({ meeting })
-      dispatchSetSnackbarMessage({
-        type: 'success',
-        message: 'جلسه ی جدید ایجاد شده است',
-      })
+      successSnackbar('جلسه ی جدید ایجاد شده است')
       return meeting._id
     })
-    .catch(() =>
-      dispatchSetSnackbarMessage({
-        type: 'error',
-        message: 'مشکلی در سرور پیش آمده',
-      }),
-    )
+    .catch(serverErrorSnackbar)
 
 export const reqGetUserMeetings = email =>
   getRequest({
@@ -63,15 +58,8 @@ export const reqGetUserMeetings = email =>
     action: 'MEETING_GET_USER_MEETINGS',
     payload: { userId: email },
   })
-    .then(res => res.data)
-    .then(meetings => dispatchSetMeetingList(meetings))
-
-    .catch(() =>
-      dispatchSetSnackbarMessage({
-        type: 'error',
-        message: 'مشکلی در دریافت لیست جلسات کاربر به وجود آمده است',
-      }),
-    )
+    .then(({ data: meetings }) => dispatchSetMeetingList(meetings))
+    .catch(serverErrorSnackbar)
 
 export const reqSubmitVote = ({ meetingId, vote, optionIndex }) =>
   postRequest({
@@ -85,18 +73,8 @@ export const reqSubmitVote = ({ meetingId, vote, optionIndex }) =>
     },
   })
     .then(({ data }) => dispatchUpdateMeeting({ meeting: data }))
-    .then(() =>
-      dispatchSetSnackbarMessage({
-        type: 'success',
-        message: 'نظر شما با موفقیت ثبت شده است',
-      }),
-    )
-    .catch(() =>
-      dispatchSetSnackbarMessage({
-        type: 'error',
-        message: 'مشکلی در سرور پیش آمده',
-      }),
-    )
+    .then(() => successSnackbar('نظر شما با موفقیت ثبت شده است'))
+    .catch(serverErrorSnackbar)
 
 export const reqAddOption = ({ meetingId, start, end }) =>
   postRequest({
@@ -110,18 +88,8 @@ export const reqAddOption = ({ meetingId, start, end }) =>
     },
   })
     .then(({ data }) => dispatchUpdateMeeting({ meeting: data }))
-    .then(() =>
-      dispatchSetSnackbarMessage({
-        type: 'success',
-        message: 'گذینه با موفقیت اضافه شده است',
-      }),
-    )
-    .catch(() =>
-      dispatchSetSnackbarMessage({
-        type: 'error',
-        message: 'مشکلی در سرور پیش آمده',
-      }),
-    )
+    .then(() => successSnackbar('گزینه با موفقیت اضافه شده است'))
+    .catch(serverErrorSnackbar)
 
 export const reqRemoveOption = ({ meetingId, optionIndex }) =>
   postRequest({
@@ -133,21 +101,10 @@ export const reqRemoveOption = ({ meetingId, optionIndex }) =>
     },
   })
     .then(() => dispatchRemoveOption({ optionIndex, meetingId }))
-    .then(() =>
-      dispatchSetSnackbarMessage({
-        type: 'success',
-        message: 'گذینه با موفقیت حذف شده است',
-      }),
-    )
-    .catch(() =>
-      dispatchSetSnackbarMessage({
-        type: 'error',
-        message: 'مشکلی در سرور پیش آمده',
-      }),
-    )
+    .then(() => successSnackbar('گزینه با موفقیت حذف شده است'))
+    .catch(serverErrorSnackbar)
 
 export const reqAddParticipant = ({ meetingId, participant }) =>
-  console.log({ meetingId, participant }) ||
   postRequest({
     dest: 'meeting',
     action: 'MEETING_ADD_PARTICIPANT',
@@ -157,18 +114,8 @@ export const reqAddParticipant = ({ meetingId, participant }) =>
     },
   })
     .then(() => dispatchAddNewParticipant({ meetingId, participant }))
-    .then(() =>
-      dispatchSetSnackbarMessage({
-        type: 'success',
-        message: 'کاربر با موفقیت به نظرسنجی اضافه شده است',
-      }),
-    )
-    .catch(() =>
-      dispatchSetSnackbarMessage({
-        type: 'error',
-        message: 'مشکلی در سرور پیش آمده',
-      }),
-    )
+    .then(() => successSnackbar('کاربر با موفقیت به نظرسنجی اضافه شده است'))
+    .catch(serverErrorSnackbar)
 
 export const reqRemoveParticipant = ({ meetingId, participant }) =>
   postRequest({
@@ -180,18 +127,8 @@ export const reqRemoveParticipant = ({ meetingId, participant }) =>
     },
   })
     .then(() => dispatchRemoveParticipant({ meetingId, participant }))
-    .then(() =>
-      dispatchSetSnackbarMessage({
-        type: 'success',
-        message: 'کاربر با موفقیت از نظرسنجی حذف شده است',
-      }),
-    )
-    .catch(() =>
-      dispatchSetSnackbarMessage({
-        type: 'error',
-        message: 'مشکلی در سرور پیش آمده',
-      }),
-    )
+    .then(() => successSnackbar('کاربر با موفقیت از نظرسنجی حذف شده است'))
+    .catch(serverErrorSnackbar)
 
 export const reqCancelMeeting = meetingId =>
   postRequest({
@@ -203,18 +140,8 @@ export const reqCancelMeeting = meetingId =>
     },
   })
     .then(({ data }) => dispatchUpdateMeeting({ meeting: data }))
-    .then(() =>
-      dispatchSetSnackbarMessage({
-        type: 'success',
-        message: 'جلسه با موفقیت لغو شده است',
-      }),
-    )
-    .catch(() =>
-      dispatchSetSnackbarMessage({
-        type: 'error',
-        message: 'مشکلی در سرور پیش آمده',
-      }),
-    )
+    .then(() => successSnackbar('جلسه با موفقیت لغو شده است'))
+    .catch(serverErrorSnackbar)
 
 export const reqCancelPoll = meetingId =>
   postRequest({
@@ -226,15 +153,5 @@ export const reqCancelPoll = meetingId =>
     },
   })
     .then(({ data }) => dispatchUpdateMeeting({ meeting: data }))
-    .then(() =>
-      dispatchSetSnackbarMessage({
-        type: 'success',
-        message: 'نظرسنجی با موفقیت لغو شده است',
-      }),
-    )
-    .catch(() =>
-      dispatchSetSnackbarMessage({
-        type: 'error',
-        message: 'مشکلی در سرور پیش آمده',
-      }),
-    )
+    .then(() => successSnackbar('نظرسنجی با موفقیت لغو شده است'))
+    .catch(serverErrorSnackbar)

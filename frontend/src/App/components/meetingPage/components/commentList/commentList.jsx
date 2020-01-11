@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { Divider } from '@material-ui/core'
+import { reqGetCommentsByMeetingId } from '../../../../../logic/comment/comment.request'
 
 const CommentList = ({
   meetingId,
@@ -18,12 +19,11 @@ const CommentList = ({
 }) => {
   const [comment, setComment] = React.useState('')
 
-  const scrollToComment = id => {
-    console.log('id ', id)
+  const scrollToComment = id =>
     document
       .getElementById(id)
       .scrollIntoView({ behavior: 'smooth', block: 'center' })
-  }
+
   return (
     <>
       <Divider />

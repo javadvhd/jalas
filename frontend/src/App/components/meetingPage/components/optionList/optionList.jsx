@@ -4,7 +4,6 @@ import React from 'react'
 import OptionBox from '../optionBox/optionBox.container'
 // materials
 import Typography from '@material-ui/core/Typography'
-import Input from '@material-ui/core/Input'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { Divider } from '@material-ui/core'
@@ -20,7 +19,7 @@ const OptionList = ({
   const [state, setState] = React.useState({
     start: '10:30',
     end: '12:30',
-    date: '2019-12-12',
+    date: '2021-12-12',
   })
 
   const handleOption = (type, value) => setState({ ...state, [type]: value })
@@ -47,7 +46,7 @@ const OptionList = ({
                 id="date"
                 label="تاریخ"
                 type="date"
-                defaultValue="2019-12-27"
+                defaultValue="2021-12-12"
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -100,10 +99,7 @@ const OptionList = ({
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            // width: '80%',
             margin: 'auto auto 20px auto ',
-            // padding: '40px',
-            // border: '1px solid black',
           }}
         >
           {meeting.options.map((option, index) => (

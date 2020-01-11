@@ -1,6 +1,8 @@
 import { filter } from 'ramda'
-const isMyPoll = meeting => meeting.status === 'poll'
-const isMyMeeting = meeting => meeting.status === 'meeting'
+const isMyPoll = meeting =>
+  meeting.status === 'poll' || meeting.status === 'poll-cancel'
+const isMyMeeting = meeting =>
+  meeting.status === 'meeting' || meeting.status === 'meeting-cancel'
 
 export const filteredList = (meetings, mode) => {
   if (mode === 'all') return meetings
