@@ -21,7 +21,7 @@
     "redux-actions": "^2.6.5"
   },
   "scripts": {
-    "dev": "react-scripts start",
+    "dev": "PORT=3000 react-scripts start",
     "build": "react-scripts build"
   },
   "eslintConfig": {
