@@ -11,7 +11,10 @@ import {
   dispatchSetLoading,
 } from '../../meetingPage.actions'
 import { dispatchRemoveOption } from '../../../../../logic/meetingList/meetingList.actions'
-import { reqSubmitVote } from '../../../../../logic/meetingList/meetingList.request'
+import {
+  reqSubmitVote,
+  reqRemoveOption,
+} from '../../../../../logic/meetingList/meetingList.request'
 // views
 
 // action
@@ -20,7 +23,7 @@ const mapStateToProps = state => ({
   reserveStartTime: state.view.meetingPage.startTime,
 })
 
-const mapDispatchToProps = (_, { meetingId }) => ({
+const mapDispatchToProps = (_, { meetingId, mode }) => ({
   onClick: (option, optionIndex) => {
     // console.log('option ', option)
     const { isOpen } = option
@@ -35,7 +38,8 @@ const mapDispatchToProps = (_, { meetingId }) => ({
   onCancel: () => {
     // setLoading ===> false
   },
-  onDelete: dispatchRemoveOption,
+  onDelete: payload =>
+    mode === 'poll' ? reqRemoveOption(payload) : dispatchRemoveOption(payload),
 
   onSubmitVote: reqSubmitVote,
 })

@@ -24,6 +24,7 @@ const {
   getParticipantVotes,
   kickFromMeetingEmail,
   cancelMeetingEmail,
+  removeOptionEmail,
 } = require('./helper')
 
 module.exports = router => {
@@ -147,7 +148,7 @@ module.exports = router => {
     if (participants)
       removeOptionEmail({
         participants,
-        meetingId: updatedMeeting._id,
+        meetingId,
         optionIndex,
       })
 
