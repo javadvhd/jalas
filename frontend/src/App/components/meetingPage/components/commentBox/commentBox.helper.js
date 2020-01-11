@@ -11,3 +11,6 @@ export const findParentComment = (comment, comments) =>
     'body',
     R.find(c => c._id === comment.parentId, comments),
   )
+
+export const findParentIndex = (comment, comments) =>
+  R.findIndex(c => c._id === comment.parentId, comments)

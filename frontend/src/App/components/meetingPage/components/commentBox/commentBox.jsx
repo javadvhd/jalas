@@ -4,7 +4,11 @@ import React from 'react'
 // components
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import { findWriter, findParentComment } from './commentBox.helper'
+import {
+  findWriter,
+  findParentComment,
+  findParentIndex,
+} from './commentBox.helper'
 import { TextField } from '@material-ui/core'
 
 const CommentBox = ({
@@ -16,6 +20,8 @@ const CommentBox = ({
   updateComment,
   reply,
   comments,
+  scrollId,
+  onParentClick,
 }) => {
   const [state, setState] = React.useState({
     isEdit: false,
@@ -25,6 +31,7 @@ const CommentBox = ({
   })
   return (
     <div
+      id={scrollId}
       style={{
         display: 'flex',
         flexDirection: 'row',
@@ -69,7 +76,12 @@ const CommentBox = ({
             }}
           >
             {comment.depth > 1 && (
-              <div style={{ background: 'wheat' }}>
+              <div
+                onClick={() =>
+                  onParentClick(findParentIndex(comment, comments))
+                }
+                style={{ background: 'wheat' }}
+              >
                 <Typography style={{ width: '50%', direction: 'ltr' }}>
                   {findParentComment(comment, comments)}
                 </Typography>
