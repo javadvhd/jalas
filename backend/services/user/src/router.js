@@ -8,6 +8,8 @@ const {
   findUserById,
   findUserByEmailPass,
   findUsersById,
+  setNotificationOptions,
+  getNotificationWithEmail,
 } = require('./database/dbFunctions')
 
 module.exports = router => {
@@ -25,10 +27,21 @@ module.exports = router => {
     ctx.status = 200
   })
 
-  router.get('/USER_GET_EMAIL_BY_ID', async ctx => {
-    const { userId } = JSON.parse(ctx.query.payload)
-    const { email } = await findUserById(userId)
-    ctx.body = email
+  router.get('/USER_GET_NOTIFICATION_POLICY_BY_EMAIL', async ctx => {
+    const { emails, item } = JSON.parse(ctx.query.payload)
+
+    const res = await getNotificationWithEmail({
+      emails,
+      item,
+    })
+
+    ctx.body = R.reduce(
+      (acc, { email, notificationItems }) =>
+        R.assoc(email, notificationItems[item], acc),
+      {},
+      res,
+    )
+
     ctx.status = 200
   })
 
@@ -47,5 +60,16 @@ module.exports = router => {
     }
 
     ctx.status = 401
+  })
+
+  router.post('/SET_USER_NOTIFICATION_STATUS', async ctx => {
+    const { notificationItems, userId } = ctx.request.body.payload
+
+    const { nModified } = await setNotificationOptions({
+      userId,
+      notificationItems,
+    })
+
+    ctx.status = nModified ? 200 : 401
   })
 }

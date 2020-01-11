@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import NotificationPanel from './notificationPanel'
 import { getState } from '../../../setup/redux'
 import { reqSetUserNotifItems } from '../../../logic/user/user.request'
-import { navigate } from '@reach/router/lib/history'
 
 const mapStateToProps = () => ({
   notificationItems: getState().main.user.notificationItems,
@@ -12,7 +11,7 @@ const mapStateToProps = () => ({
 
 const mapDispatchToProps = () => ({
   onSubmit: reqSetUserNotifItems,
-  onClose: () => navigate('/all'),
+  onClose: () => window.history.back(),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotificationPanel)

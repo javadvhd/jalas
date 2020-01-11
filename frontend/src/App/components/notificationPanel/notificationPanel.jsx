@@ -17,6 +17,8 @@ import {
   Divider,
   Checkbox,
 } from '@material-ui/core'
+import getItemTitle from './notificationPanel.helper'
+
 // style
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -34,11 +36,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const NotificationPanel = ({ onClose, onSubmit, notificationItems }) => {
   const classes = useStyles()
-  console.log('notificationItems ', notificationItems)
   const [items, makeItems] = React.useState(notificationItems)
 
-  const click = ({ target: { checked } }, index) => {
-    makeItems(R.update(index, { ...items[index], selected: checked }, items))
+  const click = ({ target: { checked } }, key) => {
+    makeItems(R.assoc(key, checked, items))
   }
   return (
     <div>
@@ -67,16 +68,16 @@ const NotificationPanel = ({ onClose, onSubmit, notificationItems }) => {
           </Toolbar>
         </AppBar>
         <List>
-          {items.map((item, index) => (
+          {Object.keys(items).map((key, index) => (
             <>
               <ListItem>
                 <Checkbox
-                  checked={item.selected}
-                  onChange={e => click(e, index)}
+                  checked={items[key]}
+                  onChange={e => click(e, key)}
                   value="primary"
                   inputProps={{ 'aria-label': 'primary checkbox' }}
                 />
-                <ListItemText primary={item.title} secondary="" />
+                <ListItemText primary={getItemTitle(key)} secondary="" />
               </ListItem>
               <Divider />
             </>
