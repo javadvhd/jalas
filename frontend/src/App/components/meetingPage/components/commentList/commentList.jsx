@@ -45,7 +45,7 @@ const CommentList = ({ meetingId, onAdd, comments, updateComment }) => {
           }}
         >
           {comments.map((comment, index) => (
-            <Comment key={index} comment={comment} />
+            <Comment key={index} comment={comment} comments={comments} />
           ))}
         </div>
       </div>

@@ -56,13 +56,13 @@ const NotificationPanel = ({ onClose, onSubmit, notificationItems }) => {
               onClick={onClose}
               aria-label="close"
             >
-              close
+              <img src="close.svg" alt="" />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
               صفحه ی مدیریت نوتیف ها
             </Typography>
             <Button autoFocus color="inherit" onClick={() => onSubmit(items)}>
-              save
+              <img src="done.svg" alt="" />
             </Button>
           </Toolbar>
         </AppBar>

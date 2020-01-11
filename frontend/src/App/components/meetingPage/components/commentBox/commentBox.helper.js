@@ -5,3 +5,9 @@ export const findWriter = (comment, users) => {
   if (!user) return ''
   return user.firstname + user.lastname
 }
+
+export const findParentComment = (comment, comments) =>
+  R.prop(
+    'body',
+    R.find(c => c._id === comment.parentId, comments),
+  )
