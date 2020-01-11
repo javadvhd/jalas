@@ -1,0 +1,46 @@
+.c--appBar_typo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.c--appBar_ticket {
+  margin-left: 20px;
+  margin-top: -5px;
+  font-size: 10px;
+  user-select: none;
+}
+
+.c--appBar_title {
+  margin-top: -10px;
+  font-size: 18px;
+  font-weight: bold;
+  user-select: none;
+}
+
+.c--appBar_toolbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #0A2057;
+  padding: 0;
+}
+
+.c--appBar_toolbar:after {
+  content: '';
+  position: absolute;
+  height: 4px;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to right,
+    #EDCB19 25%,
+    #68D200 25%,
+    #68D200 50%,
+    #E6494F 50%,
+    #E6494F 75%,
+    #4FC4F4 75%
+  );
+}

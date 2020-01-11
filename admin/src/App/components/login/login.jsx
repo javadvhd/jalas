@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField'
 const Login = ({ onSubmit, handleClose }) => {
   const [state, setState] = React.useState({
     email: 'vahedi.r46@gmail.com',
-    password: 'javad',
+    password: '11111111',
   })
   return (
     <>
@@ -40,7 +40,7 @@ const Login = ({ onSubmit, handleClose }) => {
             margin="dense"
             id="name"
             label="رمز ورود"
-            type="text"
+            type="password"
             fullWidth
             value={state.password}
             onChange={({ target: { value } }) =>
@@ -49,9 +49,6 @@ const Login = ({ onSubmit, handleClose }) => {
           />
         </DialogContent>
         <DialogActions>
-          {/* <Button onClick={handleClose} color="primary">
-          Cancel
-        </Button> */}
           <Button onClick={() => onSubmit(state)} color="primary">
             تایید
           </Button>

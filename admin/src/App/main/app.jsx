@@ -4,12 +4,8 @@ import { Router } from '@reach/router'
 import { Provider } from 'react-redux'
 // components
 import AppBar from '../components/appBar/appBar.container'
-import MeetingList from '../components/meetingList/meetingList.container'
-import MeetingPage from '../components/meetingPage/meetingPage.container'
-import CreateMeeting from '../components/createMeeting/createMeeting.container'
-import AppSnackbar from '../components/snackbar/snackbar.container'
+import AdminPanel from '../components/adminPanel/adminPanel.container'
 import Login from '../components/login/login.container'
-import NotificationPanel from '../components/notificationPanel/notificationPanel.container'
 import Redirect from '../../helpers/redirect'
 // styles
 import './app.css'
@@ -32,15 +28,10 @@ const App = () => (
         overflowY: 'overlay',
       }}
     >
-      <MeetingList path="all" />
+      <AdminPanel path="all" />
       <Login path="login" />
-      <MeetingPage path="meetingpage/:meetingId" />
-      <CreateMeeting path="createMeeting" />
-      <NotificationPanel path="notificationPanel" />
       <Redirect default to="/all" />
     </Router>
-
-    <AppSnackbar />
   </Provider>
 )
 

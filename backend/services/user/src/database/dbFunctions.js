@@ -21,12 +21,12 @@ const createUser = ({
 // setTimeout(
 //   () =>
 //     createUser({
-//       firstname: 'javad',
-//       lastname: 'vahedi',
-//       username: 'javadvhd',
-//       password: 'javad@jalas',
+//       firstname: 'hosein',
+//       lastname: 'norouzi',
+//       username: 'hoseinnorouzi',
+//       password: 'hosein',
 //       phone: '+98 --- --- ----',
-//       email: 'vahedi.r46@gmail.com',
+//       email: 'hosein@gmail.com',
 //     }),
 //   3000,
 // )
