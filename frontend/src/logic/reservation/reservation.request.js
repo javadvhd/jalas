@@ -102,6 +102,7 @@ export const reserveRoom = ({
                 option: { start, end },
                 meetingId,
                 reserveStartTime,
+                optionIndex,
               }),
             2000,
           )

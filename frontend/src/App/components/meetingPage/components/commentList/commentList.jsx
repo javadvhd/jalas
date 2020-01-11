@@ -18,12 +18,11 @@ const CommentList = ({
 }) => {
   const [comment, setComment] = React.useState('')
 
-  const scrollToComment = id => {
-    console.log('id ', id)
+  const scrollToComment = id =>
     document
       .getElementById(id)
       .scrollIntoView({ behavior: 'smooth', block: 'center' })
-  }
+
   return (
     <>
       <Divider />
