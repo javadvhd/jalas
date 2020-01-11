@@ -12,6 +12,7 @@ const {
   addParticipantToMeeting,
   removeParticipantFromMeeting,
   findMeetingAndCancel,
+  findPollAndCancel,
 } = require('./database/dbFunctions')
 // helper
 const {
@@ -193,7 +194,25 @@ module.exports = router => {
       updatedMeeting.title || '',
     )
 
-    ctx.body = updatedMeeting
+    ctx.body = voteCounter(updatedMeeting)
+    ctx.status = 200
+  })
+
+  router.post('/MEETING_CANCEL_POLL', async ctx => {
+    // TODO: convert userId to email
+    const { meetingId, userId } = ctx.request.body.payload
+
+    const updatedMeeting = await findPollAndCancel({
+      meetingId,
+      userId,
+    })
+
+    cancelMeetingEmail(
+      R.without([userId], updatedMeeting.participants),
+      updatedMeeting.title || '',
+    )
+
+    ctx.body = voteCounter(updatedMeeting)
     ctx.status = 200
   })
 }

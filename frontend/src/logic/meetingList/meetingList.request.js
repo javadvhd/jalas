@@ -206,7 +206,30 @@ export const reqCancelMeeting = meetingId =>
     .then(() =>
       dispatchSetSnackbarMessage({
         type: 'success',
-        message: 'کاربر با موفقیت از نظرسنجی حذف شده است',
+        message: 'جلسه با موفقیت لغو شده است',
+      }),
+    )
+    .catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در سرور پیش آمده',
+      }),
+    )
+
+export const reqCancelPoll = meetingId =>
+  postRequest({
+    dest: 'meeting',
+    action: 'MEETING_CANCEL_POLL',
+    payload: {
+      meetingId,
+      userId: getState().main.user.email,
+    },
+  })
+    .then(({ data }) => dispatchUpdateMeeting({ meeting: data }))
+    .then(() =>
+      dispatchSetSnackbarMessage({
+        type: 'success',
+        message: 'نظرسنجی با موفقیت لغو شده است',
       }),
     )
     .catch(() =>

@@ -30,7 +30,7 @@ const OptionList = ({
       <Divider />
       <div style={{ margin: '20px  auto 20px auto' }}>
         {/* {console.log('option ', option)} */}
-        {isAdmin && (
+        {(mode === 'poll' || mode === 'creatingPoll') && isAdmin && (
           <>
             <Typography variant="p" title="wow">
               ایجاد بازه زمانی جدید
