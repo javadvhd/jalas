@@ -60,7 +60,7 @@ class MeetingPage extends Component {
             </div>
           )}
 
-          {meeting.status === 'poll' && (
+          {meeting.status === 'poll' && isAdmin && (
             <div>
               <Button
                 variant="contained"
@@ -72,7 +72,7 @@ class MeetingPage extends Component {
             </div>
           )}
 
-          {meeting.status === 'meeting' && (
+          {meeting.status === 'meeting' && isAdmin && (
             <div>
               <Button
                 variant="contained"
