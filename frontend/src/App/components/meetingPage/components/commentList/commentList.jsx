@@ -18,11 +18,16 @@ const CommentList = ({
 }) => {
   const [comment, setComment] = React.useState('')
 
+  const scrollToComment = id => {
+    console.log('id ', id)
+    document
+      .getElementById(id)
+      .scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }
   return (
     <>
       <Divider />
       <div style={{ margin: '20px', marginTop: '50px' }}>
-        {/* {console.log('option ', option)} */}
         <Typography>کامنت جدید</Typography>
         <div style={{ display: 'flex' }}>
           <TextField
@@ -52,6 +57,8 @@ const CommentList = ({
         >
           {comments.map((comment, index) => (
             <Comment
+              scrollId={index}
+              onParentClick={scrollToComment}
               key={index}
               comment={comment}
               comments={comments}
