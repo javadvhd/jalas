@@ -137,6 +137,30 @@ exports.kickFromMeetingEmail = participant =>
     },
   }).catch(errorLogger)
 
+exports.cancelMeetingEmail = (participant, meetingTitle) =>
+  postRequest({
+    dest: 'notification',
+    action: 'NOTIFICATION_SEND_EMAIL',
+    payload: {
+      emails: [participant],
+      type: 'cancelMeeting',
+      subject: 'لغو جلسه',
+      body: `جلسه ${meetingTitle} لغو شده`,
+    },
+  }).catch(errorLogger)
+
+exports.cancelPollEmail = (participant, meetingTitle) =>
+  postRequest({
+    dest: 'notification',
+    action: 'NOTIFICATION_SEND_EMAIL',
+    payload: {
+      emails: [participant],
+      type: 'cancelPoll',
+      subject: 'لغو نظرسنجی',
+      body: `نظرسنجی ${meetingTitle} لغو شده`,
+    },
+  }).catch(errorLogger)
+
 exports.getParticipantVotes = async (participant, meetingId) => {
   const { options } = await findMeetingById(meetingId)
   let obj

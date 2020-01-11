@@ -57,7 +57,7 @@ const OptionBox = ({
             {isOpen ? 'بستن' : 'انتخاب'}
           </Button>
         )}
-        {mode === 'creatingPoll' && (
+        {isAdmin && (mode === 'poll' || mode === 'creatingPoll') && (
           <Button
             variant="contained"
             onClick={() => onDelete({ optionIndex, meetingId })}

@@ -10,10 +10,10 @@ const AdminPanel = ({
   averageResponseTime,
 }) => (
   <div style={{ margin: '20px' }}>
-    <Typography>creatingAverageTime {creatingAverageTime}</Typography>
+    <Typography>creatingAverageTime {creatingAverageTime} ms </Typography>
     <Typography>numberOfReservedRoom: {numberOfReservedRoom}</Typography>
-    <Typography>throughput: {throughput}</Typography>
-    <Typography>averageResponseTime: {averageResponseTime}</Typography>
+    <Typography>throughput: {throughput} request in last 24 hours</Typography>
+    <Typography>averageResponseTime: {averageResponseTime} ms</Typography>
   </div>
 )
 

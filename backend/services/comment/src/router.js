@@ -3,6 +3,7 @@ const {
   createComment,
   getCommentsByMeetingId,
   deleteCommentWithAuthorization,
+  editComment,
 } = require('./database/dbFunctions')
 // helper
 const { cascadeDelete } = require('./helper')
@@ -43,6 +44,18 @@ module.exports = router => {
       isAdmin,
     })
     if (nModified) await cascadeDelete(commentId)
+
+    ctx.status = nModified ? 200 : 401
+  })
+
+  router.post('/COMMENT_EDIT', async ctx => {
+    const { commentId, writerId, body } = ctx.request.body.payload
+
+    const { nModified } = await editComment({
+      commentId,
+      writerId,
+      body,
+    })
 
     ctx.status = nModified ? 200 : 401
   })

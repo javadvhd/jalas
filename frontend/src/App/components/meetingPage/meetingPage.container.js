@@ -5,6 +5,10 @@ import { navigate } from '@reach/router'
 // components
 import MeetingPage from './meetingPage'
 import { dispatchSetMeetingTitle } from '../../../logic/meetingList/meetingList.actions'
+import {
+  reqCancelMeeting,
+  reqCancelPoll,
+} from '../../../logic/meetingList/meetingList.request'
 
 const mapStateToProps = (state, { meetingId }) => {
   const meetingList = state.main.meetingList
@@ -19,6 +23,8 @@ const mapDispatchToProps = () => ({
   onSave: Function.prototype,
   onTitleChange: dispatchSetMeetingTitle,
   goToList: () => navigate('/all'),
+  onCancelPoll: reqCancelPoll,
+  onCancelMeeting: reqCancelMeeting,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MeetingPage)

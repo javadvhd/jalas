@@ -192,3 +192,49 @@ export const reqRemoveParticipant = ({ meetingId, participant }) =>
         message: 'مشکلی در سرور پیش آمده',
       }),
     )
+
+export const reqCancelMeeting = meetingId =>
+  postRequest({
+    dest: 'meeting',
+    action: 'MEETING_CANCEL_MEETING',
+    payload: {
+      meetingId,
+      userId: getState().main.user.email,
+    },
+  })
+    .then(({ data }) => dispatchUpdateMeeting({ meeting: data }))
+    .then(() =>
+      dispatchSetSnackbarMessage({
+        type: 'success',
+        message: 'جلسه با موفقیت لغو شده است',
+      }),
+    )
+    .catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در سرور پیش آمده',
+      }),
+    )
+
+export const reqCancelPoll = meetingId =>
+  postRequest({
+    dest: 'meeting',
+    action: 'MEETING_CANCEL_POLL',
+    payload: {
+      meetingId,
+      userId: getState().main.user.email,
+    },
+  })
+    .then(({ data }) => dispatchUpdateMeeting({ meeting: data }))
+    .then(() =>
+      dispatchSetSnackbarMessage({
+        type: 'success',
+        message: 'نظرسنجی با موفقیت لغو شده است',
+      }),
+    )
+    .catch(() =>
+      dispatchSetSnackbarMessage({
+        type: 'error',
+        message: 'مشکلی در سرور پیش آمده',
+      }),
+    )

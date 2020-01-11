@@ -2,10 +2,10 @@
 import { connect } from 'react-redux'
 // components
 import CommentBox from './commentBox'
-import { dispatchRemoveParticipant } from '../../../../../logic/meetingList/meetingList.actions'
 import {
   reqDeleteComment,
   reqReply,
+  reqEditComment,
 } from '../../../../../logic/comment/comment.request'
 
 // action
@@ -18,7 +18,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = () => ({
   onDelete: reqDeleteComment,
-  updateComment: () => {},
+  updateComment: reqEditComment,
   reply: reqReply,
 })
 

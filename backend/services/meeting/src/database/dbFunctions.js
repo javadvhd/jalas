@@ -14,7 +14,7 @@ exports.updateMeeting = meeting =>
 exports.setRoomAndSelectedOption = ({ id, room, selectedOption, userId }) =>
   Meeting.findOneAndUpdate(
     { _id: id, creatorId: userId },
-    { $set: { selectedOption, room }, status: 'meeting  ' },
+    { $set: { selectedOption, room }, status: 'meeting' },
     { new: true },
   ).lean()
 
@@ -103,3 +103,17 @@ exports.removeParticipantFromMeeting = ({
       },
     },
   )
+
+exports.findMeetingAndCancel = ({ meetingId, userId }) =>
+  Meeting.findOneAndUpdate(
+    { _id: meetingId, creatorId: userId },
+    { status: 'meeting-cancel' },
+    { new: true },
+  ).lean()
+
+exports.findPollAndCancel = ({ meetingId, userId }) =>
+  Meeting.findOneAndUpdate(
+    { _id: meetingId, creatorId: userId },
+    { status: 'poll-cancel' },
+    { new: true },
+  ).lean()

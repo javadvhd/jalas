@@ -27,7 +27,15 @@ class MeetingPage extends Component {
   }
 
   render() {
-    const { meeting, onSave, onTitleChange, isAdmin, goToList } = this.props
+    const {
+      meeting,
+      onSave,
+      onTitleChange,
+      isAdmin,
+      goToList,
+      onCancelPoll,
+      onCancelMeeting,
+    } = this.props
     return (
       <div dir="rtl" style={{ margin: ' 10px 20px auto 20px' }}>
         <div
@@ -48,6 +56,30 @@ class MeetingPage extends Component {
                 onClick={() => onSave({ meeting })}
               >
                 ساختن نظر سنجی
+              </Button>
+            </div>
+          )}
+
+          {meeting.status === 'poll' && (
+            <div>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => onCancelPoll(meeting._id)}
+              >
+                لغو نظرسنجی
+              </Button>
+            </div>
+          )}
+
+          {meeting.status === 'meeting' && (
+            <div>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => onCancelMeeting(meeting._id)}
+              >
+                لغو جلسه
               </Button>
             </div>
           )}
@@ -110,9 +142,8 @@ class MeetingPage extends Component {
               mode={meeting.status}
             />
 
-            {meeting.status !== 'meeting' && isAdmin && (
-              <ParticipantList meeting={meeting} />
-            )}
+            {(meeting.status === 'poll' || meeting.status === 'creatingPoll') &&
+              isAdmin && <ParticipantList meeting={meeting} />}
 
             {meeting.status === 'poll' && <CommentList isAdmin={isAdmin} />}
           </Fragment>

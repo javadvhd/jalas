@@ -22,3 +22,6 @@ exports.deleteCommentByParentId = parentId =>
   Comment.updateMany({ parentId }, { $set: { deleted: true } })
 
 exports.findCommentByParentId = parentId => Comment.find({ parentId }).lean()
+
+exports.editComment = ({ commentId, writerId, body }) =>
+  Comment.updateOne({ _id: commentId, writerId }, { body })
